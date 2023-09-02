@@ -1,0 +1,21 @@
+<div class=" text-white bg-dark" style="border-right: 2px solid #000; height: 100vh;">
+    <div class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+      <span class="fs-4">Quản lí</span>
+    </div>
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class='nav-item mt-4'>
+            <div 
+                [class]="path == 'accounts' ? 'nav-link text-white active' : 'nav-link text-white'"
+                [routerLink]="['/manage/accounts']">Tài khoản
+            </div>
+            <div 
+                [class]="path == 'products' ? 'nav-link text-white active' : 'nav-link text-white'"
+                [routerLink]="['/manage/products']">Sản phẩm
+            </div>
+            <div 
+                [class]="path == 'categories' ? 'nav-link text-white active' : 'nav-link text-white'"
+                [routerLink]="['/manage/categories']">Danh mục
+            </div>
+        </li>
+    </ul>
+</div>

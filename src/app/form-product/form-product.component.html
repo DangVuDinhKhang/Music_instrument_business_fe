@@ -1,0 +1,30 @@
+<div style="width: 30%; margin-left: 35%;">
+    <div style="text-align: center; font-weight: bold; font-size: 25px;">ADD NEW PRODUCT</div>
+    <form #productForm="ngForm" (ngSubmit)="onSubmit(productForm)"> 
+        <div class="form-group">
+            <label class="col-sm-2 col-form-label">Name</label>
+            <input type="text" class="form-control" placeholder="Enter name ..." id="name" name="name" ngModel required>
+        </div>
+        <div class="form-group">
+            <label for="description" class="col-sm-2 col-form-label">Description</label>
+            <textarea 
+                class="form-control" placeholder="Enter description ..." rows="5"
+                id="description" name="description" ngModel required>
+            </textarea>
+        </div>
+        <div class="form-group row">
+            <div class="col-6">
+                <label for="price" class="col-sm-2 col-form-label">Price</label>
+                <input type="number" class="form-control" placeholder="Enter price ..." id="price" name="price" ngModel required>
+            </div>
+            <div class="col-6">
+                <label for="amount" class="col-sm-2 col-form-label">Amount</label>
+                <input type="number" class="form-control" placeholder="Enter amount ..." id="amount" name="amount" ngModel required>
+            </div>
+        </div>
+        <!-- <app-alert [message]="error" *ngIf="error"></app-alert> -->
+        <div class="mt-4">
+            <button class="btn btn-primary" type="submit" style="width: 100%" [disabled]="!productForm.valid">Add</button>    
+        </div>
+    </form>
+</div>

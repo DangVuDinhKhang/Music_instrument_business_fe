@@ -1,0 +1,13 @@
+<div class="row">
+    <div *ngFor="let product of products" class="card col-3" [routerLink]="['/products', product.id]">
+        <div style="display: block; overflow: hidden; margin: 0;">
+            <img src="https://image2.cdn.seaart.ai/2023-07-09/43281396338757/ed0e4af138d14ecf9eb52683d066ea96.png" class="card-img-top" alt={{product.name}}>
+        </div>
+        <div class="card-body">
+            <p *ngIf="product.amount > 0" style="color: green; font-weight: bold;"><i class="fas fa-check-circle"></i> Còn hàng</p>
+            <p *ngIf="product.amount == 0" style="color: rgb(211, 6, 6); font-weight: bold;"><i class="fas fa-times-circle"></i> Hết hàng</p>
+            <h5 class="card-title">{{product.name}}</h5>
+            <p class="price">{{ product.price | number:'1.0-0':'en-US' }}đ</p>
+        </div>
+    </div>
+</div>

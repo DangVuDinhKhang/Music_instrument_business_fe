@@ -1,0 +1,13 @@
+<div style="width: 30%; margin-left: 35%;">
+    <div style="text-align: center; font-weight: bold; font-size: 25px;">{{isAdd ? "ADD NEW CATEGORY" : "UPDATE CATEGORY"}}</div>
+    <form #categoryForm="ngForm" (ngSubmit)="onSubmit(categoryForm)"> 
+        <div class="form-group">
+            <label class="col-sm-2 col-form-label">Name</label>
+            <input type="text" class="form-control" placeholder="Enter name ..." id="name" name="name" [(ngModel)]="name" required>
+        </div>
+        <!-- <app-alert [message]="error" *ngIf="error"></app-alert> -->
+        <div class="mt-4">
+            <button class="btn btn-primary" type="submit" style="width: 100%" [disabled]="!categoryForm.valid">{{isAdd ? "Add" : "Update"}}</button>    
+        </div>
+    </form>
+</div>
