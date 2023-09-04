@@ -19,6 +19,9 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
 import { FormProductComponent } from './form-product/form-product.component';
 import { ManageCategoryComponent } from './manage-category/manage-category.component';
 import { FormCategoryComponent } from './form-category/form-category.component';
+import { ManagePaymentComponent } from './manage-payment/manage-payment.component';
+import { FormPaymentComponent } from './form-payment/form-payment.component';
+import { UploadxModule } from 'ngx-uploadx';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,9 @@ import { FormCategoryComponent } from './form-category/form-category.component';
     LoadingSpinnerComponent,
     FormProductComponent,
     ManageCategoryComponent,
-    FormCategoryComponent
+    FormCategoryComponent,
+    ManagePaymentComponent,
+    FormPaymentComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +48,7 @@ import { FormCategoryComponent } from './form-category/form-category.component';
     NgbModule,
     AppRoutingModule,
     HttpClientModule,
+    UploadxModule
   ],
   providers: [DecimalPipe],
   bootstrap: [AppComponent]

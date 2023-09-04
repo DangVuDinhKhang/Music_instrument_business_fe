@@ -1,30 +1,38 @@
 <div style="width: 30%; margin-left: 35%;">
-    <div style="text-align: center; font-weight: bold; font-size: 25px;">ADD NEW PRODUCT</div>
+    <div style="text-align: center; font-weight: bold; font-size: 25px;">{{isAdd ? "ADD NEW PRODUCT" : "UPDATE PRODUCT"}}</div>
     <form #productForm="ngForm" (ngSubmit)="onSubmit(productForm)"> 
         <div class="form-group">
             <label class="col-sm-2 col-form-label">Name</label>
-            <input type="text" class="form-control" placeholder="Enter name ..." id="name" name="name" ngModel required>
+            <input type="text" class="form-control" placeholder="Enter name ..." id="name" name="name" [(ngModel)]="name" required>
         </div>
         <div class="form-group">
             <label for="description" class="col-sm-2 col-form-label">Description</label>
             <textarea 
                 class="form-control" placeholder="Enter description ..." rows="5"
-                id="description" name="description" ngModel required>
+                id="description" name="description" [(ngModel)]="description" required>
             </textarea>
         </div>
         <div class="form-group row">
             <div class="col-6">
-                <label for="price" class="col-sm-2 col-form-label">Price</label>
-                <input type="number" class="form-control" placeholder="Enter price ..." id="price" name="price" ngModel required>
+                <label for="price" class="col-sm-2 col-form-label">Price(đ)</label>
+                <input type="number" class="form-control" placeholder="Enter price ..." id="price" 
+                    name="price" [(ngModel)]="price" required min="0">
             </div>
-            <div class="col-6">
-                <label for="amount" class="col-sm-2 col-form-label">Amount</label>
-                <input type="number" class="form-control" placeholder="Enter amount ..." id="amount" name="amount" ngModel required>
-            </div>
+        </div>
+        <div class="form-group">
+            <label for="category" class="form-label">Category</label>
+            <select #select id="category" class="form-select" name="category" [(ngModel)]="categoryId" (change)="onSelectChange()" required>
+              <option value=0>Select an category</option>
+              <option *ngFor="let category of categories" value = {{category.id}}> {{category.name}} </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="image">Hình ảnh:</label>
+            <input type="file" class="form-control" [multiple]="true" (change)="onFileSelected($event)">
         </div>
         <!-- <app-alert [message]="error" *ngIf="error"></app-alert> -->
         <div class="mt-4">
-            <button class="btn btn-primary" type="submit" style="width: 100%" [disabled]="!productForm.valid">Add</button>    
+            <button class="btn btn-primary" type="submit" style="width: 100%" [disabled]="isInvalidForm">{{isAdd ? "ADD" : "UPDATE"}}</button>    
         </div>
     </form>
 </div>

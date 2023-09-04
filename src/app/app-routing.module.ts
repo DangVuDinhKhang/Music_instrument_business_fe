@@ -10,6 +10,8 @@ import { AdminGuard } from './auth/admin.guard';
 import { FormProductComponent } from './form-product/form-product.component';
 import { ManageCategoryComponent } from './manage-category/manage-category.component';
 import { FormCategoryComponent } from './form-category/form-category.component';
+import { ManagePaymentComponent } from './manage-payment/manage-payment.component';
+import { FormPaymentComponent } from './form-payment/form-payment.component';
 
 const appRoutes: Routes=[
     {path: "", redirectTo: "/", pathMatch: "full"},
@@ -24,12 +26,18 @@ const appRoutes: Routes=[
     {path: "manage/accounts", canActivate: [AdminGuard], component: ManageAccountComponent},
     {path: "manage/products", canActivate: [AdminGuard], children: [
         {path: "", component: ManageProductComponent},
-        {path: "add", canActivate: [AdminGuard], component: FormProductComponent},
+        {path: "add", component: FormProductComponent},
+        {path: "update/:id", component: FormProductComponent},
     ]},
     {path: "manage/categories", canActivate: [AdminGuard], children: [
         {path: "", component: ManageCategoryComponent},
         {path: "add", component: FormCategoryComponent},
         {path: "update/:id", component: FormCategoryComponent}
+    ]},
+    {path: "manage/payments", canActivate: [AdminGuard], children: [
+        {path: "", component: ManagePaymentComponent},
+        {path: "add", component: FormPaymentComponent},
+        {path: "update/:id", component: FormPaymentComponent}
     ]},
     
 ]

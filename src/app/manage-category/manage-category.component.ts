@@ -45,7 +45,7 @@ export class ManageCategoryComponent {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.authService.account.value.token}`
     });
-    this.http.delete<Category[]>(`http://localhost:8080/api/category/${this.needToDeleteCategoryId}`, {headers}).subscribe((responseData) => {
+    this.http.delete<Category>(`http://localhost:8080/api/category/${this.needToDeleteCategoryId}`, {headers}).subscribe((responseData) => {
       this.categories = this.categories.filter(category => category.id != this.needToDeleteCategoryId);
       this.modalService.dismissAll();
       this.needToDeleteCategoryId = 0;

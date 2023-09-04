@@ -32,11 +32,26 @@
                     <td class="create-at">{{account.role}}</td>
                     <td class="update-at">{{account.phone}}</td>
                     <td>
-                        <a href="#" style="text-decoration: none"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                        <a href="/" data-toggle="modal" data-target="#delete" style="text-decoration: none; margin-left: 10px;" class="delete-test"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                      <a (click)="onUpdate(account)" style="text-decoration: none"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                      <a (click)="open(deleteModal, account)" style="text-decoration: none; margin-left: 10px;" class="delete-test"><i class="fa fa-trash" aria-hidden="true"></i></a>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>  
+<ng-template #deleteModal let-modal>
+  <div style="padding: 10px;">
+    <div class="modal-header d-flex justify-content-end">
+      <h4 class="modal-title" id="modal-basic-title">Delete a Category</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      Hành động này không thể khôi phục, bạn có chắc không ?
+    </div>
+    <div style="display: block; float: right;">
+      <button type="button" class="btn btn-danger" style="margin-right: 10px;" (click)="onDelete()">Delete</button>
+      <button type="button" class="btn btn-primary">Cancel</button>
+    </div>
+  </div>
+</ng-template>
