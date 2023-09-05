@@ -22,6 +22,7 @@ export class ProductComponent implements OnInit{
   }
 
   getProducts(){
+    let list: any = [];
     this.http.get<Product[]>(`http://localhost:8080/api/product`).subscribe((responseData) => {
         this.products = responseData;
         this.http.get<any>(`http://localhost:8080/api/file`).subscribe((responseData)=>{
@@ -31,12 +32,14 @@ export class ProductComponent implements OnInit{
               if(product.id == file.product.id){
                 let index = file.path.indexOf("assets");
                 let result = "../../" + file.path.slice(index).replace(/\\/g, "/");
-                product.file = result;
-                break;
+                list.push(result);
               }
             }
+            product.file = list;
+            list = [];
           }
         })
+        console.log(this.products)
     });
  
     

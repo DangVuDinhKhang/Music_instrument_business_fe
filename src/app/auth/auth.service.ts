@@ -3,6 +3,9 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, catchError, tap, throwError } from "rxjs";
 import { Account } from "./account.model";
 import { Router } from "@angular/router";
+import { Cart } from "../cart/cart.model";
+import { CartService } from "../cart/cart.service";
+import { Product } from "../product/product.model";
 
 export interface AuthResponseData {
     id: number
@@ -15,8 +18,9 @@ export interface AuthResponseData {
 export class AuthService{
     account = new BehaviorSubject<Account>(null!);
     private tokenExpirationTimer: any;
+    accountIdAfterSuccess!: number
     
-    constructor(private http: HttpClient, private router: Router){}
+    constructor(private http: HttpClient, private router: Router, private cartService: CartService){}
 
     signUp(username: string, password: string) {
         return this.http.post<AuthResponseData>("http://localhost:8080/api/account/register", {
@@ -34,7 +38,6 @@ export class AuthService{
             password: password
         }).pipe(catchError(this.handleError), tap((response)=>{
             this.handleAuthentication(response.id, response.username, response.role, response.token);
-            
         }))
     }
 
@@ -46,7 +49,7 @@ export class AuthService{
         if(loadedAccount.token){
             this.account.next(loadedAccount);
         }
-        
+        this.accountIdAfterSuccess = accountData.id;
     }
 
     logout(){
@@ -56,6 +59,7 @@ export class AuthService{
         if(this.tokenExpirationTimer)
             clearTimeout(this.tokenExpirationTimer);
         this.tokenExpirationTimer = null;
+        this.cartService.clearCart();
     }
 
     // autoLogout(expirationDuration: number){
@@ -70,6 +74,7 @@ export class AuthService{
         const account = new Account(id, username, role, token);
         this.account.next(account);
         localStorage.setItem("accountData", JSON.stringify(account));
+        this.accountIdAfterSuccess = account.id;
     }
 
     private handleError(errorResponse: HttpErrorResponse){
@@ -80,4 +85,14 @@ export class AuthService{
         errorMessage = errorResponse.error.message;
         return throwError(()=>errorMessage);
     }
+
+    handleCart(){
+        this.http.get<any>(`http://localhost:8080/api/cart/account/${this.accountIdAfterSuccess}`).subscribe((cart)=>{
+            this.http.get<Product[]>(`http://localhost:8080/api/product/cart/${cart.id}`).subscribe((products)=>{
+                this.cartService.setCart(cart.id, cart.amount, cart.account.id, products); 
+            })
+                   
+        })
+    }
+    
 }

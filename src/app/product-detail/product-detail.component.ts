@@ -5,6 +5,9 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ProductService } from '../product/product.service';
 import {File} from '../shared/file.model'
+import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
+
+
 
 
 @Component({
@@ -24,7 +27,7 @@ export class ProductDetailComponent implements OnInit{
   }
 
   getProductById(){
-    const params = new HttpParams().set('id', this.route.snapshot.url.join('/'))
+    let list: any = [];
     this.http.get<Product>(`http://localhost:8080/api/product/${this.route.snapshot.url.join('/')}`).subscribe((responseData) => {
         this.product = responseData;
         this.http.get<any>(`http://localhost:8080/api/file`).subscribe((responseData)=>{
@@ -33,11 +36,17 @@ export class ProductDetailComponent implements OnInit{
             if(this.product.id == file.product.id){
               let index = file.path.indexOf("assets");
               let result = "../../" + file.path.slice(index).replace(/\\/g, "/");
-              this.product.file = result;
-              break;
+              list.push(result);
             }
           }
+          this.product.file = list;
         })
     });
+  }
+
+  addToCart(productId: number){
+    this.http.post<any>(`http://localhost:8080/api/product/add-to-cart`, {productId: productId, cartId: 4}).subscribe((responseData)=>{
+      console.log(responseData);
+    })
   }
 }

@@ -13,7 +13,6 @@ export class SidebarComponent implements OnInit{
 
   ngOnInit(): void {
       this.path = window.location.href.split("/")[4];
-      console.log(this.path)
   }
   
 }

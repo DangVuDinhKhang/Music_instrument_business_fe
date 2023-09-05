@@ -1,7 +1,7 @@
 <div class="row">
     <div *ngFor="let product of products" class="card col-3" [routerLink]="['/products', product.id]">
         <div style="display: block; overflow: hidden; margin: 0;">
-            <img [src]="product.file" class="card-img-top" alt={{product.name}}>
+            <img [src]="product.file[0]" class="card-img-top" alt={{product.name}}>
         </div>
         <div class="card-body">
             <p *ngIf="product.amount > 0" style="color: green; font-weight: bold;"><i class="fas fa-check-circle"></i> Còn hàng</p>
