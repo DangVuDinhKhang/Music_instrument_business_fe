@@ -45,7 +45,7 @@ export class ProductDetailComponent implements OnInit{
   }
 
   addToCart(productId: number){
-    this.http.post<any>(`http://localhost:8080/api/product/add-to-cart`, {productId: productId, cartId: 4}).subscribe((responseData)=>{
+    this.http.post<any>(`http://localhost:8080/api/product/add-to-cart`, {productId: productId, cartId: 2}).subscribe((responseData)=>{
       console.log(responseData);
     })
   }

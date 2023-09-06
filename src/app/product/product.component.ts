@@ -39,7 +39,6 @@ export class ProductComponent implements OnInit{
             list = [];
           }
         })
-        console.log(this.products)
     });
  
     

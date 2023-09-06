@@ -10,11 +10,11 @@
         </div>
         <div class="row detail">
             <div class="col-3">Tình trạng</div>
-            <div *ngIf="product.amount > 0" class="col-9" style="color: green; font-weight: bold;">Còn hàng</div>
-            <div *ngIf="product.amount == 0" class="col-9" style="color: rgb(211, 6, 6); font-weight: bold;">Hết hàng</div>
+            <div *ngIf="product.quantity > 0" class="col-9" style="color: green; font-weight: bold;">Còn hàng</div>
+            <div *ngIf="product.quantity == 0" class="col-9" style="color: rgb(211, 6, 6); font-weight: bold;">Hết hàng</div>
         </div>
         <div class="row">
-            <a class="btn btn-danger mt-4" style="width: 400px;" (click)="addToCart(product.id)">Mua ngay</a>
+            <button class="btn btn-danger mt-4" style="width: 400px;" (click)="addToCart(product.id)" [disabled]="product.quantity == 0">Thêm vào giỏ hàng</button>
         </div>
     </div>
 </div>

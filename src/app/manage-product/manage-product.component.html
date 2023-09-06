@@ -33,7 +33,7 @@
                     <th scope="row">{{index + 1 }}</th>
                     <td>{{product.name}}</td>
                     <td class="create-at">{{product.price|number:'1.0-0':'en-US'}}</td>
-                    <td class="update-at">{{product.amount|number:'1.0-0':'en-US'}}</td>
+                    <td class="update-at">{{product.quantity|number:'1.0-0':'en-US'}}</td>
                     <td>
                       <a (click)="onUpdate(product)" style="text-decoration: none"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                       <a (click)="open(deleteModal, product)" style="text-decoration: none; margin-left: 10px;" class="delete-test"><i class="fa fa-trash" aria-hidden="true"></i></a>

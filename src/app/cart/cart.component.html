@@ -1,3 +1,16 @@
-<p>{{cart.id}}</p>
-<p>{{cart.amount}}</p>
-<p *ngFor="let product of cart.products">{{product.name}}</p>
+<!-- <p *ngFor="let product of cart.products">{{product.name}}</p> -->
+<div class="main">
+    <div class="box">
+        <div class="title">Giỏ hàng của bạn</div>
+        <div class="item row" *ngFor="let productAndQuantity of cart.productsAndQuantity">
+            <div class="col-4">
+                <img [src]="productAndQuantity.product.file[0]" class="card-img-top" alt={{productAndQuantity.product.name}}>
+            </div>
+            <div class="col-6">{{productAndQuantity.product.name}}</div>    
+            <div class="col-2">{{productAndQuantity.quantity}}</div>    
+        </div>
+        <div class="total">
+            Tạm tính: {{totalPrice}}
+        </div>
+    </div>
+</div>

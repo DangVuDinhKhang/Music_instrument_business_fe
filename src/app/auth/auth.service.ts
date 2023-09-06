@@ -6,6 +6,7 @@ import { Router } from "@angular/router";
 import { Cart } from "../cart/cart.model";
 import { CartService } from "../cart/cart.service";
 import { Product } from "../product/product.model";
+import { ProductAndQuantity } from "../product/productAndQuantity.model";
 
 export interface AuthResponseData {
     id: number
@@ -59,7 +60,7 @@ export class AuthService{
         if(this.tokenExpirationTimer)
             clearTimeout(this.tokenExpirationTimer);
         this.tokenExpirationTimer = null;
-        this.cartService.clearCart();
+        //this.cartService.clearCart();
     }
 
     // autoLogout(expirationDuration: number){
@@ -86,13 +87,28 @@ export class AuthService{
         return throwError(()=>errorMessage);
     }
 
-    handleCart(){
-        this.http.get<any>(`http://localhost:8080/api/cart/account/${this.accountIdAfterSuccess}`).subscribe((cart)=>{
-            this.http.get<Product[]>(`http://localhost:8080/api/product/cart/${cart.id}`).subscribe((products)=>{
-                this.cartService.setCart(cart.id, cart.amount, cart.account.id, products); 
-            })
+    // handleCart(){
+    //     let list: any = [];
+    //     this.http.get<Cart>(`http://localhost:8080/api/cart/account/${this.accountIdAfterSuccess}`).subscribe((cart)=>{
+    //         this.http.get<any>(`http://localhost:8080/api/product/cart/${cart.id}`).subscribe((productsAndQuantity)=>{
+    //             this.http.get<any>(`http://localhost:8080/api/file`).subscribe((files)=>{
+    //                 for(let productAndQuantity of productsAndQuantity){
+    //                     for(let file of files){
+    //                     if(productAndQuantity.product.id == file.product.id){
+    //                         let index = file.path.indexOf("assets");
+    //                         let result = "../../" + file.path.slice(index).replace(/\\/g, "/");
+    //                         list.push(result);
+    //                     }
+    //                     }
+    //                     productAndQuantity.file = list;
+    //                     list = [];
+    //                 }
+    //             })
+
+    //             this.cartService.setCart(cart.id, cart.account, productsAndQuantity); 
+    //         })
                    
-        })
-    }
+    //     })
+    // }
     
 }
