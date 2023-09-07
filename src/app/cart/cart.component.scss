@@ -73,8 +73,11 @@ i {
     margin-top: 10px;
     width: 80%;
     padding: 8px 9px;
-    color: #fff;
     font-weight: bold;
     border-radius: 10px;
-    background: linear-gradient(90deg,rgba(27,139,81,1) 8%,rgba(85,164,71,1) 30%,rgba(85,164,71,1) 60%,rgba(27,139,81,1) 90%);
+    background: linear-gradient(45deg, #D9AFD9 0%, #97D9E1 100%);
+}
+
+.btn-og:hover{
+    background: linear-gradient(45deg, #97D9E1 0%, #D9AFD9 100%);
 }

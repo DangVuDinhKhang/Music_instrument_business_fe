@@ -5,28 +5,24 @@ import { Product } from "../product/product.model";
 import { ProductAndQuantity } from "../product/productAndQuantity.model";
 import { Observable, of } from "rxjs";
 import { ProductService } from "../product/product.service";
+import { HttpClient } from "@angular/common/http";
+import { AuthService } from "../auth/auth.service";
 
 @Injectable({providedIn: "root"})
 export class CartService {
 
-    // public cart!: Cart;
+    // public numberOfType = 0;
+    
 
-    // constructor(private productService: ProductService){}
-
-    // setCart(id: number, accountId: number, productsAndQuantity: ProductAndQuantity[]){
-    //     this.cart.id = id;
-    //     this.cart.account = accountId;
-    //     this.cart.productsAndQuantity = productsAndQuantity;
+    // constructor(private http: HttpClient, private authService: AuthService){}
+ 
+    // async handleCart(): Promise<void> {
+    //     const cart = await this.http.get<any>(`http://localhost:8080/api/cart/account/${this.authService.accountIdAfterSuccess}`).toPromise();
+    //     if(cart){
+    //         const productsAndQuantity = await this.http.get<any>(`http://localhost:8080/api/product/cart/${cart.id}`).toPromise();
+    //         this.numberOfType = productsAndQuantity.length;
+    //      }
     // }
 
-    // getCart(): Cart{
-    //     console.log(this.cart)
-    //     return this.cart;
-    // }
-
-    // addToCart(productId: number){
-    //     this.productService.addToCart(productId, this.cart.id);
-        
-    // }
 
 }

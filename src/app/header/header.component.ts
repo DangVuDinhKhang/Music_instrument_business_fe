@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit} from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
 import { ProductService } from '../product/product.service';
+import { CartService } from '../cart/cart.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-header',
@@ -13,8 +15,9 @@ export class HeaderComponent implements OnInit, OnDestroy{
   isAuthenticated = false;
   role = "member";
   username = "";
+  numberOfType = 0;
 
-  constructor(private authService: AuthService, private productService: ProductService){}
+  constructor(private authService: AuthService, private cartService: CartService, private http: HttpClient){}
 
   ngOnInit(){
     this.userSub = this.authService.account.subscribe((account)=>{
@@ -28,11 +31,19 @@ export class HeaderComponent implements OnInit, OnDestroy{
 
       }
     })
+  
+  //  this.cartService.handleCart().then(()=>{                  // Display quantity in cart
+  //   this.numberOfType = this.cartService.numberOfType;
+  //  }).catch(error=>{
+  //   console.error(error)
+  //  });
+   
   }
 
   ngOnDestroy(){
     this.userSub.unsubscribe();
   }
+
   
   onLogout(){
     this.authService.logout();

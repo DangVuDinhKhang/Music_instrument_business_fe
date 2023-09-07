@@ -8,6 +8,8 @@ import {File} from '../shared/file.model'
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
+import { CartService } from '../cart/cart.service';
+import { ToastService } from '../shared/toast/toast.service';
 
 
 
@@ -27,8 +29,8 @@ export class ProductDetailComponent implements OnInit{
   cartId = 0;
 
   constructor(
-    private http: HttpClient, private route: ActivatedRoute, 
-    private authService: AuthService, private productService: ProductService
+    private http: HttpClient, private route: ActivatedRoute, private cartService: CartService,
+    private authService: AuthService, private productService: ProductService, private toastService: ToastService
   ){}
 
   ngOnInit() {
@@ -66,6 +68,10 @@ export class ProductDetailComponent implements OnInit{
 
   addToCart(productId: number){
     this.productService.addToCart(productId, this.cartId);
-    
+    this.toastService.updateSuccess(true);
+    this.toastService.updateMessage("Sản phẩm đã được thêm vào giỏ hàng");
+    setTimeout(()=>{
+      this.toastService.updateSuccess(false);
+    }, 2500)
   }
 }

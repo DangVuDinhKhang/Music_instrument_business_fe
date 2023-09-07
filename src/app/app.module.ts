@@ -23,6 +23,8 @@ import { ManagePaymentComponent } from './manage-payment/manage-payment.componen
 import { FormPaymentComponent } from './form-payment/form-payment.component';
 import { UploadxModule } from 'ngx-uploadx';
 import { CartComponent } from './cart/cart.component';
+import { ToastComponent } from './shared/toast/toast.component';
+import { FormOrderComponent } from './form-order/form-order.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { CartComponent } from './cart/cart.component';
     FormCategoryComponent,
     ManagePaymentComponent,
     FormPaymentComponent,
-    CartComponent
+    CartComponent,
+    ToastComponent,
+    FormOrderComponent
   ],
   imports: [
     BrowserModule,

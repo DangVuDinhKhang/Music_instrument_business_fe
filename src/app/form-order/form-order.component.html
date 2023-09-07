@@ -1,0 +1,39 @@
+<!-- <p *ngFor="let product of cart.products">{{product.name}}</p> -->
+<div class="main">
+    <form class="box" #orderForm="ngForm" (ngSubmit)="onSubmit(orderForm)">
+        <div class="form-group">
+            <label for="phone">Số điện thoại</label>
+            <input type="tel" class="form-control" id="phone" name="phone" [(ngModel)]="phone" required>
+        </div>
+        <div class="form-group">
+            <label for="address">Địa chỉ</label>
+            <input type="text" class="form-control" id="address" name="address" [(ngModel)]="address" required>
+        </div>
+        <div class="form-group">
+            <label>Hình thức thanh toán</label>
+            <div  
+                *ngFor="let payment of payments" [class]="payment.id == selectedPayment ? 'payment selected' : 'payment'" 
+                (click)="onSelected(payment.id)">{{payment.name}}
+            </div>
+        </div>
+        <div class="form-group mt-5">
+            <p style="font-weight: bold;">Tổng tiền: </p>
+            <button type="button" class="btn-og btn-step mb-4" [routerLink]="['/order']">HOÀN TẤT MUA HÀNG</button>
+        </div>
+    </form>
+</div>
+<!-- <ng-template #deleteModal let-modal>
+    <div style="padding: 10px;">
+      <div class="modal-header d-flex justify-content-end">
+        <h4 class="modal-title" id="modal-basic-title">Xóa khỏi giỏ hàng</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+      <div class="modal-body">
+        Bạn muốn xóa sản phẩm này ?
+      </div>
+      <div style="display: block; float: right;">
+        <button type="button" class="btn btn-danger" style="margin-right: 10px;" (click)="removeFromCart()">Đồng ý</button>
+        <button type="button" class="btn btn-primary" (click)="modal.dismiss('Cross click')">Không xóa</button>
+      </div>
+    </div>
+</ng-template> -->

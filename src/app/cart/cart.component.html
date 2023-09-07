@@ -1,4 +1,3 @@
-<!-- <p *ngFor="let product of cart.products">{{product.name}}</p> -->
 <div class="main">
     <div class="box" *ngIf="cart.productsAndQuantity.length == 0">
         <div class="title">Giỏ hàng của bạn</div>
@@ -23,7 +22,7 @@
         <div class="total">
             Tạm tính: {{totalPrice | number:'1.0-0':'en-US'}} ₫
         </div>
-        <button type="button" class="btn-og btn-step">ĐẶT HÀNG</button>
+        <button type="button" class="btn-og btn-step" [routerLink]="['/order']">ĐẶT HÀNG</button>
     </div>
 </div>
 <ng-template #deleteModal let-modal>

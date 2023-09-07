@@ -13,6 +13,7 @@ import { FormCategoryComponent } from './form-category/form-category.component';
 import { ManagePaymentComponent } from './manage-payment/manage-payment.component';
 import { FormPaymentComponent } from './form-payment/form-payment.component';
 import { CartComponent } from './cart/cart.component';
+import { FormOrderComponent } from './form-order/form-order.component';
 
 const appRoutes: Routes=[
     {path: "", redirectTo: "/", pathMatch: "full"},
@@ -40,7 +41,8 @@ const appRoutes: Routes=[
         {path: "add", component: FormPaymentComponent},
         {path: "update/:id", component: FormPaymentComponent}
     ]},
-    {path: "cart", canActivate: [AuthGuard], component: CartComponent}
+    {path: "cart", canActivate: [AuthGuard], component: CartComponent},
+    {path: "order", canActivate: [AuthGuard], component: FormOrderComponent}
     
 ]
 @NgModule({

@@ -1,12 +1,11 @@
-<div class="cart">
-    <p>Item</p>
-  </div>
+<app-toast></app-toast>
 <div class="row">
     <div class="col-6">
         <img [src]="product.file[0]" alt="" width="500px">
     </div>
     <div class="col-6">
         <p style="font-weight: bold; font-size: 25px;">{{product.name}}</p>
+        
         <div class="row detail">
             <div class="col-3">Giá bán</div>
             <div class="price col-9">{{ product.price | number:'1.0-0':'en-US' }}đ</div>

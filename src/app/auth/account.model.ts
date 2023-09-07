@@ -10,12 +10,14 @@ export class Account{
     private _token: string;
     private _cart: Cart
 
-    constructor(id: number, username: string, role: string, cart: Cart, token: string){
+    constructor(id: number, username: string, role: string, cart: Cart, token: string, phone: string, address: string){
         this.id = id;
         this.username = username; 
         this._token = token;
         this._cart = cart;
         this._role = role;
+        this.phone = phone;
+        this.address = address;
     }
 
     get role(): string {
