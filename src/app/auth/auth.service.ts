@@ -12,6 +12,7 @@ export interface AuthResponseData {
     id: number
     username: string
     role: string
+    cart: Cart
     token: string
 }
 
@@ -28,7 +29,7 @@ export class AuthService{
             username: username,
             password: password
         }).pipe(catchError(this.handleError), tap((response)=>{
-            this.handleAuthentication(response.id, response.username, response.role, response.token);
+            this.handleAuthentication(response.id, response.username, response.role, response.cart, response.token);
             
         }))
     }
@@ -38,15 +39,15 @@ export class AuthService{
             username: username,
             password: password
         }).pipe(catchError(this.handleError), tap((response)=>{
-            this.handleAuthentication(response.id, response.username, response.role, response.token);
+            this.handleAuthentication(response.id, response.username, response.role, response.cart, response.token);
         }))
     }
 
     autoLogin(){
-        const accountData: {id: number, username: string, _role: string, _token: string} = JSON.parse(localStorage.getItem("accountData")!);
+        const accountData: {id: number, username: string, _role: string, _cart: Cart, _token: string} = JSON.parse(localStorage.getItem("accountData")!);
         if(!accountData)
             return;
-        const loadedAccount = new Account(accountData.id, accountData.username, accountData._role, accountData._token);
+        const loadedAccount = new Account(accountData.id, accountData.username, accountData._role, accountData._cart, accountData._token);
         if(loadedAccount.token){
             this.account.next(loadedAccount);
         }
@@ -70,9 +71,9 @@ export class AuthService{
     //     }, expirationDuration)
     // }
 
-    private handleAuthentication(id:number, username: string,  role: string, token: string){
+    private handleAuthentication(id:number, username: string,  role: string, cart: Cart, token: string){
         //const expirationDate = new Date(new Date().getTime() + expiresIn * 1000)
-        const account = new Account(id, username, role, token);
+        const account = new Account(id, username, role, cart, token);
         this.account.next(account);
         localStorage.setItem("accountData", JSON.stringify(account));
         this.accountIdAfterSuccess = account.id;
@@ -87,28 +88,27 @@ export class AuthService{
         return throwError(()=>errorMessage);
     }
 
-    // handleCart(){
+    // async handleCart(): Promise<void> {
     //     let list: any = [];
-    //     this.http.get<Cart>(`http://localhost:8080/api/cart/account/${this.accountIdAfterSuccess}`).subscribe((cart)=>{
-    //         this.http.get<any>(`http://localhost:8080/api/product/cart/${cart.id}`).subscribe((productsAndQuantity)=>{
-    //             this.http.get<any>(`http://localhost:8080/api/file`).subscribe((files)=>{
-    //                 for(let productAndQuantity of productsAndQuantity){
-    //                     for(let file of files){
-    //                     if(productAndQuantity.product.id == file.product.id){
-    //                         let index = file.path.indexOf("assets");
-    //                         let result = "../../" + file.path.slice(index).replace(/\\/g, "/");
-    //                         list.push(result);
-    //                     }
-    //                     }
-    //                     productAndQuantity.file = list;
-    //                     list = [];
-    //                 }
-    //             })
-
-    //             this.cartService.setCart(cart.id, cart.account, productsAndQuantity); 
-    //         })
-                   
-    //     })
+    //     const cart = await this.http.get<any>(`http://localhost:8080/api/cart/account/${this.accountIdAfterSuccess}`).toPromise();
+    //     if(cart){
+    //       const productsAndQuantity = await this.http.get<any>(`http://localhost:8080/api/product/cart/${cart.id}`).toPromise();
+    //       const files = await this.http.get<any>(`http://localhost:8080/api/file`).toPromise();
+    //       if(files){
+    //         for (let productAndQuantity of productsAndQuantity) {
+    //           for (let file of files) {
+    //             if (productAndQuantity.product.id == file.product.id) {
+    //               let index = file.path.indexOf("assets");
+    //               let result = "../../" + file.path.slice(index).replace(/\\/g, "/");
+    //               list.push(result);
+    //             }
+    //           }
+    //           productAndQuantity.product.file = list;
+    //           list = [];
+    //         }
+    //         this.cartService.setCart(cart.id, productsAndQuantity, cart.account.id);
+    //       }
+    //     }
     // }
     
 }

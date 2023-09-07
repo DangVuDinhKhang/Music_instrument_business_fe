@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit} from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
+import { ProductService } from '../product/product.service';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
   role = "member";
   username = "";
 
-  constructor(private authService: AuthService){}
+  constructor(private authService: AuthService, private productService: ProductService){}
 
   ngOnInit(){
     this.userSub = this.authService.account.subscribe((account)=>{
@@ -24,7 +25,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
           this.role = "admin"
         else
           this.role = "member"
-        
+
       }
     })
   }

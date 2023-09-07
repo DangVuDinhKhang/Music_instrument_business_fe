@@ -1,3 +1,6 @@
+<div class="cart">
+    <p>Item</p>
+  </div>
 <div class="row">
     <div class="col-6">
         <img [src]="product.file[0]" alt="" width="500px">
@@ -14,7 +17,7 @@
             <div *ngIf="product.quantity == 0" class="col-9" style="color: rgb(211, 6, 6); font-weight: bold;">Hết hàng</div>
         </div>
         <div class="row">
-            <button class="btn btn-danger mt-4" style="width: 400px;" (click)="addToCart(product.id)" [disabled]="product.quantity == 0">Thêm vào giỏ hàng</button>
+            <button #from class="btn btn-danger mt-4" style="width: 400px;" (click)="addToCart(product.id)" [disabled]="product.quantity == 0">Thêm vào giỏ hàng</button>
         </div>
     </div>
 </div>

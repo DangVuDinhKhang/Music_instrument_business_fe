@@ -6,6 +6,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { ProductService } from '../product/product.service';
 import {File} from '../shared/file.model'
 import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
+import { AuthService } from '../auth/auth.service';
+import { Subscription } from 'rxjs';
 
 
 
@@ -20,10 +22,27 @@ export class ProductDetailComponent implements OnInit{
   product!: Product;
   files: File[] = [];
 
-  constructor(private http: HttpClient, private route: ActivatedRoute, private productService: ProductService){}
+  private userSub!: Subscription;
+  isAuthenticated = false;
+  cartId = 0;
+
+  constructor(
+    private http: HttpClient, private route: ActivatedRoute, 
+    private authService: AuthService, private productService: ProductService
+  ){}
 
   ngOnInit() {
       this.getProductById();
+      this.userSub = this.authService.account.subscribe((account)=>{
+        this.isAuthenticated = !account ? false : true;
+        if(this.isAuthenticated){
+          this.cartId = account.cart.id;       
+        }
+      })
+  }
+
+  ngOnDestroy(){
+    this.userSub.unsubscribe();
   }
 
   getProductById(){
@@ -44,9 +63,9 @@ export class ProductDetailComponent implements OnInit{
     });
   }
 
+
   addToCart(productId: number){
-    this.http.post<any>(`http://localhost:8080/api/product/add-to-cart`, {productId: productId, cartId: 2}).subscribe((responseData)=>{
-      console.log(responseData);
-    })
+    this.productService.addToCart(productId, this.cartId);
+    
   }
 }

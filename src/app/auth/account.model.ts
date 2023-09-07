@@ -1,3 +1,5 @@
+import { Cart } from "../cart/cart.model";
+
 export class Account{
 
     public id: number;
@@ -6,11 +8,13 @@ export class Account{
     public phone!: string;
     private _role: string;
     private _token: string;
+    private _cart: Cart
 
-    constructor(id: number, username: string, role: string, token: string){
+    constructor(id: number, username: string, role: string, cart: Cart, token: string){
         this.id = id;
         this.username = username; 
         this._token = token;
+        this._cart = cart;
         this._role = role;
     }
 
@@ -18,10 +22,14 @@ export class Account{
         return this._role;
     }
 
-    get token(): string{
+    get token(): string {
         // if(!this._tokenExpirationDate || new Date() > this._tokenExpirationDate)
         //     return null
-        return this._token
+        return this._token;
+    }
+
+    get cart(): Cart {
+        return this._cart;
     }
 
 }
