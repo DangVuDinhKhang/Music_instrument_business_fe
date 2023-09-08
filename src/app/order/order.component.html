@@ -1,0 +1,14 @@
+<!-- <div class="row item mt-3" *ngFor="let productAndQuantity of cart.productsAndQuantity">
+    <div class="col-3">
+        <img [src]="productAndQuantity.product.file[0]" class="card-img-top" alt={{productAndQuantity.product.name}}>
+    </div>
+    <div class="col-5">{{productAndQuantity.product.name}}</div>    
+    <div class="col-4">
+        <p>x{{productAndQuantity.quantity}}
+          <span class="mt-4" style="font-weight: bold; margin-left: 20px;">
+            {{productAndQuantity.product.price * productAndQuantity.quantity | number:'1.0-0':'en-US'}} ₫
+          </span>
+        </p>
+    </div>    
+</div> -->
+<p *ngFor="let orderDetail of ordersDetail">{{orderDetail.total}}</p>

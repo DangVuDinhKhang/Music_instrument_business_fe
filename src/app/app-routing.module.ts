@@ -14,6 +14,8 @@ import { ManagePaymentComponent } from './manage-payment/manage-payment.componen
 import { FormPaymentComponent } from './form-payment/form-payment.component';
 import { CartComponent } from './cart/cart.component';
 import { FormOrderComponent } from './form-order/form-order.component';
+import { ManageOrderComponent } from './manage-order/manage-order.component';
+import { OrderComponent } from './order/order.component';
 
 const appRoutes: Routes=[
     {path: "", redirectTo: "/", pathMatch: "full"},
@@ -41,8 +43,12 @@ const appRoutes: Routes=[
         {path: "add", component: FormPaymentComponent},
         {path: "update/:id", component: FormPaymentComponent}
     ]},
+    {path: "manage/orders", canActivate: [AdminGuard], children: [
+        {path: "", component: ManageOrderComponent},
+    ]},
     {path: "cart", canActivate: [AuthGuard], component: CartComponent},
-    {path: "order", canActivate: [AuthGuard], component: FormOrderComponent}
+    {path: "order", canActivate: [AuthGuard], component: FormOrderComponent},
+    {path: "my-order", canActivate: [AuthGuard], component: OrderComponent}
     
 ]
 @NgModule({

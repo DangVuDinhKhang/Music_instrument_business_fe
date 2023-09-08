@@ -1,25 +1,38 @@
 <!-- <p *ngFor="let product of cart.products">{{product.name}}</p> -->
 <div class="main">
     <form class="box" #orderForm="ngForm" (ngSubmit)="onSubmit(orderForm)">
-        <div class="form-group">
+        <div class="form-group mt-3">
             <label for="phone">Số điện thoại</label>
             <input type="tel" class="form-control" id="phone" name="phone" [(ngModel)]="phone" required>
         </div>
-        <div class="form-group">
+        <div class="form-group mt-3">
             <label for="address">Địa chỉ</label>
             <input type="text" class="form-control" id="address" name="address" [(ngModel)]="address" required>
         </div>
-        <div class="form-group">
-            <label>Hình thức thanh toán</label>
-            <div  
-                *ngFor="let payment of payments" [class]="payment.id == selectedPayment ? 'payment selected' : 'payment'" 
-                (click)="onSelected(payment.id)">{{payment.name}}
-            </div>
+        <div class="form-group row item mt-3" *ngFor="let productAndQuantity of cart.productsAndQuantity">
+          <div class="col-3">
+              <img [src]="productAndQuantity.product.file[0]" class="card-img-top" alt={{productAndQuantity.product.name}}>
+          </div>
+          <div class="col-5">{{productAndQuantity.product.name}}</div>    
+          <div class="col-4">
+              <p>x{{productAndQuantity.quantity}}
+                <span class="mt-4" style="font-weight: bold; margin-left: 20px;">
+                  {{productAndQuantity.product.price * productAndQuantity.quantity | number:'1.0-0':'en-US'}} ₫
+                </span>
+              </p>
+          </div>    
+        </div>
+        <div class="form-group mt-3">
+          <label>Hình thức thanh toán</label>
+          <div  
+              *ngFor="let payment of payments" [class]="payment.id == selectedPayment ? 'payment selected' : 'payment'" 
+              (click)="onSelected(payment.id)">{{payment.name}}
+          </div>
         </div>
         <div class="form-group mt-5">
-            <p style="font-weight: bold;">Tổng tiền: </p>
-            <button type="button" class="btn-og btn-step mb-4" [routerLink]="['/order']">HOÀN TẤT MUA HÀNG</button>
-        </div>
+            <p style="font-weight: bold;">Tổng tiền: {{totalPrice | number:'1.0-0':'en-US'}} ₫</p>
+            <button type="submit" class="btn-og btn-step mb-4">HOÀN TẤT MUA HÀNG</button>
+        </div>    
     </form>
 </div>
 <!-- <ng-template #deleteModal let-modal>

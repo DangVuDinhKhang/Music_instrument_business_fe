@@ -1,0 +1,63 @@
+<div class="row">
+    <div class="col-2">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="col-10">
+        <table class="table table-striped" >
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Mã đơn</th>
+                    <th scope="col">Tài khoản
+                      <!-- {{{sort "name" _sort}}} -->
+                    </th>
+                    <th scope="col">Số điện thoại</th>
+                    <th scope="col">Địa chỉ</th>
+                    <th scope="col">Ngày đặt</th>
+                    <th scope="col">Thanh toán</th>
+                    <th scope="col">Tổng tiền</th>
+                    <th scope="col">Trạng thái</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let order of orders; let index = index">
+                    <th scope="row">{{index + 1 }}</th>
+                    <td>{{order.id}}</td>
+                    <td>{{order.account.username}}</td>
+                    <td>{{order.phone}}</td>
+                    <td>{{order.address}}</td>
+                    <td>{{order.date}}</td>
+                    <td>{{order.payment.name}}</td>
+                    <td>{{order.total|number:'1.0-0':'en-US'}} ₫</td>
+                    <td>{{order.status ? "Đã hoàn thành" : "Chưa hoàn thành"}}</td>
+                    <td>
+                        <a (click)="onUpdate(order)">
+                            <i class="fa-solid fa-check" aria-hidden="true" *ngIf="!order.status" style="color: rgb(6, 193, 6);"></i>
+                        </a>
+                        <a (click)="onUpdate(order)">
+                            <i class="fa-solid fa-x" aria-hidden="true" *ngIf="order.status" style="color: rgb(179, 9, 9);"></i>
+                        </a>
+                        <!-- <a (click)="open(deleteModal, category)" style="text-decoration: none; margin-left: 10px;" class="delete-test"><i class="fa fa-trash" aria-hidden="true"></i></a> -->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>  
+
+<!-- <ng-template #deleteModal let-modal>
+    <div style="padding: 10px;">
+      <div class="modal-header d-flex justify-content-end">
+        <h4 class="modal-title" id="modal-basic-title">Delete a Category</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+      <div class="modal-body">
+        Hành động này không thể khôi phục, bạn có chắc không ?
+      </div>
+      <div style="display: block; float: right;">
+        <button type="button" class="btn btn-danger" style="margin-right: 10px;" (click)="onDelete()">Delete</button>
+        <button type="button" class="btn btn-primary">Cancel</button>
+      </div>
+    </div>
+</ng-template> -->

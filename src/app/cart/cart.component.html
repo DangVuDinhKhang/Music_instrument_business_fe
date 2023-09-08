@@ -7,12 +7,14 @@
     <div class="box" *ngIf="cart.productsAndQuantity.length > 0">
         <div class="title">Giỏ hàng của bạn</div>
         <div class="item row" *ngFor="let productAndQuantity of cart.productsAndQuantity">
-            <i class="fa-regular fa-circle-xmark fa-lg mb-1" (click)="open(deleteModal, productAndQuantity.product.id)"></i>
+            <i class="fa-regular fa-circle-xmark fa-lg mb-1" style="color: #f10f0f;" 
+              (click)="open(deleteModal, productAndQuantity.product.id)">
+            </i>
             <div class="col-3">
                 <img [src]="productAndQuantity.product.file[0]" class="card-img-top" alt={{productAndQuantity.product.name}}>
             </div>
             <div class="col-4">{{productAndQuantity.product.name}}</div>    
-            <div class="col-4">
+            <div class="col-5">
                 <button type="button" class="minus" (click)="updateInCart(productAndQuantity.product.id)">-</button>
                 <input type="text" [(ngModel)]="productAndQuantity.quantity" style="width: 20%;">
                 <button type="button" class="add" (click)="addToCart(productAndQuantity.product.id)">+</button>

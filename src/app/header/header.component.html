@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary mb-4">
+<nav class="navbar navbar-expand-lg bg-body-tertiary mb-4 fixed-top">
     <div class="container-fluid" style="margin-left: 70px;">
       <a class="navbar-brand" [routerLink]="['/']">K Music</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,7 +20,7 @@
             <a class="nav-link dropdown-toggle" ngbDropdownToggle style="cursor: pointer;">{{username}}</a>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
               <button ngbDropdownItem *ngIf="role == 'admin'" [routerLink]="['/manage/products']">Manage</button>
-              <button ngbDropdownItem *ngIf="role == 'member'">Profile</button>
+              <button ngbDropdownItem *ngIf="role == 'member'" [routerLink]="['/my-order']">Profile</button>
               <button ngbDropdownItem (click)="onLogout()">Logout</button>
             </div>
           </div>
