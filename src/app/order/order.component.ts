@@ -13,10 +13,12 @@ import { Subscription } from 'rxjs';
 export class OrderComponent implements OnInit{
 
   orders: Order[] = [];
-  ordersDetail: OrderDetail[] = [];
+  ordersDetailOfOrders: any = [];
   private userSub!: Subscription;
   isAuthenticated = false;
   accountId!: number;
+
+  totalPriceAndStatus: any = [];
 
   constructor(private http: HttpClient, private authService: AuthService){}
 
@@ -28,7 +30,7 @@ export class OrderComponent implements OnInit{
       }
     })
     this.getAllOrder();
-    this.getAllOrderDetail();
+    
   }
 
   getAllOrder(){
@@ -43,9 +45,14 @@ export class OrderComponent implements OnInit{
       'Authorization': `Bearer ${this.authService.account.value.token}`
     });
     for(let order of this.orders){
-      this.http.get<OrderDetail[]>(`http://localhost:8080/api/order-detail/${order.id}`, {headers}).subscribe((ordersDetail)=>{
-        this.ordersDetail = ordersDetail;
-        console.log(this.ordersDetail);
+      this.http.get<OrderDetail[]>(`http://localhost:8080/api/order-detail/${order.id}`, {headers}).subscribe((ordersDetailOfOrders)=>{
+        this.ordersDetailOfOrders.push(ordersDetailOfOrders);
+        console.log(this.ordersDetailOfOrders);
+        this.totalPriceAndStatus.push({
+          totalPrice: ordersDetailOfOrders[0].customerOrder.total, 
+          status: ordersDetailOfOrders[0].customerOrder.status
+        });
+        console.log(this.totalPriceAndStatus);
       })
     }
     

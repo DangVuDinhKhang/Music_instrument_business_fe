@@ -1,22 +1,24 @@
-<app-toast></app-toast>
-<div class="row">
-    <div class="col-6">
-        <img [src]="product.file[0]" alt="" width="500px">
-    </div>
-    <div class="col-6">
-        <p style="font-weight: bold; font-size: 25px;">{{product.name}}</p>
-        
-        <div class="row detail">
-            <div class="col-3">Giá bán</div>
-            <div class="price col-9">{{ product.price | number:'1.0-0':'en-US' }}₫</div>
+<div class="container">
+    <app-toast></app-toast>
+    <div class="row">
+        <div class="col-6">
+            <img [src]="product.file[0]" alt="" width="500px">
         </div>
-        <div class="row detail">
-            <div class="col-3">Tình trạng</div>
-            <div *ngIf="product.quantity > 0" class="col-9" style="color: green; font-weight: bold;">Còn hàng</div>
-            <div *ngIf="product.quantity == 0" class="col-9" style="color: rgb(211, 6, 6); font-weight: bold;">Hết hàng</div>
-        </div>
-        <div class="row">
-            <button #from class="btn btn-danger mt-4" style="width: 400px;" (click)="addToCart(product.id)" [disabled]="product.quantity == 0">Thêm vào giỏ hàng</button>
+        <div class="col-6">
+            <p style="font-weight: bold; font-size: 25px;">{{product.name}}</p>
+            
+            <div class="row detail">
+                <div class="col-3">Giá bán</div>
+                <div class="price col-9">{{ product.price | number:'1.0-0':'en-US' }}₫</div>
+            </div>
+            <div class="row detail">
+                <div class="col-3">Tình trạng</div>
+                <div *ngIf="product.quantity > 0" class="col-9" style="color: green; font-weight: bold;">Còn hàng</div>
+                <div *ngIf="product.quantity == 0" class="col-9" style="color: rgb(211, 6, 6); font-weight: bold;">Hết hàng</div>
+            </div>
+            <div class="row">
+                <button #from class="btn btn-danger mt-4" style="width: 400px;" (click)="addToCart(product.id)" [disabled]="product.quantity == 0">Thêm vào giỏ hàng</button>
+            </div>
         </div>
     </div>
 </div>

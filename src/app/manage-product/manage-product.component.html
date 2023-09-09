@@ -1,26 +1,27 @@
-<div class="row">
-    <div class="col-2">
+
+<div class="row" style="margin: 1px;">
+    <div class="col-2" style="margin-right: 0 !important; padding-right: 0 !important;">
         <app-sidebar></app-sidebar>
     </div>
-    <div class="col-10">
-        <div class="general">
-          <button type="button" class="btn btn-primary add" [routerLink]="['add']">Add</button>
-        </div>
+    <div class="col-10" style="margin-left: 0 !important; padding-left: 0 !important;">
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th scope="col"></th>
                     <th scope="col">#</th>
-                    <th scope="col">Name
+                    <th scope="col">Tên sản phẩm
                       <!-- {{{sort "name" _sort}}} -->
                     </th>
-                    <th scope="col">Price
+                    <th scope="col">Giá tiền
                       <!-- {{{sort "createdAt" _sort}}} -->
                     </th>
-                    <th scope="col" colspan="2">Amount
+                    <th scope="col">Số lượng
                       <!-- {{{sort "updatedAt" _sort}}} -->
                     </th>
-                    
+                    <th scope="col"></th>
+                    <th scope="col">
+                        <button type="button" class="btn btn-primary add" [routerLink]="['add']">Add</button>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -38,6 +39,7 @@
                       <a (click)="onUpdate(product)" style="text-decoration: none"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                       <a (click)="open(deleteModal, product)" style="text-decoration: none; margin-left: 10px;" class="delete-test"><i class="fa fa-trash" aria-hidden="true"></i></a>
                     </td>
+                    <td></td>
                 </tr>
             </tbody>
         </table>
@@ -47,7 +49,7 @@
 <ng-template #deleteModal let-modal>
   <div style="padding: 10px;">
     <div class="modal-header d-flex justify-content-end">
-      <h4 class="modal-title" id="modal-basic-title">Delete a Category</h4>
+      <h4 class="modal-title" id="modal-basic-title">Xóa sản phẩm</h4>
       <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">

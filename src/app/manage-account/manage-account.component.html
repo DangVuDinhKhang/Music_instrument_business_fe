@@ -1,20 +1,20 @@
-<div class="row">
-    <div class="col-2">
+<div class="row" style="margin: 1px;">
+    <div class="col-2" style="margin-right: 0 !important; padding-right: 0 !important;">
         <app-sidebar></app-sidebar>
     </div>
-    <div class="col-10">
+    <div class="col-10" style="margin-left: 0 !important; padding-left: 0 !important;">
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th scope="col"></th>
                     <th scope="col">#</th>
-                    <th scope="col">Name
+                    <th scope="col">Tên
                       <!-- {{{sort "name" _sort}}} -->
                     </th>
-                    <th scope="col">Role
+                    <th scope="col">Vai trò
                       <!-- {{{sort "createdAt" _sort}}} -->
                     </th>
-                    <th scope="col" colspan="2">Phone
+                    <th scope="col" colspan="2">Số điện thoại
                       <!-- {{{sort "updatedAt" _sort}}} -->
                     </th>
                     
@@ -43,7 +43,7 @@
 <ng-template #deleteModal let-modal>
   <div style="padding: 10px;">
     <div class="modal-header d-flex justify-content-end">
-      <h4 class="modal-title" id="modal-basic-title">Delete a Category</h4>
+      <h4 class="modal-title" id="modal-basic-title">Xóa tài khoản</h4>
       <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">

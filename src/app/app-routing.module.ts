@@ -16,9 +16,11 @@ import { CartComponent } from './cart/cart.component';
 import { FormOrderComponent } from './form-order/form-order.component';
 import { ManageOrderComponent } from './manage-order/manage-order.component';
 import { OrderComponent } from './order/order.component';
+import { HomeComponent } from './home/home.component';
 
 const appRoutes: Routes=[
-    {path: "", redirectTo: "/", pathMatch: "full"},
+    {path: "", redirectTo: "home", pathMatch: "full"},
+    {path: "home", component: HomeComponent},
     {path: "auth", component: AuthComponent},
     {path: "products", children: [
         {path: "", component: ProductComponent},

@@ -27,6 +27,7 @@ import { ToastComponent } from './shared/toast/toast.component';
 import { FormOrderComponent } from './form-order/form-order.component';
 import { ManageOrderComponent } from './manage-order/manage-order.component';
 import { OrderComponent } from './order/order.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { OrderComponent } from './order/order.component';
     ToastComponent,
     FormOrderComponent,
     ManageOrderComponent,
-    OrderComponent
+    OrderComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
