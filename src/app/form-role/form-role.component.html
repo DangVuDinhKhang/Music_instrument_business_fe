@@ -1,0 +1,13 @@
+<div style="width: 30%; margin-left: 35%;">
+    <div style="text-align: center; font-weight: bold; font-size: 25px;">Cập nhật tài khoản</div>
+    <form #roleForm="ngForm" (ngSubmit)="onSubmit(roleForm)"> 
+        <div class="form-group">
+            <label class="col-sm-2 col-form-label">Vai trò</label>
+            <input type="text" class="form-control" id="role" name="role" [(ngModel)]="role" required>
+        </div>
+        <!-- <app-alert [message]="error" *ngIf="error"></app-alert> -->
+        <div class="mt-4">
+            <button class="btn btn-primary" type="submit" style="width: 100%" [disabled]="!roleForm.valid">Cập nhật</button>    
+        </div>
+    </form>
+</div>

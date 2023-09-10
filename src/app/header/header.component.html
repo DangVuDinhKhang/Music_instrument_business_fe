@@ -20,7 +20,7 @@
             <a class="nav-link dropdown-toggle" ngbDropdownToggle style="cursor: pointer;">{{username}}</a>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
               <button ngbDropdownItem *ngIf="role == 'admin'" [routerLink]="['/manage/products']">Quản lí</button>
-              <button ngbDropdownItem *ngIf="role == 'member'" [routerLink]="['/my-order']">Tài khoản</button>
+              <button ngbDropdownItem *ngIf="role == 'member'" [routerLink]="['/profile']">Tài khoản</button>
               <button ngbDropdownItem *ngIf="role == 'member'" [routerLink]="['/my-order']">Đơn mua</button>
               <button ngbDropdownItem (click)="onLogout()">Đăng xuất</button>
             </div>

@@ -23,8 +23,13 @@ export class AuthService{
     account = new BehaviorSubject<Account>(null!);
     private tokenExpirationTimer: any;
     accountIdAfterSuccess!: number
+    needToUpdateAccount!: Account;
     
     constructor(private http: HttpClient, private router: Router){}
+
+    setNeedUpdateAccount(account: Account){
+        this.needToUpdateAccount = account;
+    }
 
     signUp(username: string, password: string) {
         return this.http.post<AuthResponseData>("http://localhost:8080/api/account/register", {

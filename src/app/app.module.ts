@@ -28,6 +28,9 @@ import { FormOrderComponent } from './form-order/form-order.component';
 import { ManageOrderComponent } from './manage-order/manage-order.component';
 import { OrderComponent } from './order/order.component';
 import { HomeComponent } from './home/home.component';
+import { ProfileComponent } from './profile/profile.component';
+import { FormRoleComponent } from './form-role/form-role.component';
+import { IgcFormsModule } from 'igniteui-angular';
 
 @NgModule({
   declarations: [
@@ -51,7 +54,9 @@ import { HomeComponent } from './home/home.component';
     FormOrderComponent,
     ManageOrderComponent,
     OrderComponent,
-    HomeComponent
+    HomeComponent,
+    ProfileComponent,
+    FormRoleComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +65,8 @@ import { HomeComponent } from './home/home.component';
     NgbModule,
     AppRoutingModule,
     HttpClientModule,
-    UploadxModule
+    UploadxModule,
+    IgcFormsModule
   ],
   providers: [DecimalPipe],
   bootstrap: [AppComponent]

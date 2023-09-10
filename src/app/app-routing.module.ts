@@ -17,11 +17,14 @@ import { FormOrderComponent } from './form-order/form-order.component';
 import { ManageOrderComponent } from './manage-order/manage-order.component';
 import { OrderComponent } from './order/order.component';
 import { HomeComponent } from './home/home.component';
+import { ProfileComponent } from './profile/profile.component';
+import { FormRoleComponent } from './form-role/form-role.component';
 
 const appRoutes: Routes=[
     {path: "", redirectTo: "home", pathMatch: "full"},
     {path: "home", component: HomeComponent},
     {path: "auth", component: AuthComponent},
+    {path: "profile", canActivate: [AuthGuard], component: ProfileComponent},
     {path: "products", children: [
         {path: "", component: ProductComponent},
         {path: ":id", component: ProductDetailComponent}
@@ -29,7 +32,10 @@ const appRoutes: Routes=[
     {path: "categories", children: [
         
     ]},
-    {path: "manage/accounts", canActivate: [AdminGuard], component: ManageAccountComponent},
+    {path: "manage/accounts", canActivate: [AdminGuard], children: [
+        {path: "", component: ManageAccountComponent},
+        {path: "update/:id", component: FormRoleComponent}
+    ]},
     {path: "manage/products", canActivate: [AdminGuard], children: [
         {path: "", component: ManageProductComponent},
         {path: "add", component: FormProductComponent},

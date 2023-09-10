@@ -3,6 +3,7 @@ import { Account } from '../auth/account.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-manage-account',
@@ -13,7 +14,7 @@ export class ManageAccountComponent {
   accounts: Account[] = [];
   needToDeleteAccountId = 0;
 
-  constructor(private http: HttpClient, private authService: AuthService, private modalService: NgbModal){}
+  constructor(private http: HttpClient, private authService: AuthService, private modalService: NgbModal, private router: Router){}
 
   ngOnInit() {
     this.getProducts();
@@ -29,8 +30,8 @@ export class ManageAccountComponent {
   }
 
   onUpdate(account: Account){
-    // this.categoryService.setNeedUpdateCategory(category);
-    // this.router.navigate(['/manage/categories/update', category.id] );
+    this.authService.setNeedUpdateAccount(account);
+    this.router.navigate(['/manage/accounts/update', account.id] );
   }
 
   open(modal: any, account: Account){

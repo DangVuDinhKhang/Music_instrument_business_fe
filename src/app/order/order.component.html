@@ -1,9 +1,16 @@
 <div class="container">
   <div class="row">
-    <div class="col-3 profile">
-
+    <div class="col-2" style="text-align: center;">
+      <div style="text-align: center; font-weight: bold;">{{username}}</div>
+      <div class="update-profile" [routerLink]="['/profile']"><i class="fa-solid fa-pencil"></i> Sửa hồ sơ</div>
+      <div class="mt-5 sort">
+        <div class="title">Sắp xếp theo</div>
+        <div class="sort-type">Mới nhất</div>
+        <div class="sort-type">Cũ nhất</div>
+      </div>
     </div>
-    <div class="col-9">
+    <div class="col-10">
+      <app-toast></app-toast>
       <div class="item row mt-1" *ngFor="let ordersDetail of ordersDetailOfOrders; let i=index">
         <div class="row">
           <div class="col-8"></div>
@@ -15,7 +22,7 @@
         </div>
         <div class="row mt-3" *ngFor="let orderDetail of ordersDetail; let j=index">
           <div class="col-3">
-            <img [src]="" class="card-img-top" alt={{orderDetail.product.name}}>
+            <img [src]="orderDetail.product.file[0]" class="card-img-top" alt={{orderDetail.product.name}}>
           </div>
           <div class="col-7">{{orderDetail.product.name}}</div>    
           <div class="col-2">
@@ -24,12 +31,23 @@
                 {{orderDetail.total | number:'1.0-0':'en-US'}} ₫
               </span>
             </p>
-          </div>  
+          </div> 
+          <div class="mt-2 mb-4 row">
+            <div class="col-9">
+              <button type="button" class="btn btn-danger" *ngIf="!ratedProduct.includes(orderDetail.product.id)"
+                (click)="open(ratingModal, orderDetail.product)" [disabled]="!totalPriceAndStatus[i].status">Đánh giá
+              </button>
+              <div *ngIf="ratedProduct.includes(orderDetail.product.id)">
+                <button type="button" class="btn btn-danger" disabled>Đã đánh giá</button>
+                <!-- <igc-rating style="color: #eda500; font-size: 25px !important;" name="rating" 
+                  [(ngModel)]="star" max="5" hover-preview size="large" disabled>
+                </igc-rating>  -->
+              </div>         
+            </div>
+          </div> 
         </div>
-        <div class="mt-4 row">
-          <div class="col-9">
-            <button type="button" class="btn btn-danger" [disabled]="!totalPriceAndStatus[i].status">Đánh giá</button>
-          </div>
+        <div class="row">
+          <div class="col-9"></div>
           <div class="col-3">
             Thành tiền: <span style="color: red; font-weight: bold; margin-left: 5px; font-size: 20px;">
               {{totalPriceAndStatus[i].totalPrice | number:'1.0-0':'en-US'}} ₫</span>
@@ -38,6 +56,28 @@
       </div>
     </div>
   </div>
-  
 </div>
-<!-- <p *ngFor="let orderDetail of ordersDetail">{{orderDetail.total}}</p> -->
+<ng-template #ratingModal let-modal>
+  <div style="padding: 10px;">
+    <div class="modal-header d-flex justify-content-end">
+      <h4 class="modal-title" id="modal-basic-title">Đánh giá sản phẩm</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form #ratingForm="ngForm" (ngSubmit)="onSubmit(ratingForm)">
+        <div class="mb-2">Chất lượng sản phẩm: <span style="margin-left: 10px; color: #eda500">{{labelOfRating[star-1]}}</span></div>
+        <igc-rating style="color: #eda500; font-size: 25px !important;" name="rating" [(ngModel)]="star" max="5" hover-preview size="large"></igc-rating>
+        <div class="form-group mt-4">
+          <textarea class="form-control" name="content" cols="58" rows="5" placeholder="Hãy chia sẻ cảm nghĩ của bạn nhé" ngModel></textarea>
+        </div>
+        <div class="mt-4 row">
+          <div class="col-6"></div>
+          <div class="col-6">
+            <button type="button" class="btn btn-danger" style="margin-right: 10px;">Trở lại</button>
+            <button type="submit" class="btn btn-primary">Hoàn thành</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
