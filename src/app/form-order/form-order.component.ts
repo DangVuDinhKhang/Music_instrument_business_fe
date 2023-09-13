@@ -7,6 +7,7 @@ import { AuthService } from '../auth/auth.service';
 import { CartService } from '../cart/cart.service';
 import { NgForm } from '@angular/forms';
 import { Cart } from '../cart/cart.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-order',
@@ -26,7 +27,7 @@ export class FormOrderComponent implements OnInit, OnDestroy{
   totalPrice!: number;
 
 
-  constructor(private authService: AuthService, private cartService: CartService, private http: HttpClient){}
+  constructor(private authService: AuthService, private cartService: CartService, private http: HttpClient, private router: Router){}
 
   ngOnInit(): void {
     this.getPayments()
@@ -52,7 +53,9 @@ export class FormOrderComponent implements OnInit, OnDestroy{
       return;
 
     const phone = form.value.phone;
-    const address = form.value.address
+    const address = form.value.address;
+    const note = form.value.note;
+    console.log(note);
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.authService.account.value.token}`
     });
@@ -60,12 +63,13 @@ export class FormOrderComponent implements OnInit, OnDestroy{
     this.http.post<Payment>(`http://localhost:8080/api/order/`, {
       phone: phone, 
       address: address, 
+      note: note,
       total: this.totalPrice,
       account: {id: this.accountId},
       payment: {id: this.selectedPayment},
       productsInCartDTO: this.cart.productsAndQuantity
     }, {headers}).subscribe((responseData)=>{
-      //this.router.navigate(["/manage/payments"]);
+      this.router.navigate(["/my-order"]);
     });
     
   }

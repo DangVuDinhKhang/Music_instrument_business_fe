@@ -32,9 +32,11 @@ export class OrderComponent implements OnInit{
   star!: number;
 
   ratings: Rating[] = [];
-  ratedProduct: number[] = [];
+  ratedProducts: number[] = [];
 
   labelOfRating = ["Tệ", "Không hài lòng", "Bình thường", "Hài lòng", "Tuyệt vời"]
+
+  needToRemoveOrder!: Order;
 
   constructor(
     private http: HttpClient, private authService: AuthService, 
@@ -76,8 +78,15 @@ export class OrderComponent implements OnInit{
       product: {id: this.needToRatingProductId}
     }, 
     {headers}).subscribe((responseData)=>{
-      console.log(responseData);
-      this.ratedProduct.push(this.needToRatingProductId)
+      for(let orderDetailsOfOrder of this.ordersDetailOfOrders){
+        for(let orderDetail of orderDetailsOfOrder){
+          if(orderDetail.product.id == this.needToRatingProductId){
+            this.ratedProducts.push(this.needToRatingProductId);
+            orderDetail.isRated = true;
+            orderDetail.star = star;
+          }
+        }
+      }
       this.modalService.dismissAll();
       this.toastService.updateSuccess(true);
       this.toastService.updateMessage("Đánh giá sản phẩm thành công");
@@ -95,13 +104,14 @@ export class OrderComponent implements OnInit{
     this.http.get<Rating[]>(`http://localhost:8080/api/rating/account/${this.accountId}`, {headers}).subscribe((ratings)=>{
       this.ratings = ratings;
       this.ratings.map((rating)=>{
-        this.ratedProduct.push(rating.product.id);
+        this.ratedProducts.push(rating.product.id);
       })
     })
   }
 
   getAllOrder(){
     this.http.get<Order[]>(`http://localhost:8080/api/order/account/${this.accountId}`).subscribe((orders)=>{
+      this.sort(orders, true);
       this.orders = orders;
       this.getAllOrderDetail()
     })
@@ -112,12 +122,22 @@ export class OrderComponent implements OnInit{
       'Authorization': `Bearer ${this.authService.account.value.token}`
     });
     for(let order of this.orders){
-      this.http.get<OrderDetail[]>(`http://localhost:8080/api/order-detail/${order.id}`, {headers}).subscribe((ordersDetailOfOrders)=>{
+      this.http.get<any[]>(`http://localhost:8080/api/order-detail/${order.id}`, {headers}).subscribe((ordersDetailOfOrders)=>{
         this.ordersDetailOfOrders.push(ordersDetailOfOrders);
         this.totalPriceAndStatus.push({
           totalPrice: ordersDetailOfOrders[0].customerOrder.total, 
           status: ordersDetailOfOrders[0].customerOrder.status
         });
+        this.http.get<Rating[]>(`http://localhost:8080/api/rating/account/${this.accountId}`, {headers}).subscribe((ratings)=>{
+          this.ratings = ratings;
+          for(let orderDetail of ordersDetailOfOrders)
+            for(let rating of ratings)
+              if(orderDetail.product.id == rating.product.id){
+                this.ratedProducts.push(rating.product.id);
+                orderDetail.isRated = true;
+                orderDetail.star = rating.star;
+              }
+        })
         let list: any = [];
         this.http.get<any>(`http://localhost:8080/api/file`).subscribe((responseData)=>{
           this.files = responseData;
@@ -135,6 +155,51 @@ export class OrderComponent implements OnInit{
         })
       })
     }
+  }
+
+  sort(orders: Order[], desc: boolean){
+    if(desc){
+      orders.sort((a, b)=>{
+        let dateA = new Date(a.date);
+        let dateB = new Date(b.date);
+        return dateB.getTime() - dateA.getTime();
+      });
+    }
+    else{
+      orders.sort((a, b)=>{
+        let dateA = new Date(a.date);
+        let dateB = new Date(b.date);
+        return dateA.getTime() - dateB.getTime();
+      });
+    }
+  }
+
+  sort_asc(){
+    this.sort(this.orders, false);
+    console.log(this.orders);
+  }
+
+  sort_desc(){
+    this.sort(this.orders, true);
+    console.log(this.orders);
+  }
+
+  openRemoveModal(modal: any, orderDetal: OrderDetail){
+    this.modalService.open(modal);
+    this.needToRemoveOrder = orderDetal.customerOrder;
+  }
+
+  onDelete(){
+    this.modalService.dismissAll();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.authService.account.value.token}`
+    });
+    this.http.put<any>(`http://localhost:8080/api/order/cancel/${this.needToRemoveOrder.id}`, {status: -1}, {headers})
+    .subscribe((responseData)=>{
+      for(let i = 0; i < this.orders.length; i++)
+        if(this.orders[i].id ==this.needToRemoveOrder.id)
+          this.totalPriceAndStatus[i].status = -1;
+    })
   }
 
   ngOnDestroy(){

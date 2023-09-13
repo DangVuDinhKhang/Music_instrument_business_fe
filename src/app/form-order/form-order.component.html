@@ -29,7 +29,11 @@
               (click)="onSelected(payment.id)">{{payment.name}}
           </div>
         </div>
-        <div class="form-group mt-5">
+        <div class="form-group mt-3">
+          <label for="note">Ghi chú</label>
+          <textarea class="form-control" name="note" id="note" ngModel></textarea>
+        </div>
+        <div class="form-group mt-4">
             <p style="font-weight: bold;">Tổng tiền: {{totalPrice | number:'1.0-0':'en-US'}} ₫</p>
             <button type="submit" class="btn-og btn-step mb-4">HOÀN TẤT MUA HÀNG</button>
         </div>    

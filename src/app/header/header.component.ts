@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { ProductService } from '../product/product.service';
 import { CartService } from '../cart/cart.service';
 import { HttpClient } from '@angular/common/http';
+import { Category } from '../manage-category/category.model';
 
 @Component({
   selector: 'app-header',
@@ -16,6 +17,9 @@ export class HeaderComponent implements OnInit, OnDestroy{
   role = "member";
   username = "";
   numberOfType = 0;
+  
+  showDropdown = false;
+  categories!: Category[]
 
   constructor(private authService: AuthService, private cartService: CartService, private http: HttpClient){}
 
@@ -28,9 +32,12 @@ export class HeaderComponent implements OnInit, OnDestroy{
           this.role = "admin"
         else
           this.role = "member"
-
       }
     })
+
+  this.http.get<Category[]>(`http://localhost:8080/api/category`).subscribe((categories)=>{
+    this.categories = categories
+  })
   
   //  this.cartService.handleCart().then(()=>{                  // Display quantity in cart
   //   this.numberOfType = this.cartService.numberOfType;
@@ -48,4 +55,9 @@ export class HeaderComponent implements OnInit, OnDestroy{
   onLogout(){
     this.authService.logout();
   }
+
+  public setDropDown(isVisible: boolean): void {
+    this.showDropdown = isVisible;
+  }
+
 }

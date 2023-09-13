@@ -5,8 +5,8 @@
       <div class="update-profile" [routerLink]="['/profile']"><i class="fa-solid fa-pencil"></i> Sửa hồ sơ</div>
       <div class="mt-5 sort">
         <div class="title">Sắp xếp theo</div>
-        <div class="sort-type">Mới nhất</div>
-        <div class="sort-type">Cũ nhất</div>
+        <div class="sort-type" (click)="sort_asc()">Mới nhất</div>
+        <div class="sort-type" (click)="sort_desc()">Cũ nhất</div>
       </div>
     </div>
     <div class="col-10">
@@ -15,8 +15,9 @@
         <div class="row">
           <div class="col-8"></div>
           <div class="col-4">Trạng thái đơn hàng: 
-            <span [className]="totalPriceAndStatus[i].status ? 'green' : 'red'">
-              {{totalPriceAndStatus[i].status ? "Hoàn thành" : "Chưa hoàn thành"}}
+            <span [className]="totalPriceAndStatus[i].status == 2 ? 'green' : 'red'">
+              {{totalPriceAndStatus[i].status == 2 ? "Đã hoàn thành" : totalPriceAndStatus[i].status == 1 ? "Đang vận chuyển" : 
+                totalPriceAndStatus[i].status == 0 ? "Đang xử lí" : "Đã hủy"}}
             </span>  
           </div>
         </div>
@@ -34,15 +35,18 @@
           </div> 
           <div class="mt-2 mb-4 row">
             <div class="col-9">
-              <button type="button" class="btn btn-danger" *ngIf="!ratedProduct.includes(orderDetail.product.id)"
-                (click)="open(ratingModal, orderDetail.product)" [disabled]="!totalPriceAndStatus[i].status">Đánh giá
+              <button type="button" class="btn btn-danger" *ngIf="!orderDetail.isRated && !ratedProducts.includes(orderDetail.product.id)"
+                (click)="open(ratingModal, orderDetail.product)" [disabled]="totalPriceAndStatus[i].status != 2">Đánh giá
               </button>
-              <div *ngIf="ratedProduct.includes(orderDetail.product.id)">
-                <button type="button" class="btn btn-danger" disabled>Đã đánh giá</button>
-                <!-- <igc-rating style="color: #eda500; font-size: 25px !important;" name="rating" 
-                  [(ngModel)]="star" max="5" hover-preview size="large" disabled>
-                </igc-rating>  -->
-              </div>         
+              <div *ngIf="orderDetail.isRated || ratedProducts.includes(orderDetail.product.id)">
+                <button type="button" class="btn btn-danger" disabled style="margin-right: 5px ;">Đã đánh giá</button>
+                <igc-rating style="color: #eda500; font-size: 25px !important;" name="rating" 
+                  [(ngModel)]="orderDetail.star" max="5" hover-preview size="large" disabled>
+                </igc-rating> 
+              </div>       
+              <button style="margin-left: 10px;" type="button" class="btn btn-danger" *ngIf="totalPriceAndStatus[i].status == 0"
+                (click)="openRemoveModal(removeModal, orderDetail)">Hủy mua
+              </button> 
             </div>
           </div> 
         </div>
@@ -78,6 +82,22 @@
           </div>
         </div>
       </form>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #removeModal let-modal>
+  <div style="padding: 10px;">
+    <div class="modal-header d-flex justify-content-end">
+      <h4 class="modal-title" id="modal-basic-title">Hủy đơn hàng</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      Bạn muốn hủy đơn hàng này ?
+    </div>
+    <div style="display: block; float: right;">
+      <button type="button" class="btn btn-danger" style="margin-right: 10px;" (click)="onDelete()">Hủy</button>
+      <button type="button" class="btn btn-primary" (click)="modal.dismiss('Cross click')">Trở lại</button>
     </div>
   </div>
 </ng-template>

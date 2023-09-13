@@ -47,8 +47,8 @@
         Hành động này không thể khôi phục, bạn có chắc không ?
       </div>
       <div style="display: block; float: right;">
-        <button type="button" class="btn btn-danger" style="margin-right: 10px;" (click)="onDelete()">Delete</button>
-        <button type="button" class="btn btn-primary">Cancel</button>
+        <button type="button" class="btn btn-danger" style="margin-right: 10px;" (click)="onDelete()">Xóa</button>
+        <button type="button" class="btn btn-primary" (click)="modal.dismiss('Cross click')">Trở lại</button>
       </div>
     </div>
 </ng-template>

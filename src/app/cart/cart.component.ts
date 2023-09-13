@@ -81,10 +81,6 @@ export class CartComponent implements OnInit{
     this.updateTotalPrice();
   }
 
-  checkBeforeUpdate(productId: number){
-    
-  }
-
   updateInCart(productId: number){
     let checkBefore = true;
     for(let productAndQuantity of this.cart.productsAndQuantity)

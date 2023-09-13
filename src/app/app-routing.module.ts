@@ -21,8 +21,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { FormRoleComponent } from './form-role/form-role.component';
 
 const appRoutes: Routes=[
-    {path: "", redirectTo: "home", pathMatch: "full"},
-    {path: "home", component: HomeComponent},
+    {path: "", redirectTo: "products", pathMatch: "full"},
+    {path: "home", component: ProductComponent},
     {path: "auth", component: AuthComponent},
     {path: "profile", canActivate: [AuthGuard], component: ProfileComponent},
     {path: "products", children: [

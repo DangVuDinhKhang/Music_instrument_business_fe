@@ -11,53 +11,52 @@
                     <th scope="col">Tài khoản
                       <!-- {{{sort "name" _sort}}} -->
                     </th>
-                    <th scope="col">Số điện thoại</th>
-                    <th scope="col">Địa chỉ</th>
                     <th scope="col">Ngày đặt</th>
                     <th scope="col">Thanh toán</th>
                     <th scope="col">Tổng tiền</th>
                     <th scope="col">Trạng thái</th>
-                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let order of orders; let index = index">
-                    <th scope="row">{{index + 1 }}</th>
-                    <td>{{order.id}}</td>
-                    <td>{{order.account.username}}</td>
-                    <td>{{order.phone}}</td>
-                    <td>{{order.address}}</td>
-                    <td>{{order.date}}</td>
-                    <td>{{order.payment.name}}</td>
-                    <td>{{order.total|number:'1.0-0':'en-US'}} ₫</td>
-                    <td>{{order.status ? "Đã hoàn thành" : "Chưa hoàn thành"}}</td>
+                <tr class="blur" *ngFor="let order of orders; let index = index">
+                    <th scope="row" (click)="open(showModal, order)" >{{index + 1 }}</th>
+                    <td (click)="open(showModal, order)" >{{order.id}}</td>
+                    <td (click)="open(showModal, order)" >{{order.account.username}}</td>
+                    <td (click)="open(showModal, order)" >{{order.date}}</td>
+                    <td (click)="open(showModal, order)" >{{order.payment.name}}</td>
+                    <td (click)="open(showModal, order)" >{{order.total|number:'1.0-0':'en-US'}} ₫</td>
                     <td>
+                        <select class="form-select" [(ngModel)]="order.status" *ngIf="order.status != -1" (change)="onUpdate(order)">
+                            <option value=0>Đang xử lí</option>
+                            <option value=1>Đang vận chuyển</option>
+                            <option value=2>Đã hoàn thành</option>
+                        </select>
+                        <div (click)="open(showModal, order)" style="margin-left: 10px;" *ngIf="order.status == -1">Đã hủy</div>
+                    </td>
+                    <!-- <td>
                         <a (click)="onUpdate(order)">
                             <i class="fa-solid fa-check" aria-hidden="true" *ngIf="!order.status" style="color: rgb(6, 193, 6);"></i>
                         </a>
                         <a (click)="onUpdate(order)">
                             <i class="fa-solid fa-x" aria-hidden="true" *ngIf="order.status" style="color: rgb(179, 9, 9);"></i>
                         </a>
-                        <!-- <a (click)="open(deleteModal, category)" style="text-decoration: none; margin-left: 10px;" class="delete-test"><i class="fa fa-trash" aria-hidden="true"></i></a> -->
-                    </td>
+                        <a (click)="open(deleteModal, category)" style="text-decoration: none; margin-left: 10px;" class="delete-test"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                    </td> -->
                 </tr>
             </tbody>
         </table>
     </div>
 </div>  
 
-<!-- <ng-template #deleteModal let-modal>
+<ng-template #showModal let-modal>
     <div style="padding: 10px;">
       <div class="modal-header d-flex justify-content-end">
-        <h4 class="modal-title" id="modal-basic-title">Delete a Category</h4>
+        <h4 class="modal-title" id="modal-basic-title">Chi tiết đơn hàng</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
       </div>
       <div class="modal-body">
-        Hành động này không thể khôi phục, bạn có chắc không ?
-      </div>
-      <div style="display: block; float: right;">
-        <button type="button" class="btn btn-danger" style="margin-right: 10px;" (click)="onDelete()">Delete</button>
-        <button type="button" class="btn btn-primary">Cancel</button>
+        <p>Số điện thoại: {{selectedOrder.phone}}</p>
+        <p>Địa chỉ: {{selectedOrder.address}}</p>
       </div>
     </div>
-</ng-template> -->
+</ng-template>

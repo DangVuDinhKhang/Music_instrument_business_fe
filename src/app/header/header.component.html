@@ -6,11 +6,14 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <!-- <li class="nav-item" *ngIf="isAuthenticated">
-            <a class="nav-link" [routerLink]="['/recipes']">Product</a>
-          </li> -->
           <li class="nav-item">
             <a class="nav-link highlight" [routerLink]="['/products']">Sản phẩm</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link highlight">Danh mục sản phẩm</a>
+            <div class="dropdown-content">
+              <a class="dropdown-item" href="#" *ngFor="let category of categories">{{category.name}}</a>
+            </div>
           </li>
         </ul>
         <div class="nav navbar-nav navbar-right" style="width: 150px;">
@@ -29,9 +32,15 @@
             <a class="nav-link" routerLink="/auth" style="cursor: pointer;">Đăng nhập</a>
           </div>
         </div>
-      
+        
       </div>
     </div>
   </nav>
+  <div class="dropdown-menu" aria-labelledby="navbarDropdown" *ngIf="showDropdown">
+    <a class="dropdown-item" href="#">Danh mục 1</a>
+    <a class="dropdown-item" href="#">Danh mục 2</a>
+    <a class="dropdown-item" href="#">Danh mục 3</a>
+    <!-- Thêm các danh mục sản phẩm khác tại đây -->
+  </div>
 
   

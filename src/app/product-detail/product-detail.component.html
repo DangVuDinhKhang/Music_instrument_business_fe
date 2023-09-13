@@ -6,7 +6,11 @@
         </div>
         <div class="col-6">
             <p style="font-weight: bold; font-size: 25px;">{{product.name}}</p>
-            
+            <span style="color: #ee4d2d; text-decoration: underline; font-weight: bold;">{{averageStar}}</span>
+            <igc-rating style="color: #ee4d2d; " name="rating"
+                [(ngModel)]="averageStar" max="5" hover-preview size="large" disabled>  
+            </igc-rating> |
+            <span>{{ratings.length}} Đánh giá | </span>
             <div class="row detail">
                 <div class="col-3">Giá bán</div>
                 <div class="price col-9">{{ product.price | number:'1.0-0':'en-US' }}₫</div>
@@ -20,6 +24,27 @@
                 <button #from class="btn btn-danger mt-4" style="width: 400px;" (click)="addToCart(product.id)" [disabled]="product.quantity == 0">Thêm vào giỏ hàng</button>
             </div>
         </div>
+    </div>
+    <div class="mt-5 mb-3 row">
+        <div class="col-8 box" style="padding: 20px;">
+            <h3 class="">Mô tả sản phẩm</h3>
+            <div>{{product.description}}</div>
+            <h3 class="mt-4">Đánh giá sản phẩm</h3>
+            <div *ngIf="ratings.length > 0">
+                <div class="box rating-item" *ngFor="let rating of ratings" >
+                    <p style="margin-left: 4px;">
+                        <span style="font-weight: bold;">{{rating.account.username}}</span>
+                        <span style="margin-left: 10px; font-style: italic; font-size: 12px;">{{rating.date}}</span>
+                    </p>
+                    <igc-rating style="color: #ee4d2d; " name="rating"
+                        [(ngModel)]="rating.star" max="5" hover-preview size="large" disabled>  
+                    </igc-rating>
+                    <p style="margin-left: 4px; margin-top: 5px;">{{rating.content}}</p>
+                </div>
+            </div>
+            <div *ngIf="ratings.length == 0">Chưa có đánh giá nào</div>
+        </div>
+        <div class="col-4"></div>
     </div>
 </div>
 
