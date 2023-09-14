@@ -1,0 +1,58 @@
+<div class="row" style="margin: 1px;">
+    <div class="col-2" style="margin-right: 0 !important; padding-right: 0 !important;">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="col-10" style="margin-left: 0 !important; padding-left: 0 !important;">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">#</th>
+                    <th scope="col">Tên
+                      <!-- {{{sort "name" _sort}}} -->
+                    </th>
+                    <th scope="col">Thông tin liên lạc
+                      <!-- {{{sort "name" _sort}}} -->
+                    </th>
+                    <th scope="col"></th>
+                    <th scope="col">
+                      <button type="button" class="btn btn-primary add" [routerLink]="['add']">Add</button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let supplier of suppliers; let index = index">
+                    <td>
+                      <div class="form-check">
+                        <input class="form-check-input checkbox" type="checkbox" value="" name="destinations[]">
+                      </div>
+                    </td>
+                    <th scope="row">{{index + 1 }}</th>
+                    <td>{{supplier.name}}</td>
+                    <td>{{supplier.contact}}</td>
+                    <td>
+                        <a (click)="onUpdate(supplier)" style="text-decoration: none"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                        <a (click)="open(deleteModal, supplier)" style="text-decoration: none; margin-left: 10px;" class="delete-test"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                    </td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>  
+
+<ng-template #deleteModal let-modal>
+    <div style="padding: 10px;">
+      <div class="modal-header d-flex justify-content-end">
+        <h4 class="modal-title" id="modal-basic-title">Xóa nhà cung cấp</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+      <div class="modal-body">
+        Hành động này không thể khôi phục, bạn có chắc không ?
+      </div>
+      <div style="display: block; float: right;">
+        <button type="button" class="btn btn-danger" style="margin-right: 10px;" (click)="onDelete()">Xóa</button>
+        <button type="button" class="btn btn-primary" (click)="modal.dismiss('Cross click')">Trở lại</button>
+      </div>
+    </div>
+</ng-template>

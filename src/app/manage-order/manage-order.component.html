@@ -26,12 +26,12 @@
                     <td (click)="open(showModal, order)" >{{order.payment.name}}</td>
                     <td (click)="open(showModal, order)" >{{order.total|number:'1.0-0':'en-US'}} ₫</td>
                     <td>
-                        <select class="form-select" [(ngModel)]="order.status" *ngIf="order.status != -1" (change)="onUpdate(order)">
+                        <select class="form-select" (change)="onUpdate(order)" [(ngModel)]="order.status">
                             <option value=0>Đang xử lí</option>
                             <option value=1>Đang vận chuyển</option>
                             <option value=2>Đã hoàn thành</option>
+                            <option value=-1>Đã hủy</option>
                         </select>
-                        <div (click)="open(showModal, order)" style="margin-left: 10px;" *ngIf="order.status == -1">Đã hủy</div>
                     </td>
                     <!-- <td>
                         <a (click)="onUpdate(order)">
@@ -60,3 +60,19 @@
       </div>
     </div>
 </ng-template>
+
+<!-- <ng-template #confirmModal let-modal>
+    <div style="padding: 10px;">
+      <div class="modal-header d-flex justify-content-end">
+        <h4 class="modal-title" id="modal-basic-title">Hủy đơn hàng</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="onCancel(false)"></button>
+      </div>
+      <div class="modal-body">
+        <p>Hành động này không thể khôi phục, bạn có chắc không</p>
+      </div>
+      <div style="display: block; float: right;">
+        <button type="button" class="btn btn-danger" style="margin-right: 10px;" (click)="onCancel(true)">Hủy</button>
+        <button type="button" class="btn btn-primary" (click)="onCancel(false)">Trở lại</button>
+      </div>
+    </div>
+</ng-template> -->

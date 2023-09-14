@@ -43,15 +43,18 @@
                 <igc-rating style="color: #eda500; font-size: 25px !important;" name="rating" 
                   [(ngModel)]="orderDetail.star" max="5" hover-preview size="large" disabled>
                 </igc-rating> 
-              </div>       
-              <button style="margin-left: 10px;" type="button" class="btn btn-danger" *ngIf="totalPriceAndStatus[i].status == 0"
-                (click)="openRemoveModal(removeModal, orderDetail)">Hủy mua
-              </button> 
+              </div>        
             </div>
           </div> 
         </div>
         <div class="row">
-          <div class="col-9"></div>
+          <div class="col-7"></div>
+          <div class="col-2">
+            <button 
+              style="margin-left: 10px;" type="button" class="btn btn-danger" *ngIf="totalPriceAndStatus[i].status == 0"
+              (click)="openRemoveModal(removeModal, ordersDetail[0])">Hủy mua
+            </button> 
+          </div>
           <div class="col-3">
             Thành tiền: <span style="color: red; font-weight: bold; margin-left: 5px; font-size: 20px;">
               {{totalPriceAndStatus[i].totalPrice | number:'1.0-0':'en-US'}} ₫</span>

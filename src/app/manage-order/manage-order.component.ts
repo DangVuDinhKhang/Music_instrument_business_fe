@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Order } from './order.model';
 import { AuthService } from '../auth/auth.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -10,6 +10,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./manage-order.component.scss']
 })
 export class ManageOrderComponent implements OnInit{
+
+  @ViewChild("confirmModal") confirmModal: any;
 
   orders: Order[] = [];
   selectedOrder!: Order;
@@ -39,5 +41,7 @@ export class ManageOrderComponent implements OnInit{
       'Authorization': `Bearer ${this.authService.account.value.token}`
     });
     this.http.put<Order>(`http://localhost:8080/api/order/${order.id}`, {status: order.status}, {headers}).subscribe();
+    
   }
+
 }

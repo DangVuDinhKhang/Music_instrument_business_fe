@@ -31,6 +31,11 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FormRoleComponent } from './form-role/form-role.component';
 import { IgcFormsModule } from 'igniteui-angular';
+import { FilterProductComponentComponent } from './filter-product-component/filter-product-component.component';
+import { ManageImportOrdersComponent } from './manage-import-orders/manage-import-orders.component';
+import { FormImportOrderComponent } from './form-import-order/form-import-order.component';
+import { ManageSupplierComponent } from './manage-supplier/manage-supplier.component';
+import { FormSupplierComponent } from './form-supplier/form-supplier.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +61,12 @@ import { IgcFormsModule } from 'igniteui-angular';
     OrderComponent,
     HomeComponent,
     ProfileComponent,
-    FormRoleComponent
+    FormRoleComponent,
+    FilterProductComponentComponent,
+    ManageImportOrdersComponent,
+    FormImportOrderComponent,
+    ManageSupplierComponent,
+    FormSupplierComponent
   ],
   imports: [
     BrowserModule,

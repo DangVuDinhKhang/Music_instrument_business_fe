@@ -19,6 +19,10 @@ import { OrderComponent } from './order/order.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FormRoleComponent } from './form-role/form-role.component';
+import { FilterProductComponentComponent } from './filter-product-component/filter-product-component.component';
+import { FormImportOrderComponent } from './form-import-order/form-import-order.component';
+import { ManageSupplierComponent } from './manage-supplier/manage-supplier.component';
+import { FormSupplierComponent } from './form-supplier/form-supplier.component';
 
 const appRoutes: Routes=[
     {path: "", redirectTo: "products", pathMatch: "full"},
@@ -29,9 +33,7 @@ const appRoutes: Routes=[
         {path: "", component: ProductComponent},
         {path: ":id", component: ProductDetailComponent}
     ]},
-    {path: "categories", children: [
-        
-    ]},
+    {path: "products/category/:id", component: FilterProductComponentComponent},
     {path: "manage/accounts", canActivate: [AdminGuard], children: [
         {path: "", component: ManageAccountComponent},
         {path: "update/:id", component: FormRoleComponent}
@@ -51,8 +53,16 @@ const appRoutes: Routes=[
         {path: "add", component: FormPaymentComponent},
         {path: "update/:id", component: FormPaymentComponent}
     ]},
+    {path: "manage/suppliers", canActivate: [AdminGuard], children: [
+        {path: "", component: ManageSupplierComponent},
+        {path: "add", component: FormSupplierComponent},
+        {path: "update/:id", component: FormSupplierComponent}
+    ]},
     {path: "manage/orders", canActivate: [AdminGuard], children: [
         {path: "", component: ManageOrderComponent},
+    ]},
+    {path: "manage/import-orders", canActivate: [AdminGuard], children: [
+        {path: "add", component: FormImportOrderComponent},
     ]},
     {path: "cart", canActivate: [AuthGuard], component: CartComponent},
     {path: "order", canActivate: [AuthGuard], component: FormOrderComponent},
