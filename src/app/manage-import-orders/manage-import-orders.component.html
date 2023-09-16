@@ -1,4 +1,4 @@
-<!-- <div class="row" style="margin: 1px;">
+<div class="row" style="margin: 1px;">
     <div class="col-2" style="margin-right: 0 !important; padding-right: 0 !important;">
         <app-sidebar></app-sidebar>
     </div>
@@ -11,12 +11,12 @@
                     <th scope="col">Tên</th>
                     <th scope="col"></th>
                     <th scope="col">
-                      <button type="button" class="btn btn-primary add" [routerLink]="['add']">Add</button>
+                      <button type="button" class="btn btn-primary add" [routerLink]="['add']"> + Add</button>
                     </th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let category of categories; let index = index">
+                <!-- <tr *ngFor="let category of categories; let index = index">
                     <td>
                       <div class="form-check">
                         <input class="form-check-input checkbox" type="checkbox" value="" name="destinations[]">
@@ -29,12 +29,13 @@
                         <a (click)="open(deleteModal, category)" style="text-decoration: none; margin-left: 10px;" class="delete-test"><i class="fa fa-trash" aria-hidden="true"></i></a>
                     </td>
                     <td></td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
     </div>
 </div>  
 
+<!--
 <ng-template #deleteModal let-modal>
     <div style="padding: 10px;">
       <div class="modal-header d-flex justify-content-end">

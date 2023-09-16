@@ -1,4 +1,10 @@
 import { Component } from '@angular/core';
+import { Product } from '../product/product.model';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { CategoryService } from '../manage-category/category.service';
+import { AuthService } from '../auth/auth.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-manage-import-orders',
@@ -6,22 +12,23 @@ import { Component } from '@angular/core';
   styleUrls: ['./manage-import-orders.component.scss']
 })
 export class ManageImportOrdersComponent {
+  products: Product[] = []
   // categories: Category[] = [];
   // needToDeleteCategoryId = 0;
-  // constructor(
-  //   private http: HttpClient, private router: Router, private categoryService: CategoryService, 
-  //   private authService: AuthService, private modalService: NgbModal
-  // ){}
+  constructor(
+    private http: HttpClient, private router: Router, private categoryService: CategoryService, 
+    private authService: AuthService, private modalService: NgbModal
+  ){}
 
-  // ngOnInit() {
-  //   this.getCategories();
-  // }
+  ngOnInit() {
+    this.getProducts();
+  }
 
-  // getCategories(){
-  //   this.http.get<Category[]>(`http://localhost:8080/api/category`).subscribe((responseData) => {
-  //     this.categories = responseData;
-  //   })
-  // }
+  getProducts(){
+    this.http.get<Product[]>(`http://localhost:8080/api/product`).subscribe((products) => {
+      this.products = products;
+    })
+  }
 
   // onUpdate(category: Category){
   //   this.categoryService.setNeedUpdateCategory(category);

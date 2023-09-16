@@ -1,0 +1,43 @@
+<div class="row" style="margin: 1px;">
+    <div class="col-2" style="margin-right: 0 !important; padding-right: 0 !important;">
+        <app-sidebar></app-sidebar>
+    </div>
+    <div class="col-7" style="margin-left: 0 !important; padding-left: 0 !important;">
+        <div class="row mb-5">
+            <div class="box users">
+                <p style="font-size: 25px; padding: 16px 24px; color: white;">
+                    <i class="fa-solid fa-user" style="font-size: 21px; margin-right: 20px;"></i>
+                    <span>{{this.totalMember}}</span>
+                </p>
+                <p style="font-size: 18px; padding: 0 24px; color: white;">Tổng số khách hàng</p>
+            </div>
+            <div class="box profits">
+                <p style="font-size: 25px; padding: 16px 24px; color: white;">
+                    <i class="fa-solid fa-coins" style="font-size: 21px; margin-right: 20px;"></i>
+                    <span>{{this.totalMember}}</span>
+                </p>
+                <p style="font-size: 18px; padding: 0 24px; color: white;">Lợi nhuận</p>
+            </div>
+            <div class="box ratings">
+                <p style="font-size: 25px; padding: 16px 24px; color: white;">
+                    <i class="fa-solid fa-star" style="font-size: 21px; margin-right: 20px;"></i>
+                    <span>{{this.totalRating}}</span></p>
+                <p style="font-size: 18px; padding: 0 24px; color: white;">Tổng số đánh giá</p>
+            </div>
+        </div>
+        
+        <canvas baseChart
+            [data]="barChartData"
+            [options]="barChartOptions"
+            [plugins]="barChartPlugins"
+            [legend]="barChartLegend"
+            [type]="'bar'">
+        </canvas>
+    </div>
+    <div class="col-3" style="margin-top: 150px;">
+        <select class="form-select" [(ngModel)]="selectedOption" (change)="onSelectChange()" style="width: 50%;">
+            <option value=0>Theo tháng</option>
+            <option value=1>Theo ngày</option>
+        </select>
+    </div>
+</div>

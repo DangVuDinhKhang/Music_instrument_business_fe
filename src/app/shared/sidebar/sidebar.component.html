@@ -1,5 +1,5 @@
-<div class=" text-white bg-dark" style="border-right: 2px solid #000; height: 100vh;">
-    <div class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+<div class="side text-white" style="border-right: 2px solid #3C4B64; height: 100vh;">
+    <div class="title d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
       <span class="fs-4" style="margin: 10px 50px;">Quản lí</span>
     </div>
     <ul class="nav nav-pills flex-column mb-auto">
@@ -21,12 +21,20 @@
                 [routerLink]="['/manage/payments']">Thanh toán
             </div>
             <div 
+                [class]="path == 'suppliers' ? 'nav-link text-white active' : 'nav-link text-white'"
+                [routerLink]="['/manage/suppliers']">Nhà cung cấp
+            </div>
+            <div 
                 [class]="path == 'orders' ? 'nav-link text-white active' : 'nav-link text-white'"
                 [routerLink]="['/manage/orders']">Đơn hàng
             </div>
             <div 
-                [class]="path == 'suppliers' ? 'nav-link text-white active' : 'nav-link text-white'"
-                [routerLink]="['/manage/suppliers']">Nhà cung cấp
+                [class]="path == 'import-orders' ? 'nav-link text-white active' : 'nav-link text-white'"
+                [routerLink]="['/manage/import-orders']">Phiếu nhập
+            </div>
+            <div 
+                [class]="path == 'statistics' ? 'nav-link text-white active' : 'nav-link text-white'"
+                [routerLink]="['/manage/statistics']">Thống kê doanh thu
             </div>
         </li>
     </ul>

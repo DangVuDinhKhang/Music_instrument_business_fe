@@ -23,6 +23,8 @@ import { FilterProductComponentComponent } from './filter-product-component/filt
 import { FormImportOrderComponent } from './form-import-order/form-import-order.component';
 import { ManageSupplierComponent } from './manage-supplier/manage-supplier.component';
 import { FormSupplierComponent } from './form-supplier/form-supplier.component';
+import { ManageImportOrdersComponent } from './manage-import-orders/manage-import-orders.component';
+import { ManageStatisticComponent } from './manage-statistic/manage-statistic.component';
 
 const appRoutes: Routes=[
     {path: "", redirectTo: "products", pathMatch: "full"},
@@ -62,7 +64,11 @@ const appRoutes: Routes=[
         {path: "", component: ManageOrderComponent},
     ]},
     {path: "manage/import-orders", canActivate: [AdminGuard], children: [
+        {path: "", component: ManageImportOrdersComponent},
         {path: "add", component: FormImportOrderComponent},
+    ]},
+    {path: "manage/statistics", canActivate: [AdminGuard], children: [
+        {path: "", component: ManageStatisticComponent},
     ]},
     {path: "cart", canActivate: [AuthGuard], component: CartComponent},
     {path: "order", canActivate: [AuthGuard], component: FormOrderComponent},

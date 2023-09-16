@@ -36,6 +36,9 @@ import { ManageImportOrdersComponent } from './manage-import-orders/manage-impor
 import { FormImportOrderComponent } from './form-import-order/form-import-order.component';
 import { ManageSupplierComponent } from './manage-supplier/manage-supplier.component';
 import { FormSupplierComponent } from './form-supplier/form-supplier.component';
+import { ManageStatisticComponent } from './manage-statistic/manage-statistic.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -66,7 +69,9 @@ import { FormSupplierComponent } from './form-supplier/form-supplier.component';
     ManageImportOrdersComponent,
     FormImportOrderComponent,
     ManageSupplierComponent,
-    FormSupplierComponent
+    FormSupplierComponent,
+    ManageStatisticComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -76,7 +81,9 @@ import { FormSupplierComponent } from './form-supplier/form-supplier.component';
     AppRoutingModule,
     HttpClientModule,
     UploadxModule,
-    IgcFormsModule
+    IgcFormsModule,
+    BrowserAnimationsModule,
+    NgChartsModule
   ],
   providers: [DecimalPipe],
   bootstrap: [AppComponent]
