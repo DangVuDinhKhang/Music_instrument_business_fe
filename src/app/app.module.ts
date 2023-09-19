@@ -39,6 +39,7 @@ import { FormSupplierComponent } from './form-supplier/form-supplier.component';
 import { ManageStatisticComponent } from './manage-statistic/manage-statistic.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgChartsModule } from 'ng2-charts';
+// import { ChatbotRasaModule } from "angular-chat-widget-rasa";
 
 @NgModule({
   declarations: [
