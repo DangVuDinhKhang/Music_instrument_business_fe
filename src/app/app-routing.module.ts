@@ -19,23 +19,25 @@ import { OrderComponent } from './order/order.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FormRoleComponent } from './form-role/form-role.component';
-import { FilterProductComponentComponent } from './filter-product-component/filter-product-component.component';
 import { FormImportOrderComponent } from './form-import-order/form-import-order.component';
 import { ManageSupplierComponent } from './manage-supplier/manage-supplier.component';
 import { FormSupplierComponent } from './form-supplier/form-supplier.component';
 import { ManageImportOrdersComponent } from './manage-import-orders/manage-import-orders.component';
 import { ManageStatisticComponent } from './manage-statistic/manage-statistic.component';
+import { FilterProductComponent } from './filter-product/filter-product.component';
+import { SearchProductComponent } from './search-product/search-product.component';
 
 const appRoutes: Routes=[
     {path: "", redirectTo: "products", pathMatch: "full"},
-    {path: "home", component: ProductComponent},
+    {path: "home", component: HomeComponent},
     {path: "auth", component: AuthComponent},
     {path: "profile", canActivate: [AuthGuard], component: ProfileComponent},
     {path: "products", children: [
         {path: "", component: ProductComponent},
+        {path: "search/:content", component: SearchProductComponent}, 
         {path: ":id", component: ProductDetailComponent}
     ]},
-    {path: "products/category/:id", component: FilterProductComponentComponent},
+    {path: "products/category/:id", component: FilterProductComponent},
     {path: "manage/accounts", canActivate: [AdminGuard], children: [
         {path: "", component: ManageAccountComponent},
         {path: "update/:id", component: FormRoleComponent}

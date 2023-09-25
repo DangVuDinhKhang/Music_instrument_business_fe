@@ -35,4 +35,9 @@ export class StatisticService {
         
         return this.http.get<any>(`${this.base_URL}/rating/statistic`, {headers: this.headers});
     }
+
+    statisticOrder(): Observable<any>{
+        
+        return this.http.get<any>(`${this.base_URL}/order/statistic-total`, {headers: this.headers});
+    }
 }

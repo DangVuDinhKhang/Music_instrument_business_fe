@@ -6,11 +6,11 @@ import { ActivatedRoute } from '@angular/router';
 import { File } from '../shared/file.model';
 
 @Component({
-  selector: 'app-filter-product-component',
-  templateUrl: './filter-product-component.component.html',
-  styleUrls: ['./filter-product-component.component.scss']
+  selector: 'app-filter-product',
+  templateUrl: './filter-product.component.html',
+  styleUrls: ['./filter-product.component.scss']
 })
-export class FilterProductComponentComponent {
+export class FilterProductComponent {
   products: Product[] = [];
   files: File[] = []
 

@@ -15,6 +15,7 @@ i {
 
 .nav-item {
     cursor: pointer;
+    padding: 0 10px;
 }
 
 .dropdown-content {
@@ -37,4 +38,17 @@ i {
 .dropdown-item:hover{
     
     background-color: rgb(69, 172, 212);;
+}
+
+input {
+    padding: 4px;
+    width: 300px;
+}
+
+.btn {
+    border: 1px solid black;
+    border-left: none;
+    border-radius: 2px;
+    background-color: aqua;
+    padding: 5px;
 }

@@ -7,10 +7,16 @@ export class ProductService{
     
     public needUpdateProduct!: Product;
 
+    searchProduct: Product[] = []
+
     constructor(private http: HttpClient){}
 
     setNeedUpdateProduct(product: Product){
         this.needUpdateProduct = product;
+    }
+
+    setSearchProduct(searchProduct: Product[]){
+      this.searchProduct = searchProduct;
     }
 
     addToCart(productId: number, cartId: number){

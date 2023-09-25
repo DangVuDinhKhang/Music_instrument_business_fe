@@ -1,14 +1,51 @@
 
 <div style="width: 30%; margin-left: 35%;">
     <div style="text-align: center; font-weight: bold; font-size: 25px;">{{isAdd ? "TẠO PHIẾU NHẬP" : "UPDATE CATEGORY"}}</div>
-    <form #importOrderForm="ngForm" (ngSubmit)="onSubmit(importOrderForm)"> 
+    <form [formGroup]="importOrderForm" (ngSubmit)="onSubmit()"> 
         <div class="form-group">
             <label class="col-sm-4 col-form-label">Nhà cung cấp</label>
-            <select class="form-select" name="supplier" [(ngModel)]="selectedSupplier" required>
+            <select class="form-select" formControlName="supplier">
                 <option value=0>-- Chọn nhà cung cấp --</option>
-                <option *ngFor="let supplier of suppliers" value={{supplier.id}}>{{supplier.name}}</option>
+                <option *ngFor="let supplier of suppliers" [ngValue]="supplier.id">{{supplier.name}}</option>
             </select>
-            <ng-container *ngFor="let item of items; let i = index">
+            <div class="col-xs-12" formArrayName="products">
+                <div
+                  class=""
+                  *ngFor="let productCtrl of productControls; let i = index"
+                  [formGroupName]="i"
+                  style="margin-top: 10px;">
+                  <div class="">
+                    <label class="col-sm-4 col-form-label">Sản phẩm</label>
+                    <select id="product" class="form-select" formControlName="id" style="width: 82%;">
+                        <option value=0>-- Chọn sản phẩm --</option>
+                        <option *ngFor="let product of products" [ngValue]="product.id">{{product.name}}</option>
+                    </select>
+                  </div>
+                  <div class="row mt-2">
+                    <div class="col-5">
+                        <label class="col-sm-4 col-form-label">Giá</label>
+                        <input type="number" class="form-control" formControlName="price" min="0">
+                    </div>
+                    <div class="col-5">
+                        <label class="col-sm-6 col-form-label">Số lượng</label>
+                        <input type="number" class="form-control" formControlName="quantity" min="0">
+                    </div>
+                    <div class="col-2">
+                        <button type="button" class="btn btn-danger" (click)="onDeleteProduct(i)">X</button>
+                    </div>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      (click)="onAddProduct()">Thêm sản phẩm</button>
+                  </div>
+                </div>
+              </div>
+            <!-- <ng-container formArrayName="ingredients">
                 <div class="mt-2 mb-2 box">
                     <label class="col-sm-4 col-form-label">Sản phẩm</label>
                     <select class="form-select" name="product" [(ngModel)]="item.product" required>
@@ -26,12 +63,13 @@
                         </div>
                     </div>
                 </div>
-            </ng-container>
-            <button class="mt-4 btn btn-secondary" (click)="addItem()">Thêm sản phẩm</button>
+            </ng-container> -->
+            <!-- <button class="mt-4 btn btn-secondary">Thêm sản phẩm</button> -->
         </div>
-        <!-- <app-alert [message]="error" *ngIf="error"></app-alert> --> 
         <div class="mt-4">
-            <button class="btn btn-primary" type="submit" style="width: 100%" [disabled]="!importOrderForm.valid">{{isAdd ? "Add" : "Update"}}</button>    
+            <button class="btn btn-primary" type="submit" style="width: 100%" [disabled]="!importOrderForm.valid">Add</button>    
         </div>
     </form>
 </div>
+
+  

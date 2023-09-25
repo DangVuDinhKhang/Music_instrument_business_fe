@@ -31,7 +31,6 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FormRoleComponent } from './form-role/form-role.component';
 import { IgcFormsModule } from 'igniteui-angular';
-import { FilterProductComponentComponent } from './filter-product-component/filter-product-component.component';
 import { ManageImportOrdersComponent } from './manage-import-orders/manage-import-orders.component';
 import { FormImportOrderComponent } from './form-import-order/form-import-order.component';
 import { ManageSupplierComponent } from './manage-supplier/manage-supplier.component';
@@ -39,6 +38,8 @@ import { FormSupplierComponent } from './form-supplier/form-supplier.component';
 import { ManageStatisticComponent } from './manage-statistic/manage-statistic.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgChartsModule } from 'ng2-charts';
+import { FilterProductComponent } from './filter-product/filter-product.component';
+import { SearchProductComponent } from './search-product/search-product.component';
 // import { ChatbotRasaModule } from "angular-chat-widget-rasa";
 
 @NgModule({
@@ -66,12 +67,13 @@ import { NgChartsModule } from 'ng2-charts';
     HomeComponent,
     ProfileComponent,
     FormRoleComponent,
-    FilterProductComponentComponent,
     ManageImportOrdersComponent,
     FormImportOrderComponent,
     ManageSupplierComponent,
     FormSupplierComponent,
     ManageStatisticComponent,
+    FilterProductComponent,
+    SearchProductComponent,
     
   ],
   imports: [

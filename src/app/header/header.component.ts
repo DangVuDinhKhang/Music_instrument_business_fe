@@ -3,8 +3,11 @@ import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
 import { ProductService } from '../product/product.service';
 import { CartService } from '../cart/cart.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Category } from '../manage-category/category.model';
+import { NgForm } from '@angular/forms';
+import { Product } from '../product/product.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -19,9 +22,11 @@ export class HeaderComponent implements OnInit, OnDestroy{
   numberOfType = 0;
   
   showDropdown = false;
-  categories!: Category[]
+  categories!: Category[];
 
-  constructor(private authService: AuthService, private cartService: CartService, private http: HttpClient){}
+  file: any;
+
+  constructor(private authService: AuthService, private productService: ProductService, private http: HttpClient, private router: Router){}
 
   ngOnInit(){
     this.userSub = this.authService.account.subscribe((account)=>{
@@ -35,9 +40,9 @@ export class HeaderComponent implements OnInit, OnDestroy{
       }
     })
 
-  this.http.get<Category[]>(`http://localhost:8080/api/category`).subscribe((categories)=>{
-    this.categories = categories
-  })
+    this.http.get<Category[]>(`http://localhost:8080/api/category`).subscribe((categories)=>{
+      this.categories = categories
+    })
   
   //  this.cartService.handleCart().then(()=>{                  // Display quantity in cart
   //   this.numberOfType = this.cartService.numberOfType;
@@ -45,6 +50,34 @@ export class HeaderComponent implements OnInit, OnDestroy{
   //   console.error(error)
   //  });
    
+  }
+
+  onSubmit(form: NgForm){
+    if(!form.valid)
+      return;
+      this.http.get<Product[]>(`http://localhost:8080/api/product/search/${form.value.search}`).subscribe((products)=>{
+        this.productService.setSearchProduct(products);
+        this.router.navigate([`/products/search/${form.value.search}`]);
+        form.resetForm();
+      })
+    
+  }
+
+  onSubmitImage(form: NgForm){
+    if(!form.valid)
+      return;
+
+    const formData = new FormData();
+    formData.append("image", this.file);
+
+    this.http.post<any>(`http://localhost:5000/predict`, formData, ).subscribe((category)=>{
+      console.log(category)
+    })
+    
+  }
+
+  onFileSelected(event: any) {
+    this.file = event.target.files[0];
   }
 
   ngOnDestroy(){

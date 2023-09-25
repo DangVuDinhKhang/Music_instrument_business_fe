@@ -19,6 +19,7 @@ export class ManageStatisticComponent implements OnInit{
 
   totalMember = 0;
   totalRating = 0;
+  totalOrder = 0;
 
   constructor(private statisticService: StatisticService){}
 
@@ -26,6 +27,7 @@ export class ManageStatisticComponent implements OnInit{
     this.statisticRevenue("month");
     this.statisticMember();
     this.statisticRating();
+    this.statisticOrder();
   }
 
   onSelectChange(){
@@ -45,6 +47,12 @@ export class ManageStatisticComponent implements OnInit{
   statisticRating(){
     this.statisticService.statisticRating().subscribe((response)=>{
       this.totalRating = response;
+    })
+  }
+
+  statisticOrder(){
+    this.statisticService.statisticOrder().subscribe((response)=>{
+      this.totalOrder = response;
     })
   }
 
