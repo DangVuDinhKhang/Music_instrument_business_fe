@@ -25,6 +25,18 @@ export class StatisticService {
         
         return this.http.get<any>(`${this.base_URL}/order/statistic`,  {params: params, headers: this.headers});
     }
+    statisticSpendingByMonth(): Observable<any>{
+
+        const params = new HttpParams().set('type', 'month')
+        
+        return this.http.get<any>(`${this.base_URL}/import-order/statistic`,  {params: params, headers: this.headers});
+    }
+    statisticSpendingByDay(): Observable<any>{
+
+        const params = new HttpParams().set('type', 'day')
+        
+        return this.http.get<any>(`${this.base_URL}/import-order/statistic`,  {params: params, headers: this.headers});
+    }
 
     statisticMember(): Observable<any>{
         
@@ -39,5 +51,15 @@ export class StatisticService {
     statisticOrder(): Observable<any>{
         
         return this.http.get<any>(`${this.base_URL}/order/statistic-total`, {headers: this.headers});
+    }
+
+    statisticTotalRevenue(): Observable<any>{
+        
+        return this.http.get<any>(`${this.base_URL}/order/statistic-total-revenue`, {headers: this.headers});
+    }
+
+    statisticTotalSpeding(): Observable<any>{
+        
+        return this.http.get<any>(`${this.base_URL}/import-order/statistic-total-spending`, {headers: this.headers});
     }
 }

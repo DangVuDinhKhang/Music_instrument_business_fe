@@ -1,41 +1,59 @@
 <div class="row" style="margin: 1px;">
-    <div class="col-2" style="margin-right: 0 !important; padding-right: 0 !important;">
-        <app-sidebar></app-sidebar>
+  <div class="col-2" style="margin-right: 0 !important; padding-right: 0 !important;">
+      <app-sidebar></app-sidebar>
+  </div>
+  <div class="col-10" style="margin-left: 0 !important; padding-left: 0 !important;">
+      <table class="table table-striped" >
+          <thead>
+              <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Mã đơn</th>
+                  <th scope="col">Tài khoản
+                    <!-- {{{sort "name" _sort}}} -->
+                  </th>
+                  <th scope="col">Ngày đặt</th>
+                  <th scope="col">Tổng tiền</th>
+                  <th scope="col">Trạng thái</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr class="blur" *ngFor="let order of orders; let index = index">
+                  <th scope="row" (click)="open(showModal, order)" >{{index + 1 }}</th>
+                  <td (click)="open(showModal, order)" >{{order.id}}</td>
+                  <td (click)="open(showModal, order)" >{{order.account.username}}</td>
+                  <td (click)="open(showModal, order)" >{{order.date}}</td>
+                  <td (click)="open(showModal, order)" >{{order.total|number:'1.0-0':'en-US'}} ₫</td>
+                  <td>
+                      <select class="form-select" (change)="onUpdate(order)" [(ngModel)]="order.status">
+                          <option value=0>Chưa hoàn thành</option>
+                          <option value=1>Đã hoàn thành</option>
+                      </select>
+                  </td>
+                  <!-- <td>
+                      <a (click)="onUpdate(order)">
+                          <i class="fa-solid fa-check" aria-hidden="true" *ngIf="!order.status" style="color: rgb(6, 193, 6);"></i>
+                      </a>
+                      <a (click)="onUpdate(order)">
+                          <i class="fa-solid fa-x" aria-hidden="true" *ngIf="order.status" style="color: rgb(179, 9, 9);"></i>
+                      </a>
+                      <a (click)="open(deleteModal, category)" style="text-decoration: none; margin-left: 10px;" class="delete-test"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                  </td> -->
+              </tr>
+          </tbody>
+      </table>
+  </div>
+</div> 
+
+<ng-template #showModal let-modal>
+  <div style="padding: 10px;">
+    <div class="modal-header d-flex justify-content-end">
+      <h4 class="modal-title" id="modal-basic-title">Chi tiết đơn hàng</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
-    <div class="col-10" style="margin-left: 0 !important; padding-left: 0 !important;">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col"></th>
-                    <th scope="col">#</th>
-                    <th scope="col">Tên</th>
-                    <th scope="col"></th>
-                    <th scope="col">
-                      <button type="button" class="btn btn-primary add" [routerLink]="['add']">
-                        <i class="fa-solid fa-plus" style="color: #ffffff;"></i> Add
-                      </button>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- <tr *ngFor="let category of categories; let index = index">
-                    <td>
-                      <div class="form-check">
-                        <input class="form-check-input checkbox" type="checkbox" value="" name="destinations[]">
-                      </div>
-                    </td>
-                    <th scope="row">{{index + 1 }}</th>
-                    <td>{{category.name}}</td>
-                    <td>
-                        <a (click)="onUpdate(category)" style="text-decoration: none"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                        <a (click)="open(deleteModal, category)" style="text-decoration: none; margin-left: 10px;" class="delete-test"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                    </td>
-                    <td></td>
-                </tr> -->
-            </tbody>
-        </table>
+    <div class="modal-body">
     </div>
-</div>  
+  </div>
+</ng-template>
 
 <!--
 <ng-template #deleteModal let-modal>

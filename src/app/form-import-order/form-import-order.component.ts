@@ -140,7 +140,7 @@ export class FormImportOrderComponent {
       'Authorization': `Bearer ${this.authService.account.value.token}`
     });
 
-    this.http.post<ImportOrderService>(`http://localhost:8080/api/import-orders/`, 
+    this.http.post<ImportOrderService>(`http://localhost:8080/api/import-order/`, 
       {
         account: {id: this.accountId},
         supplier: {id: supplier},

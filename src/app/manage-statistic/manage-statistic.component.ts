@@ -12,7 +12,7 @@ export class ManageStatisticComponent implements OnInit{
   revenue: any = [];
 
   revenueInChart = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  costInChart = [100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000, 100000];
+  costInChart = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   labels: any = [];
 
   selectedOption = 0;
@@ -20,6 +20,7 @@ export class ManageStatisticComponent implements OnInit{
   totalMember = 0;
   totalRating = 0;
   totalOrder = 0;
+  totalProfit = 0;
 
   constructor(private statisticService: StatisticService){}
 
@@ -28,6 +29,7 @@ export class ManageStatisticComponent implements OnInit{
     this.statisticMember();
     this.statisticRating();
     this.statisticOrder();
+    this.statisticProfit();
   }
 
   onSelectChange(){
@@ -56,66 +58,94 @@ export class ManageStatisticComponent implements OnInit{
     })
   }
 
+  statisticProfit(){
+    this.statisticService.statisticTotalRevenue().subscribe((revenue)=>{
+      this.statisticService.statisticTotalSpeding().subscribe((spending)=>{
+        this.totalProfit = revenue - spending;
+      })
+    })
+  }
+
   statisticRevenue(type: string){
     if(type == "month"){
-      this.statisticService.statisticRevenueByMonth().subscribe((response)=>{
-        const outputArray = response.map(([date, total]: any) => {
+      this.revenueInChart = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      this.costInChart = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      this.statisticService.statisticRevenueByMonth().subscribe((revenueMonth)=>{
+        const revenueByMonth = revenueMonth.map(([date, total]: any) => {
           const month = new Date(date).getMonth() + 1; // Lấy phần tháng và cộng thêm 1 vì tháng bắt đầu từ 0
           return { month, total };
         });
       
-        outputArray.map((output: any)=>{
+        revenueByMonth.map((output: any)=>{
           this.revenueInChart[output.month - 1] = output.total;
         })
-        this.labels = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8',
-          'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12',]
-        this.configureChart();
+        this.statisticService.statisticSpendingByMonth().subscribe((spendingMonth)=>{
+          const costByMonth = spendingMonth.map(([date, total]: any) => {
+            const month = new Date(date).getMonth() + 1; // Lấy phần tháng và cộng thêm 1 vì tháng bắt đầu từ 0
+            return { month, total };
+          });
+          costByMonth.map((output: any)=>{
+            this.costInChart[output.month - 1] = output.total;
+          })
+          this.labels = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12',]
+          this.configureChart();
+        })
+        
       })
     }
     else{
-      this.statisticService.statisticRevenueByDay().subscribe((response)=>{
-        let outputArray = response.map((item: any) => ({
+      this.revenueInChart = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      this.costInChart = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      this.statisticService.statisticRevenueByDay().subscribe((revenueDate)=>{
+        let revenueByDate = revenueDate.map((item: any) => ({
           date: item[0],
           total: item[1]
         }));
 
-        const currentDate = new Date();
-        // Lấy ngày trong tuần (0 là Chủ Nhật, 1 là Thứ Hai, ..., 6 là Thứ Bảy)
-        const currentDayOfWeek = currentDate.getDay();
-        // Tính ngày bắt đầu của tuần trước + 1 (ngày thứ Hai của tuần trước)
-        const startDateOfLastWeek = new Date(currentDate);
-        startDateOfLastWeek.setDate(currentDate.getDate() - currentDayOfWeek); // -6 để lùi về thứ Hai của tuần trước
-        // Tạo mảng chứa danh sách các ngày từ startDateOfLastWeek đến currentDate
-        const dateList = [];
-        for (let date = startDateOfLastWeek; date <= currentDate; date.setDate(date.getDate() + 1)) {
-            dateList.push(new Date(date));
-        }
-        // Định dạng lại các ngày thành chuỗi "YYYY-MM-DD"
-        const formattedDateList = dateList.map(date => {
+        this.statisticService.statisticSpendingByDay().subscribe((spendingDate)=>{
+          let spendingByDate = spendingDate.map((item: any) => ({
+            date: item[0],
+            total: item[1]
+          }));
+          const currentDate = new Date();
+
+          const tomorrowDate = currentDate.setDate(currentDate.getDate() + 1);
+          
+          const dayInLastWeek = new Date(tomorrowDate);
+          dayInLastWeek.setDate(dayInLastWeek.getDate() - 7);
+          
+          const dateList = [];
+          for (let date = dayInLastWeek; date < currentDate; date.setDate(date.getDate() + 1)) {
+              dateList.push(new Date(date));
+          }
+          // Định dạng lại các ngày thành chuỗi "YYYY-MM-DD"
+          const formattedDateList = dateList.map(date => {
+              const year = date.getFullYear();
+              const month = String(date.getMonth() + 1).padStart(2, '0');
+              const day = String(date.getDate()).padStart(2, '0');
+              return `${year}-${month}-${day}`;
+          });
+          for(let i = 0; i < formattedDateList.length; i++)
+            for(let j = 0; j < revenueByDate.length; j++)
+              if(revenueByDate[j].date == formattedDateList[i])
+                this.revenueInChart[i] = revenueByDate[j].total;
+          for(let i = 0; i < formattedDateList.length; i++)
+            for(let j = 0; j < spendingByDate.length; j++)
+              if(spendingByDate[j].date == formattedDateList[i])
+                this.costInChart[i] = spendingByDate[j].total;
+
+          const formattedLabels = dateList.map(date => {
             const year = date.getFullYear();
             const month = String(date.getMonth() + 1).padStart(2, '0');
             const day = String(date.getDate()).padStart(2, '0');
-            return `${year}-${month}-${day}`;
-        });
-
-        
-      
-        for(let i = 0; i < formattedDateList.length; i++)
-          for(let j = 0; j < outputArray.length; j++)
-            if(outputArray[j].date == formattedDateList[i])
-              this.revenueInChart[i] = outputArray[j].total;
-
-        
-        const formattedLabels = dateList.map(date => {
-          const year = date.getFullYear();
-          const month = String(date.getMonth() + 1).padStart(2, '0');
-          const day = String(date.getDate()).padStart(2, '0');
-          return `${day}-${month}-${year}`;
-        });
-        this.labels = formattedLabels
-
-        this.configureChart();
+            return `${day}-${month}-${year}`;
+          });
+  
+          this.labels = formattedLabels
+          this.configureChart();
+        })
       })
+   
     }
     
   }

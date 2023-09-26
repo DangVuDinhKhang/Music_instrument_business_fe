@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { Product } from '../product/product.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CategoryService } from '../manage-category/category.service';
 import { AuthService } from '../auth/auth.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ImportOrder } from './import-order.model';
 
 @Component({
   selector: 'app-manage-import-orders',
@@ -12,43 +13,35 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./manage-import-orders.component.scss']
 })
 export class ManageImportOrdersComponent {
-  products: Product[] = []
-  // categories: Category[] = [];
-  // needToDeleteCategoryId = 0;
-  constructor(
-    private http: HttpClient, private router: Router, private categoryService: CategoryService, 
-    private authService: AuthService, private modalService: NgbModal
-  ){}
 
-  ngOnInit() {
-    this.getProducts();
+  orders: ImportOrder[] = [];
+  selectedOrder!: ImportOrder;
+
+  constructor(private http: HttpClient, private authService: AuthService, private modalService: NgbModal){}
+  
+  ngOnInit(): void {
+    this.getAllOrders();
   }
 
-  getProducts(){
-    this.http.get<Product[]>(`http://localhost:8080/api/product`).subscribe((products) => {
-      this.products = products;
+  getAllOrders(){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.authService.account.value.token}`
+    });
+    this.http.get<ImportOrder[]>(`http://localhost:8080/api/import-order`, {headers}).subscribe((orders)=>{
+      this.orders = orders;
     })
   }
 
-  // onUpdate(category: Category){
-  //   this.categoryService.setNeedUpdateCategory(category);
-  //   this.router.navigate(['/manage/categories/update', category.id] );
-  // }
+  open(content: any, order: ImportOrder){
+    this.selectedOrder = order;
+    this.modalService.open(content);
+  }
 
-  // open(modal: any, category: Category){
+  onUpdate(order: ImportOrder){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.authService.account.value.token}`
+    });
+    this.http.put<ImportOrder>(`http://localhost:8080/api/import-order/${order.id}`, {status: order.status}, {headers}).subscribe();
     
-  //   this.modalService.open(modal);
-  //   this.needToDeleteCategoryId = category.id;
-  // }
-
-  // onDelete(){
-  //   const headers = new HttpHeaders({
-  //     'Authorization': `Bearer ${this.authService.account.value.token}`
-  //   });
-  //   this.http.delete<Category>(`http://localhost:8080/api/category/${this.needToDeleteCategoryId}`, {headers}).subscribe((responseData) => {
-  //     this.categories = this.categories.filter(category => category.id != this.needToDeleteCategoryId);
-  //     this.modalService.dismissAll();
-  //     this.needToDeleteCategoryId = 0;
-  //   })
-  // }
+  }
 }
