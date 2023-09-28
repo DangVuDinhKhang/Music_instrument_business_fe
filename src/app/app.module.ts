@@ -40,6 +40,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgChartsModule } from 'ng2-charts';
 import { FilterProductComponent } from './filter-product/filter-product.component';
 import { SearchProductComponent } from './search-product/search-product.component';
+import { FooterComponent } from './footer/footer.component';
+import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
 // import { ChatbotRasaModule } from "angular-chat-widget-rasa";
 
 @NgModule({
@@ -74,6 +77,9 @@ import { SearchProductComponent } from './search-product/search-product.componen
     ManageStatisticComponent,
     FilterProductComponent,
     SearchProductComponent,
+    FooterComponent,
+    AboutComponent,
+    ContactComponent,
     
   ],
   imports: [

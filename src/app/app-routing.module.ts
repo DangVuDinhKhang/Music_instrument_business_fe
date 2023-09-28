@@ -26,9 +26,11 @@ import { ManageImportOrdersComponent } from './manage-import-orders/manage-impor
 import { ManageStatisticComponent } from './manage-statistic/manage-statistic.component';
 import { FilterProductComponent } from './filter-product/filter-product.component';
 import { SearchProductComponent } from './search-product/search-product.component';
+import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
 
 const appRoutes: Routes=[
-    {path: "", redirectTo: "products", pathMatch: "full"},
+    {path: "", redirectTo: "home", pathMatch: "full"},
     {path: "home", component: HomeComponent},
     {path: "auth", component: AuthComponent},
     {path: "profile", canActivate: [AuthGuard], component: ProfileComponent},
@@ -74,7 +76,9 @@ const appRoutes: Routes=[
     ]},
     {path: "cart", canActivate: [AuthGuard], component: CartComponent},
     {path: "order", canActivate: [AuthGuard], component: FormOrderComponent},
-    {path: "my-order", canActivate: [AuthGuard], component: OrderComponent}
+    {path: "my-order", canActivate: [AuthGuard], component: OrderComponent},
+    {path: "about", component: AboutComponent},
+    {path: "contact", component: ContactComponent}
     
 ]
 @NgModule({

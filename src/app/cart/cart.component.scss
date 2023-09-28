@@ -18,7 +18,7 @@
 .title {
     display: flex;
     font-size: 25px;
-    font-weight: bold;
+    font-weight: bold !important;
     padding: 10px;
 }
 
@@ -35,7 +35,7 @@
 
 .total {
     margin-top: 20px;
-    font-weight: bold;
+    font-weight: bold !important;
 }
 
 img {
@@ -73,7 +73,7 @@ i {
     margin-top: 10px;
     width: 80%;
     padding: 8px 9px;
-    font-weight: bold;
+    font-weight: bold !important;
     border-radius: 10px;
     background: linear-gradient(45deg, #D9AFD9 0%, #97D9E1 100%);
 }

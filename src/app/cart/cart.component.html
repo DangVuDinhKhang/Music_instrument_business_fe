@@ -1,4 +1,4 @@
-<div class="main">
+<div class="main mb-4">
     <div class="box" *ngIf="cart.productsAndQuantity.length == 0">
         <div class="title">Giỏ hàng của bạn</div>
         <p>Không có sản phẩm nào trong giỏ hàng</p>
@@ -7,10 +7,10 @@
     <div class="box" *ngIf="cart.productsAndQuantity.length > 0">
         <div class="title">Giỏ hàng của bạn</div>
         <div class="item row" *ngFor="let productAndQuantity of cart.productsAndQuantity">
-            <i class="fa-regular fa-circle-xmark fa-lg mb-1" style="color: #f10f0f;" 
+            <i class="fa-regular fa-circle-xmark fa-lg mt-1" style="color: #f10f0f;" 
               (click)="open(deleteModal, productAndQuantity.product.id)">
             </i>
-            <div class="col-3">
+            <div class="col-3 mt-2">
                 <img [src]="productAndQuantity.product.file[0]" class="card-img-top" alt={{productAndQuantity.product.name}}>
             </div>
             <div class="col-4">{{productAndQuantity.product.name}}</div>    
@@ -24,7 +24,7 @@
         <div class="total">
             Tạm tính: {{totalPrice | number:'1.0-0':'en-US'}} ₫
         </div>
-        <button type="button" class="btn-og btn-step" [routerLink]="['/order']">ĐẶT HÀNG</button>
+        <button type="button" class="btn-og btn-step mb-3" [routerLink]="['/order']">ĐẶT HÀNG</button>
     </div>
 </div>
 <ng-template #deleteModal let-modal>
