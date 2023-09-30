@@ -37,13 +37,13 @@ export class ProductDetailComponent implements OnInit{
   ){}
 
   ngOnInit() {
-      this.getProductById();
-      this.userSub = this.authService.account.subscribe((account)=>{
-        this.isAuthenticated = !account ? false : true;
-        if(this.isAuthenticated){
-          this.cartId = account.cart.id;       
-        }
-      })
+    this.getProductById();
+    this.userSub = this.authService.account.subscribe((account)=>{
+      this.isAuthenticated = !account ? false : true;
+      if(this.isAuthenticated){
+        this.cartId = account.cart.id;       
+      }
+    })
   }
 
   ngOnDestroy(){
@@ -89,4 +89,5 @@ export class ProductDetailComponent implements OnInit{
       this.router.navigate(['/auth']);
     }
   }
+
 }

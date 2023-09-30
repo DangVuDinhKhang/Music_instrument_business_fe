@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container mt-4">
     <app-toast></app-toast>
     <div class="row">
         <div class="col-6">
@@ -12,13 +12,13 @@
             </igc-rating> |
             <span>{{ratings.length}} Đánh giá | </span>
             <div class="row detail">
-                <div class="col-3">Giá bán</div>
-                <div class="price col-9">{{ product.price | number:'1.0-0':'en-US' }}₫</div>
+                <div class="col-4">Giá bán</div>
+                <div class="price col-8">{{ product.price | number:'1.0-0':'en-US' }}₫</div>
             </div>
             <div class="row detail">
-                <div class="col-3">Tình trạng</div>
-                <div *ngIf="product.quantity > 0" class="col-9" style="color: green; font-weight: bold;">Còn hàng</div>
-                <div *ngIf="product.quantity == 0" class="col-9" style="color: rgb(211, 6, 6); font-weight: bold;">Hết hàng</div>
+                <div class="col-4">Tình trạng</div>
+                <div *ngIf="product.quantity > 0" class="col-8" style="color: green; font-weight: bold;">Còn hàng</div>
+                <div *ngIf="product.quantity == 0" class="col-8" style="color: rgb(211, 6, 6); font-weight: bold;">Hết hàng</div>
             </div>
             <div class="row">
                 <button #from class="btn btn-danger mt-4" style="width: 400px;" (click)="addToCart(product.id)" [disabled]="product.quantity == 0">Thêm vào giỏ hàng</button>

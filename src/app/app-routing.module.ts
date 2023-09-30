@@ -36,10 +36,10 @@ const appRoutes: Routes=[
     {path: "profile", canActivate: [AuthGuard], component: ProfileComponent},
     {path: "products", children: [
         {path: "", component: ProductComponent},
-        {path: "search/:content", component: SearchProductComponent}, 
+        {path: "search/:content", component: ProductComponent}, 
         {path: ":id", component: ProductDetailComponent}
     ]},
-    {path: "products/category/:id", component: FilterProductComponent},
+    {path: "products/category/:id", component: ProductComponent},
     {path: "manage/accounts", canActivate: [AdminGuard], children: [
         {path: "", component: ManageAccountComponent},
         {path: "update/:id", component: FormRoleComponent}
