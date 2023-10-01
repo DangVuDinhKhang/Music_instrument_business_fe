@@ -86,7 +86,7 @@ export class ProductComponent implements OnInit{
     let list: any = [];
     const categoryId = this.activatedRoute.snapshot.url[2].path
     this.http.get<Product[]>(`http://localhost:8080/api/product/category/${categoryId}`).subscribe((responseData) => {
-        this.products = responseData;
+        this.products = this.sort(responseData, "name");
         this.http.get<any>(`http://localhost:8080/api/file`).subscribe((responseData)=>{
           this.files = responseData;
           for(let product of this.products){
@@ -106,7 +106,7 @@ export class ProductComponent implements OnInit{
   }
 
   getProductsByName(){
-    this.products = this.productService.searchProduct;
+    this.products = this.sort(this.productService.searchProduct, "name");
     let list: any = [];
     this.http.get<any>(`http://localhost:8080/api/file`).subscribe((responseData)=>{
       this.files = responseData;
@@ -147,13 +147,7 @@ export class ProductComponent implements OnInit{
         const nameA = a.name.toLowerCase(); // Chuyển đổi tên thành chữ thường để so sánh không phân biệt hoa thường
         const nameB = b.name.toLowerCase();
       
-        if (nameA < nameB) {
-          return -1;
-        }
-        if (nameA > nameB) {
-          return 1;
-        }
-        return 0; // Trả về 0 nếu tên bằng nhau
+        return nameA.localeCompare(nameB, 'vi', { sensitivity: 'base' });
       }); 
     }
     else if(type == "asc_price"){

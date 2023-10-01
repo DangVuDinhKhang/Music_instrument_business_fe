@@ -2,7 +2,7 @@
     <div class="col-2" style="margin-right: 0 !important; padding-right: 0 !important;">
         <app-sidebar></app-sidebar>
     </div>
-    <div class="col-10" style="margin-left: 0 !important; padding-left: 0 !important;">
+    <div class="col-10 mt-2" style="margin-left: 0 !important; padding-left: 0 !important;">
         <div class="row mb-4">
             <div class="box orders">
                 <p style="font-size: 25px; padding: 16px 24px; color: white;">
@@ -14,7 +14,7 @@
             <div class="box profits">
                 <p style="font-size: 25px; padding: 16px 24px; color: white;">
                     <i class="fa-solid fa-coins" style="font-size: 21px; margin-right: 20px;"></i>
-                    <span>{{this.totalProfit}}</span>
+                    <span>{{this.totalProfit|number:'1.0-0':'en-US'}} ₫</span>
                 </p>
                 <p style="font-size: 18px; padding: 0 24px; color: white;">Lợi nhuận</p>
             </div>

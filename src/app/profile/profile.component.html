@@ -1,9 +1,9 @@
-<div class="container">
+<div class="container mt-4 mb-4">
     <app-toast></app-toast>
     <div class="title">Hồ sơ của tôi</div>
     <form class="mt-5" #accountForm="ngForm" (ngSubmit)="onSubmit(accountForm)"> 
         <div class="input" style="display: flex; flex-direction: row;">
-            <div class="col-sm-4" style="font-weight: bold;">Tên đăng nhập</div>
+            <div class="col-sm-4" style="font-weight: bold !important;">Tên đăng nhập</div>
             <div id="username">{{username}}</div>
         </div>
         <div class="input" style="display: flex; flex-direction: row;">

@@ -1,13 +1,13 @@
-<div style="width: 30%; margin-left: 35%;">
-    <div style="text-align: center; font-weight: bold; font-size: 25px;">{{isAdd ? "ADD NEW PAYMENT" : "UPDATE PAYMENT"}}</div>
-    <form #paymentForm="ngForm" (ngSubmit)="onSubmit(paymentForm)"> 
+<div style="width: 32%; margin-left: 35%;" class="mt-4 mb-4">
+    <div style="text-align: center; font-weight: bold !important; font-size: 25px !important;">{{isAdd ? "THÊM PHƯƠNG THỨC THANH TOÁN" : "CẬP NHẬT PHƯƠNG THỨC THANH TOÁN"}}</div>
+    <form #paymentForm="ngForm" (ngSubmit)="onSubmit(paymentForm)" class="mt-4"> 
         <div class="form-group">
-            <label class="col-sm-2 col-form-label">Name</label>
-            <input type="text" class="form-control" placeholder="Enter name ..." id="name" name="name" [(ngModel)]="name" required>
+            <label class="col-sm-4 col-form-label">Tên phương thức</label>
+            <input type="text" class="form-control" placeholder="" id="name" name="name" [(ngModel)]="name" required>
         </div>
         <!-- <app-alert [message]="error" *ngIf="error"></app-alert> -->
         <div class="mt-4">
-            <button class="btn btn-primary" type="submit" style="width: 100%" [disabled]="!paymentForm.valid">{{isAdd ? "Add" : "Update"}}</button>    
+            <button class="btn btn-primary" type="submit" style="width: 100%" [disabled]="!paymentForm.valid">{{isAdd ? "Thêm" : "Cập nhật"}}</button>    
         </div>
     </form>
 </div>

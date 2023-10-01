@@ -31,6 +31,8 @@ export class ProductDetailComponent implements OnInit{
   isAuthenticated = false;
   cartId = 0;
 
+  selectedFile: any;
+
   constructor(
     private http: HttpClient, private route: ActivatedRoute, private router: Router,
     private authService: AuthService, private productService: ProductService, private toastService: ToastService
@@ -64,6 +66,7 @@ export class ProductDetailComponent implements OnInit{
           }
         }
         this.product.file = list;
+        this.selectedFile = this.product.file[0];
         this.http.get<Rating[]>(`http://localhost:8080/api/rating/product/${product.id}`).subscribe((ratings)=>{
           this.ratings = ratings
           this.ratings.map((rating)=>this.averageStar += rating.star);
@@ -88,6 +91,10 @@ export class ProductDetailComponent implements OnInit{
     else{
       this.router.navigate(['/auth']);
     }
+  }
+
+  updateImage(file: any){
+    this.selectedFile = file;
   }
 
 }

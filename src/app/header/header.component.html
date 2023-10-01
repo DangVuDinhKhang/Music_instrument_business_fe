@@ -79,7 +79,7 @@
    <nav class="navbar navbar-expand-lg shadow header" style="background-image: linear-gradient(45deg, #D9AFD9 0%, #97D9E1 100%) !important;">
     <div class="container d-flex justify-content-between align-items-center">
   
-        <a class="navbar-brand text-success logo h1 align-self-center" href="index.html">
+        <a class="navbar-brand text-success logo h1 align-self-center" [routerLink]="['/home']">
           𝒦𝑀𝒞
         </a>
   
@@ -116,7 +116,7 @@
                 <div class="search-box">
                   <form #searchForm="ngForm" (ngSubmit)="onSubmit(searchForm)" style="display: flex; flex-direction: row;">
                     <button type="submit" class="btn-search"><i class="fas fa-search"></i></button>
-                    <input type="search" class="input-search" placeholder="Nhập tên sản phẩm..." name="search" ngModel required>
+                    <input type="text" class="input-search" placeholder="Nhập tên sản phẩm..." name="search" ngModel required>
                   </form>
                 </div>
                 <a class="nav-icon position-relative text-decoration-none" [routerLink]="['/cart']">
