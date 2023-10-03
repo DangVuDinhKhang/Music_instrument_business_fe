@@ -21,6 +21,7 @@ export class ManageProductComponent implements OnInit {
   ){}
 
   ngOnInit() {
+    window.scrollTo(0, 0); // Cuộn lên đầu trang khi trang được load
     this.getProducts();
   }
 

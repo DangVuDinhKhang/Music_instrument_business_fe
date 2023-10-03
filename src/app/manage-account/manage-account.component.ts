@@ -17,6 +17,7 @@ export class ManageAccountComponent {
   constructor(private http: HttpClient, private authService: AuthService, private modalService: NgbModal, private router: Router){}
 
   ngOnInit() {
+    window.scrollTo(0, 0); // Cuộn lên đầu trang khi trang được load
     this.getProducts();
   }
 

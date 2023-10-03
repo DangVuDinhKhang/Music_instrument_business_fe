@@ -8,6 +8,7 @@ import { Category } from '../manage-category/category.model';
 import { NgForm } from '@angular/forms';
 import { Product } from '../product/product.model';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-header',
@@ -26,7 +27,8 @@ export class HeaderComponent implements OnInit, OnDestroy{
 
   file: any;
 
-  constructor(private authService: AuthService, private productService: ProductService, private http: HttpClient, private router: Router){}
+  constructor(private authService: AuthService, private productService: ProductService, private modalService: NgbModal,
+    private http: HttpClient, private router: Router){}
 
   ngOnInit(){
     this.userSub = this.authService.account.subscribe((account)=>{
@@ -52,6 +54,11 @@ export class HeaderComponent implements OnInit, OnDestroy{
    
   }
 
+  open(modal: any){
+    
+    this.modalService.open(modal);
+  }
+
   onSubmit(form: NgForm){
     if(!form.valid)
       return;
@@ -70,8 +77,13 @@ export class HeaderComponent implements OnInit, OnDestroy{
     const formData = new FormData();
     formData.append("image", this.file);
 
-    this.http.post<any>(`http://localhost:5000/predict`, formData, ).subscribe((category)=>{
-      console.log(category)
+    this.http.post<any>(`http://localhost:5000/predict`, formData).subscribe((response)=>{
+      this.modalService.dismissAll();
+      this.http.get<Product[]>(`http://localhost:8080/api/product/search/${response.prediction}`).subscribe((products)=>{
+        this.productService.setSearchProduct(products);
+        this.router.navigate([`/products/search/${response.prediction}`]);
+        form.resetForm();
+      })
     })
     
   }

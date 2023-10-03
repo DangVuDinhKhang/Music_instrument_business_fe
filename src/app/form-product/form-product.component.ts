@@ -30,6 +30,7 @@ export class FormProductComponent implements OnInit{
   ){}
 
   ngOnInit(): void {
+    window.scrollTo(0, 0); // Cuộn lên đầu trang khi trang được load
     if(this.route.snapshot.url.join("/").includes("update")){
       this.isAdd = false;
       this.name = this.productService.needUpdateProduct.name;

@@ -19,6 +19,7 @@ export class ManageOrderComponent implements OnInit{
   constructor(private http: HttpClient, private authService: AuthService, private modalService: NgbModal){}
   
   ngOnInit(): void {
+    window.scrollTo(0, 0); // Cuộn lên đầu trang khi trang được load
     this.getAllOrders();
   }
 

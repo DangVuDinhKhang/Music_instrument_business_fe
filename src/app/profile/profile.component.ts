@@ -25,6 +25,7 @@ export class ProfileComponent implements OnInit{
   constructor(private authService: AuthService, private http: HttpClient, private toastService: ToastService){}
 
   ngOnInit(): void {
+    window.scrollTo(0, 0); // Cuộn lên đầu trang khi trang được load
     this.userSub = this.authService.account.subscribe((account)=>{
       this.isAuthenticated = !account ? false : true;
       if(this.isAuthenticated){

@@ -21,25 +21,20 @@
             </div>
   
             <div class="col-md-4 pt-5">
-                <h2 class="h2 text-light border-bottom pb-3 border-light">Products</h2>
+                <h2 class="h2 text-light border-bottom pb-3 border-light">Sản phẩm</h2>
                 <ul class="list-unstyled text-light footer-link-list">
-                    <li><a class="text-decoration-none" href="#">Luxury</a></li>
-                    <li><a class="text-decoration-none" href="#">Sport Wear</a></li>
-                    <li><a class="text-decoration-none" href="#">Men's Shoes</a></li>
-                    <li><a class="text-decoration-none" href="#">Women's Shoes</a></li>
-                    <li><a class="text-decoration-none" href="#">Popular Dress</a></li>
-                    <li><a class="text-decoration-none" href="#">Gym Accessories</a></li>
-                    <li><a class="text-decoration-none" href="#">Sport Shoes</a></li>
+                    <li><a class="text-decoration-none" [routerLink]="['/products/category/1']">Đàn tranh</a></li>
+                    <li><a class="text-decoration-none" [routerLink]="['/products/category/2']">Đàn tỳ bà</a></li>
+                    <li><a class="text-decoration-none" [routerLink]="['/products/category/104']">Đàn nguyệt</a></li>
                 </ul>
             </div>
   
             <div class="col-md-4 pt-5">
-                <h2 class="h2 text-light border-bottom pb-3 border-light">Further Info</h2>
+                <h2 class="h2 text-light border-bottom pb-3 border-light">Truy cập</h2>
                 <ul class="list-unstyled text-light footer-link-list">
                     <li><a class="text-decoration-none" [routerLink]="['/home']">Trang chủ</a></li>
-                    <li><a class="text-decoration-none" href="#">Về chúng tôi</a></li>
-                    <li><a class="text-decoration-none" href="#">Shop Locations</a></li>
-                    <li><a class="text-decoration-none" href="#">Liên hệ</a></li>
+                    <li><a class="text-decoration-none" [routerLink]="['/about']">Về chúng tôi</a></li>
+                    <li><a class="text-decoration-none" [routerLink]="['/contact']">Liên hệ</a></li>
                 </ul>
             </div>
   

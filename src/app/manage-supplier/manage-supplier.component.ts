@@ -20,6 +20,7 @@ export class ManageSupplierComponent {
   ){}
 
   ngOnInit() {
+    window.scrollTo(0, 0); // Cuộn lên đầu trang khi trang được load
     this.getSuppliers();
   }
 

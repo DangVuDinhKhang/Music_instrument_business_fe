@@ -102,6 +102,9 @@
                     <li class="nav-item">
                         <a class="nav-link" [routerLink]="['/contact']">Liên hệ</a>
                     </li>
+                    <li class="nav-item" style="cursor: pointer;">
+                        <a class="nav-link" (click)="open(searchModal)">Tìm Kiếm</a>
+                    </li>
                 </ul>
             </div>
             <div class="navbar align-self-center d-flex">
@@ -145,3 +148,23 @@
   
     </div>
   </nav>
+
+  <ng-template #searchModal let-modal>
+    <div style="padding: 10px;">
+      <div class="modal-header d-flex justify-content-end">
+        <h4 class="modal-title" id="modal-basic-title">Tìm sản phẩm với hình ảnh</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+      <div class="modal-body">
+        Tải lên ảnh nhạc cụ mà bạn cần tìm kiếm
+      </div>
+      <form #searchImageForm="ngForm" (ngSubmit)="onSubmitImage(searchImageForm)">
+        <input class="form-control" type="file" name="file" id="file" ngModel required (change)="onFileSelected($event)">
+        <div class="mt-2" style="display: block; float: right;">
+          <button type="button" type="submit" class="btn btn-primary" style="margin-right: 10px;" [disabled]="!searchImageForm.valid">Tìm</button>
+          <!-- <button type="button" class="btn btn-primary" (click)="modal.dismiss('Cross click')">Trở lại</button> -->
+        </div>
+      </form>
+      
+    </div>
+</ng-template>

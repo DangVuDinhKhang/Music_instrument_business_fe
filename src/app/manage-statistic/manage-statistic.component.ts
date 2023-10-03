@@ -25,6 +25,7 @@ export class ManageStatisticComponent implements OnInit{
   constructor(private statisticService: StatisticService){}
 
   ngOnInit(): void {
+    window.scrollTo(0, 0); // Cuộn lên đầu trang khi trang được load
     this.statisticRevenue("month");
     this.statisticMember();
     this.statisticRating();

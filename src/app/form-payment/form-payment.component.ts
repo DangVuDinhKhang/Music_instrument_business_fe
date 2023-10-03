@@ -21,6 +21,7 @@ export class FormPaymentComponent {
   ){}
 
   ngOnInit(): void {
+    window.scrollTo(0, 0); // Cuộn lên đầu trang khi trang được load
     if(this.route.snapshot.url.join("/").includes("update")){
       console.log(this.route.snapshot.url.join("/"))
       this.isAdd = false;

@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit{
   constructor(private http: HttpClient){}
 
   ngOnInit(): void {
+    window.scrollTo(0, 0); // Cuộn lên đầu trang khi trang được load
     this.http.get<any>(`http://localhost:8080/api/product/popular`).subscribe((response)=>{
       let listProduct: Product[] = []
       let list: any = [];

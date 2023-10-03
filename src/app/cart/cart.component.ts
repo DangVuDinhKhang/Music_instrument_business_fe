@@ -27,6 +27,7 @@ export class CartComponent implements OnInit{
   ){}
 
   ngOnInit(): void {
+    window.scrollTo(0, 0); // Cuộn lên đầu trang khi trang được load
     this.handleCart()
       .then(() => {
         this.updateTotalPrice();

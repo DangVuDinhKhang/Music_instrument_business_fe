@@ -34,6 +34,7 @@ export class ProductComponent implements OnInit{
   ){}
 
   ngOnInit() {
+    window.scrollTo(0, 0); // Cuộn lên đầu trang khi trang được load
     if(this.activatedRoute.snapshot.routeConfig?.path?.includes("category")){
       this.activatedRoute.paramMap.subscribe((params) => {
         this.getProductsByCategory();

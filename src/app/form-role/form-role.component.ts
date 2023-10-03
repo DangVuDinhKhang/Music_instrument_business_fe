@@ -16,6 +16,7 @@ export class FormRoleComponent implements OnInit{
   constructor(private authService: AuthService, private http: HttpClient, private router: Router){}
 
   ngOnInit(): void {
+    window.scrollTo(0, 0); // Cuộn lên đầu trang khi trang được load
     this.role = this.authService.needToUpdateAccount.role;
   }
 

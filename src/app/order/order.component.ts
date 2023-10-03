@@ -44,6 +44,7 @@ export class OrderComponent implements OnInit{
   ){}
 
   ngOnInit(): void {
+    window.scrollTo(0, 0); // Cuộn lên đầu trang khi trang được load
     this.userSub = this.authService.account.subscribe((account)=>{
       this.isAuthenticated = !account ? false : true;
       if(this.isAuthenticated){
