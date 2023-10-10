@@ -41,5 +41,11 @@ export class HomeComponent implements OnInit{
           }
       })
     });
+
+
+    this.http.post<any>(`http://localhost:5005/model/parse`, {text: "Hello"}).subscribe((response)=>{
+      console.log(response)
+    })
   }
+
 }

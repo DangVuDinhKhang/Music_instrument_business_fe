@@ -45,6 +45,28 @@
 </head>
 <body>
   <app-root></app-root>
+  <script>!(function () {
+    let e = document.createElement("script"),
+      t = document.head || document.getElementsByTagName("head")[0];
+    (e.src =
+      "https://cdn.jsdelivr.net/npm/rasa-webchat/lib/index.js"),
+      // Replace 1.x.x with the version that you want
+      (e.async = !0),
+      (e.onload = () => {
+        window.WebChat.default(
+          {
+            initPayload: '/welcome',
+            customData: { language: "en" },
+            socketUrl: "http://localhost:5119",
+            title: 'Trợ lí ảo',
+            // add other props here
+          },
+          null
+        );
+      }),
+      t.insertBefore(e, t.firstChild);
+  })();
+  </script>
   <script src="https://kit.fontawesome.com/1514c16334.js" crossorigin="anonymous"></script>
   <script src="assets/js/jquery-1.11.0.min.js"></script>
   <script src="assets/js/jquery-migrate-1.2.1.min.js"></script>

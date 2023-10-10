@@ -23,7 +23,9 @@ import { Rating } from '../shared/rating,model';
 export class ProductDetailComponent implements OnInit{
     
   product!: Product;
+  relatedProducts: Product[] = [];
   files: File[] = [];
+  filesOfRelatedProducts: File[] = [];
   ratings: Rating[] = [];
   averageStar: number = 0;
 
@@ -39,8 +41,11 @@ export class ProductDetailComponent implements OnInit{
   ){}
 
   ngOnInit() {
-    window.scrollTo(0, 0); // Cuộn lên đầu trang khi trang được load
-    this.getProductById();
+    this.route.params.subscribe(()=>{
+      window.scrollTo(0, 0);
+      this.getProductById();
+    })
+    
     this.userSub = this.authService.account.subscribe((account)=>{
       this.isAuthenticated = !account ? false : true;
       if(this.isAuthenticated){
@@ -76,6 +81,24 @@ export class ProductDetailComponent implements OnInit{
             this.averageStar = 0;
         })
       })
+      let listOfImage: any = []
+      this.http.get<Product[]>(`http://localhost:8080/api/product/${this.product.id}/category/${this.product.category.id}`).subscribe((responseData) => {
+        this.relatedProducts = responseData
+        this.http.get<any>(`http://localhost:8080/api/file`).subscribe((responseData)=>{
+          this.filesOfRelatedProducts = responseData;
+          for(let relatedProduct of this.relatedProducts){
+            for(let file of this.filesOfRelatedProducts){
+              if(relatedProduct.id == file.product.id){
+                let index = file.path.indexOf("assets");
+                let result = "../../" + file.path.slice(index).replace(/\\/g, "/");
+                listOfImage.push(result);
+              }
+            }
+            relatedProduct.file = listOfImage;
+            listOfImage = [];
+          }
+        })
+      });
     });
   }
 

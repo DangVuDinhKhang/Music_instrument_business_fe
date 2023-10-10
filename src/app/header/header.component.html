@@ -149,10 +149,10 @@
     </div>
   </nav>
 
-  <ng-template #searchModal let-modal>
+  <ng-template #searchModal let-modal tabindex="-1">
     <div style="padding: 10px;">
       <div class="modal-header d-flex justify-content-end">
-        <h4 class="modal-title" id="modal-basic-title">Tìm sản phẩm với hình ảnh</h4>
+        <h4 class="modal-title" id="modal-basic-title">Tìm sản phẩm bằng hình ảnh</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
       </div>
       <div class="modal-body">
@@ -161,7 +161,9 @@
       <form #searchImageForm="ngForm" (ngSubmit)="onSubmitImage(searchImageForm)">
         <input class="form-control" type="file" name="file" id="file" ngModel required (change)="onFileSelected($event)">
         <div class="mt-2" style="display: block; float: right;">
-          <button type="button" type="submit" class="btn btn-primary" style="margin-right: 10px;" [disabled]="!searchImageForm.valid">Tìm</button>
+          <button type="button" type="submit" class="btn" style="background-color: #6BDEDE; border: none; color: #000" 
+            [disabled]="!searchImageForm.valid">Tìm
+          </button>
           <!-- <button type="button" class="btn btn-primary" (click)="modal.dismiss('Cross click')">Trở lại</button> -->
         </div>
       </form>
