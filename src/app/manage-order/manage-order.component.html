@@ -15,6 +15,15 @@
                     <th scope="col">Thanh toán</th>
                     <th scope="col">Tổng tiền</th>
                     <th scope="col">Trạng thái</th>
+                    <th scope="col">
+                      <div class="d-flex">
+                          <select class="form-control" (change)="sortOrders($event)">
+                              <option value="asc_date">Theo ngày (Mới nhất)</option>
+                              <option value="desc_date">Theo ngày (Cũ nhất)</option>
+                              <option value="desc_price">Theo trạng thái</option>
+                          </select>
+                      </div>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -33,6 +42,7 @@
                             <option value=-1>Đã hủy</option>
                         </select>
                     </td>
+                    <td></td>
                     <!-- <td>
                         <a (click)="onUpdate(order)">
                             <i class="fa-solid fa-check" aria-hidden="true" *ngIf="!order.status" style="color: rgb(6, 193, 6);"></i>
