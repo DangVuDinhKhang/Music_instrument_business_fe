@@ -49,8 +49,12 @@ export class ManageOrderComponent implements OnInit{
         }
       }
 
-      this.orders = temps
-      
+      this.orders = temps     
+      for(let order of this.orders){
+        this.http.get<any>(`http://localhost:8080/api/order-detail/${order.id}`, {headers}).subscribe((response)=>{
+          order.orderDetails = response;
+        })
+      }
     })
   }
 

@@ -149,7 +149,7 @@ export class FormImportOrderComponent {
         products: products
 
       }, {headers}).subscribe((responseData)=>{
-          //this.router.navigate(["/manage/categories"]);
+          this.router.navigate(["/manage/import-orders"]);
     });
     
     

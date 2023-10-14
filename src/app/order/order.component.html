@@ -5,8 +5,8 @@
       <div class="update-profile" [routerLink]="['/profile']"><i class="fa-solid fa-pencil"></i> Sửa hồ sơ</div>
       <div class="mt-5 sort">
         <div class="title">Sắp xếp theo</div>
-        <div class="sort-type" (click)="sort_asc()">Mới nhất</div>
-        <div class="sort-type" (click)="sort_desc()">Cũ nhất</div>
+        <div class="sort-type" >Mới nhất</div>
+        <div class="sort-type" >Cũ nhất</div>
       </div>
     </div>
     <div class="col-10">
@@ -25,8 +25,8 @@
           <div class="col-3">
             <img [src]="orderDetail.product.file[0]" class="card-img-top" alt={{orderDetail.product.name}}>
           </div>
-          <div class="col-7">{{orderDetail.product.name}}</div>    
-          <div class="col-2">
+          <div class="col-6">{{orderDetail.product.name}}</div>    
+          <div class="col-3">
             <p>x{{orderDetail.quantity}}
               <span class="mt-4" style="font-weight: bold; margin-left: 20px; color: red">
                 {{orderDetail.total | number:'1.0-0':'en-US'}} ₫
@@ -35,10 +35,10 @@
           </div> 
           <div class="mt-2 mb-4 row">
             <div class="col-9">
-              <button type="button" class="btn btn-danger" *ngIf="!orderDetail.isRated && !ratedProducts.includes(orderDetail.product.id)"
-                (click)="open(ratingModal, orderDetail.product)" [disabled]="totalPriceAndStatus[i].status != 2">Đánh giá
+              <button type="button" class="btn btn-danger" *ngIf="!orderDetail.isRated && !ratedOrderDetails.includes(orderDetail.id)"
+                (click)="open(ratingModal, orderDetail.product, orderDetail)" [disabled]="totalPriceAndStatus[i].status != 2">Đánh giá
               </button>
-              <div *ngIf="orderDetail.isRated || ratedProducts.includes(orderDetail.product.id)">
+              <div *ngIf="orderDetail.isRated || ratedOrderDetails.includes(orderDetail.id)">
                 <button type="button" class="btn btn-danger" disabled style="margin-right: 5px ;">Đã đánh giá</button>
                 <igc-rating style="color: #eda500; font-size: 25px !important;" name="rating" 
                   [(ngModel)]="orderDetail.star" max="5" hover-preview size="large" disabled>

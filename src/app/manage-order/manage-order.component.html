@@ -65,8 +65,14 @@
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
       </div>
       <div class="modal-body">
-        <p>Số điện thoại: {{selectedOrder.phone}}</p>
-        <p>Địa chỉ: {{selectedOrder.address}}</p>
+        <label class="mt-2">Số điện thoại:</label> {{selectedOrder.phone}}<br>
+        <label class="mt-2">Địa chỉ:</label> {{selectedOrder.address}}<br> 
+        <label class="mt-2">Sản phẩm:</label>
+        <div class="row" *ngFor="let orderDetail of selectedOrder.orderDetails; let i = index">
+          <div class="col-7 mt-2">{{i+1}}. {{orderDetail.product.name}}</div>
+          <div class="col-2 mt-2">x {{orderDetail.quantity}}</div>
+          <div class="col-3 mt-2">{{orderDetail.total|number:'1.0-0':'en-US'}} ₫</div>
+        </div>
       </div>
     </div>
 </ng-template>

@@ -29,10 +29,11 @@ export class OrderComponent implements OnInit{
   files: File[] = [];
 
   needToRatingProductId!: number;
+  needToRatingOrderDetail!: number;
   star!: number;
 
   ratings: Rating[] = [];
-  ratedProducts: number[] = [];
+  ratedOrderDetails: number[] = [];
 
   labelOfRating = ["Tệ", "Không hài lòng", "Bình thường", "Hài lòng", "Tuyệt vời"]
 
@@ -53,14 +54,15 @@ export class OrderComponent implements OnInit{
       }
     })
     this.getAllOrder();
-    this.getRatingByAccountId();
+    //this.getRatingByAccountId();
   }
 
-  open(modal: any, product: Product){
+  open(modal: any, product: Product, order: any){
     
     this.modalService.open(modal);
-    this.needToRatingProductId = product.id;
-    this.star = 5
+    // this.needToRatingProductId = product.id;
+    this.needToRatingOrderDetail = order.id;
+    this.star = 5;
   }
 
   onSubmit(form: NgForm){
@@ -76,13 +78,13 @@ export class OrderComponent implements OnInit{
       content: content, 
       star: star,
       account: {id: this.accountId},
-      product: {id: this.needToRatingProductId}
+      orderDetail: {id: this.needToRatingOrderDetail}
     }, 
     {headers}).subscribe((responseData)=>{
       for(let orderDetailsOfOrder of this.ordersDetailOfOrders){
         for(let orderDetail of orderDetailsOfOrder){
-          if(orderDetail.product.id == this.needToRatingProductId){
-            this.ratedProducts.push(this.needToRatingProductId);
+          if(orderDetail.id == this.needToRatingOrderDetail){
+            this.ratedOrderDetails.push(this.needToRatingOrderDetail);
             orderDetail.isRated = true;
             orderDetail.star = star;
           }
@@ -98,22 +100,22 @@ export class OrderComponent implements OnInit{
     
   }
 
-  getRatingByAccountId(){
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.authService.account.value.token}`
-    });
-    this.http.get<Rating[]>(`http://localhost:8080/api/rating/account/${this.accountId}`, {headers}).subscribe((ratings)=>{
-      this.ratings = ratings;
-      this.ratings.map((rating)=>{
-        this.ratedProducts.push(rating.product.id);
-      })
-    })
-  }
+  // getRatingByAccountId(){
+  //   const headers = new HttpHeaders({
+  //     'Authorization': `Bearer ${this.authService.account.value.token}`
+  //   });
+  //   this.http.get<Rating[]>(`http://localhost:8080/api/rating/account/${this.accountId}`, {headers}).subscribe((ratings)=>{
+  //     this.ratings = ratings;
+  //     this.ratings.map((rating)=>{
+  //       this.ratedProducts.push(rating.orderDetail.id);
+  //     })
+  //   })
+  // }
 
   getAllOrder(){
     this.http.get<Order[]>(`http://localhost:8080/api/order/account/${this.accountId}`).subscribe((orders)=>{
-      this.sort(orders, true);
       this.orders = orders;
+
       this.getAllOrderDetail()
     })
   }
@@ -131,13 +133,16 @@ export class OrderComponent implements OnInit{
         });
         this.http.get<Rating[]>(`http://localhost:8080/api/rating/account/${this.accountId}`, {headers}).subscribe((ratings)=>{
           this.ratings = ratings;
-          for(let orderDetail of ordersDetailOfOrders)
-            for(let rating of ratings)
-              if(orderDetail.product.id == rating.product.id){
-                this.ratedProducts.push(rating.product.id);
+          for(let orderDetail of ordersDetailOfOrders){
+            for(let rating of ratings){
+              if(orderDetail.id == rating.orderDetail.id){
+                this.ratedOrderDetails.push(rating.orderDetail.id);
                 orderDetail.isRated = true;
                 orderDetail.star = rating.star;
               }
+            }
+          }
+          console.log(this.ratedOrderDetails)
         })
         let list: any = [];
         this.http.get<any>(`http://localhost:8080/api/file`).subscribe((responseData)=>{
@@ -158,32 +163,46 @@ export class OrderComponent implements OnInit{
     }
   }
 
-  sort(orders: Order[], desc: boolean){
-    if(desc){
-      orders.sort((a, b)=>{
-        let dateA = new Date(a.date);
-        let dateB = new Date(b.date);
-        return dateB.getTime() - dateA.getTime();
-      });
-    }
-    else{
-      orders.sort((a, b)=>{
-        let dateA = new Date(a.date);
-        let dateB = new Date(b.date);
-        return dateA.getTime() - dateB.getTime();
-      });
-    }
-  }
+  // sort(orders: Order[], type: string){
+  //   if(type == "asc_date"){
+  //     orders.sort((a, b) => b.date.getTime() - a.date.getTime());
+  //   } 
+  //   else if(type == "desc_date"){
+  //     orders.sort((a, b) => a.date.getTime() - b.date.getTime());
+  //   }
+  //   else{
+  //     orders.sort((a, b) => (a.total - b.total));
+  //   }
 
-  sort_asc(){
-    this.sort(this.orders, false);
-    console.log(this.orders);
-  }
+  //   return orders;
+  // }
 
-  sort_desc(){
-    this.sort(this.orders, true);
-    console.log(this.orders);
-  }
+  // sortOrders(event: any){
+  //   const backups = []
+  //   for(let order of this.orders){
+  //     let newObject = {
+  //       id: order.id,
+  //       date: order.date
+  //     }
+  //     backups.push(newObject)
+  //     let d = order.date.split("-");
+  //     let newDate = new Date(d[2] + '/' + d[1] + '/' + d[0]);
+  //     order.date = newDate
+  //   }
+
+  //   let temps = this.sort(this.orders, event);
+
+  //   for(let temp of temps){
+  //     for(let backup of backups){
+  //       if(temp.id == backup.id){
+  //         temp.date = backup.date
+  //       }
+  //     }
+  //   }
+
+  //   this.orders = temps
+    
+  // }
 
   openRemoveModal(modal: any, orderDetal: OrderDetail){
     this.modalService.open(modal);

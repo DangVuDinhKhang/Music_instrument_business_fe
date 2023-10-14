@@ -16,7 +16,7 @@
                   <th scope="col">Trạng thái</th>
                   <th scope="col">
                     <div class="d-flex">
-                        <select class="form-control">
+                        <select class="form-control" (change)="sortOrders($event)">
                             <option value="asc_date">Theo ngày (Mới nhất)</option>
                             <option value="desc_date">Theo ngày (Cũ nhất)</option>
                             <option value="desc_price">Theo trạng thái</option>
@@ -61,12 +61,18 @@
 </div> 
 
 <ng-template #showModal let-modal>
-  <div style="padding: 10px;">
+  <div style="padding: 5px;">
     <div class="modal-header d-flex justify-content-end">
       <h4 class="modal-title" id="modal-basic-title">Chi tiết đơn hàng</h4>
       <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
+      <label style="font-weight: bold !important;">Sản phẩm:</label>
+      <div class="row" *ngFor="let importOrderDetail of selectedOrder.importOrderDetails; let i = index">
+        <div class="col-6 mt-2">{{i+1}}. {{importOrderDetail.product.name}}</div>
+        <div class="col-2 mt-2">x {{importOrderDetail.quantity}}</div>
+        <div class="col-4 mt-2">{{importOrderDetail.total|number:'1.0-0':'en-US'}} ₫</div>
+      </div>
     </div>
   </div>
 </ng-template>
