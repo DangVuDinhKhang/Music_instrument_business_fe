@@ -126,6 +126,7 @@ export class OrderComponent implements OnInit{
     });
     for(let order of this.orders){
       this.http.get<any[]>(`http://localhost:8080/api/order-detail/${order.id}`, {headers}).subscribe((ordersDetailOfOrders)=>{
+        console.log(ordersDetailOfOrders)
         this.ordersDetailOfOrders.push(ordersDetailOfOrders);
         this.totalPriceAndStatus.push({
           totalPrice: ordersDetailOfOrders[0].customerOrder.total, 

@@ -77,6 +77,7 @@ export class ProductDetailComponent implements OnInit{
           this.ratings = ratings
           this.ratings.map((rating)=>this.averageStar += rating.star);
           this.averageStar /= this.ratings.length;
+          this.averageStar = Math.round(this.averageStar * 10) / 10;
           if(isNaN(this.averageStar))
             this.averageStar = 0;
         })

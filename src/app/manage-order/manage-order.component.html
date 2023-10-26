@@ -73,6 +73,7 @@
           <div class="col-2 mt-2">x {{orderDetail.quantity}}</div>
           <div class="col-3 mt-2">{{orderDetail.total|number:'1.0-0':'en-US'}} ₫</div>
         </div>
+        <label class="mt-2" *ngIf="selectedOrder.status != -1">Lợi nhuận:</label> {{selectedOrder.profit|number:'1.0-0':'en-US'}} ₫
       </div>
     </div>
 </ng-template>
