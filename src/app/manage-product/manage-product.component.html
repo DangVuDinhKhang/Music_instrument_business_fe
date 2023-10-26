@@ -28,11 +28,12 @@
             </thead>
             <tbody>
                 <tr *ngFor="let product of products; let index = index">
-                    <td>
+                    <!-- <td>
                       <div class="form-check">
                         <input class="form-check-input checkbox" type="checkbox" value="" name="destinations[]">
                       </div>
-                    </td>
+                    </td> -->
+                    <td></td>
                     <th scope="row">{{index + 1 }}</th>
                     <td>{{product.name}}</td>
                     <td class="create-at">{{product.price|number:'1.0-0':'en-US'}} ₫</td>

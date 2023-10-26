@@ -21,13 +21,14 @@
             </thead>
             <tbody>
                 <tr *ngFor="let payment of payments; let index = index">
-                    <td>
+                    <!-- <td>
                       <div class="form-check">
                         <input class="form-check-input checkbox" type="checkbox" value="" name="destinations[]">
                       </div>
-                    </td>
+                    </td> -->
+                    <td></td>
                     <th scope="row">{{index + 1 }}</th>
-                    <td>{{payment.name}}</td>
+                    <td style="width: 800px;">{{payment.name}}</td>
                     <td>
                         <a (click)="onUpdate(payment)" style="text-decoration: none"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                         <a (click)="open(deleteModal, payment)" style="text-decoration: none; margin-left: 10px;" class="delete-test"><i class="fa fa-trash" aria-hidden="true"></i></a>

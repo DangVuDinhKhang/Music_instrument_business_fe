@@ -8,10 +8,7 @@
                 <tr>
                     <th scope="col"></th>
                     <th scope="col">#</th>
-                    <th scope="col">Tên
-                      <!-- {{{sort "name" _sort}}} -->
-                    </th>
-                    <th scope="col"></th>
+                    <th scope="col">Tên</th>
                     <th scope="col">
                       <button type="button" class="btn btn-primary add" [routerLink]="['add']">
                         <i class="fa-solid fa-plus" style="color: #ffffff;"></i> Thêm
@@ -21,18 +18,18 @@
             </thead>
             <tbody>
                 <tr *ngFor="let category of categories; let index = index">
-                    <td>
+                    <!-- <td>
                       <div class="form-check">
                         <input class="form-check-input checkbox" type="checkbox" value="" name="destinations[]">
                       </div>
-                    </td>
+                    </td> -->
+                    <td></td>
                     <th scope="row">{{index + 1 }}</th>
-                    <td>{{category.name}}</td>
+                    <td style="width: 800px;">{{category.name}}</td>
                     <td>
                         <a (click)="onUpdate(category)" style="text-decoration: none"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                         <a (click)="open(deleteModal, category)" style="text-decoration: none; margin-left: 10px;" class="delete-test"><i class="fa fa-trash" aria-hidden="true"></i></a>
                     </td>
-                    <td></td>
                 </tr>
             </tbody>
         </table>
