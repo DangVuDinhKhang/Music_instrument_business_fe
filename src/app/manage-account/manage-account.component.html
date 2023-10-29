@@ -34,7 +34,10 @@
                     <td class="update-at">{{account.phone}}</td>
                     <td>
                       <a (click)="onUpdate(account)" style="text-decoration: none"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                      <a (click)="open(deleteModal, account)" style="text-decoration: none; margin-left: 10px;" class="delete-test"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                      <a (click)="open(deleteModal, account)" style="text-decoration: none; margin-left: 10px;" class="delete-test">
+                        <i class="fa fa-trash" aria-hidden="true" *ngIf="account.status == 1"></i>
+                        <i class="fa fa-window-restore" aria-hidden="true" *ngIf="account.status == 0"></i>
+                      </a>
                     </td>
                 </tr>
             </tbody>
@@ -44,14 +47,18 @@
 <ng-template #deleteModal let-modal>
   <div style="padding: 10px;">
     <div class="modal-header d-flex justify-content-end">
-      <h4 class="modal-title" id="modal-basic-title">Xóa tài khoản</h4>
+      <h4 class="modal-title" id="modal-basic-title" *ngIf="needToDeleteAccount.status == 1">Vô hiệu hóa tài khoản</h4>
+      <h4 class="modal-title" id="modal-basic-title" *ngIf="needToDeleteAccount.status == 0">Mở khóa tài khoản</h4>
       <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
-    <div class="modal-body">
-      Hành động này không thể khôi phục, bạn có chắc không ?
+    <div class="modal-body" *ngIf="needToDeleteAccount.status == 1">
+      Tài khoản này sẽ bị vô hiệu hóa, bạn có chắc không ?
+    </div>
+    <div class="modal-body" *ngIf="needToDeleteAccount.status == 0">
+      Tài khoản này sẽ được mở khóa, bạn có chắc không ?
     </div>
     <div style="display: block; float: right;">
-      <button type="button" class="btn btn-danger" style="margin-right: 10px;" (click)="onDelete()">Xóa</button>
+      <button type="button" class="btn btn-danger" style="margin-right: 10px;" (click)="onDelete()">OK</button>
       <button type="button" class="btn btn-primary" (click)="modal.dismiss('Cross click')">Trở lại</button>
     </div>
   </div>

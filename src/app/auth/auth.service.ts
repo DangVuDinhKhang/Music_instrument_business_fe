@@ -16,6 +16,7 @@ export interface AuthResponseData {
     token: string
     phone: string
     address: string
+    status: number
 }
 
 @Injectable({providedIn: "root"})
@@ -36,7 +37,7 @@ export class AuthService{
             username: username,
             password: password
         }).pipe(catchError(this.handleError), tap((response)=>{
-            this.handleAuthentication(response.id, response.username, response.role, response.cart, response.token, response.phone, response.address);
+            this.handleAuthentication(response.id, response.username, response.role, response.cart, response.token, response.phone, response.address, response.status);
             
         }))
     }
@@ -46,15 +47,15 @@ export class AuthService{
             username: username,
             password: password
         }).pipe(catchError(this.handleError), tap((response)=>{
-            this.handleAuthentication(response.id, response.username, response.role, response.cart, response.token, response.phone, response.address);
+            this.handleAuthentication(response.id, response.username, response.role, response.cart, response.token, response.phone, response.address, response.status);
         }))
     }
 
     autoLogin(){
-        const accountData: {id: number, username: string, _role: string, _cart: Cart, _token: string, phone: string, address: string} = JSON.parse(localStorage.getItem("accountData")!);
+        const accountData: {id: number, username: string, _role: string, _cart: Cart, _token: string, phone: string, address: string, status: number} = JSON.parse(localStorage.getItem("accountData")!);
         if(!accountData)
             return;
-        const loadedAccount = new Account(accountData.id, accountData.username, accountData._role, accountData._cart, accountData._token, accountData.phone, accountData.address);
+        const loadedAccount = new Account(accountData.id, accountData.username, accountData._role, accountData._cart, accountData._token, accountData.phone, accountData.address, accountData.status);
         if(loadedAccount.token){
             this.account.next(loadedAccount);
         }
@@ -78,9 +79,9 @@ export class AuthService{
     //     }, expirationDuration)
     // }
 
-    private handleAuthentication(id:number, username: string,  role: string, cart: Cart, token: string, phone: string, address: string){
+    private handleAuthentication(id:number, username: string,  role: string, cart: Cart, token: string, phone: string, address: string, status: number){
         //const expirationDate = new Date(new Date().getTime() + expiresIn * 1000)
-        const account = new Account(id, username, role, cart, token, phone, address);
+        const account = new Account(id, username, role, cart, token, phone, address, status);
         this.account.next(account);
         localStorage.setItem("accountData", JSON.stringify(account));
         this.accountIdAfterSuccess = account.id;

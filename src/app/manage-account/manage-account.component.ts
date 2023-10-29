@@ -12,16 +12,16 @@ import { Router } from '@angular/router';
 })
 export class ManageAccountComponent {
   accounts: Account[] = [];
-  needToDeleteAccountId = 0;
+  needToDeleteAccount!: Account;
 
   constructor(private http: HttpClient, private authService: AuthService, private modalService: NgbModal, private router: Router){}
 
   ngOnInit() {
     window.scrollTo(0, 0); // Cuộn lên đầu trang khi trang được load
-    this.getProducts();
+    this.getAccounts();
   }
 
-  getProducts(){
+  getAccounts(){
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.authService.account.value.token}`
     });
@@ -38,17 +38,25 @@ export class ManageAccountComponent {
   open(modal: any, account: Account){
     
     this.modalService.open(modal);
-    this.needToDeleteAccountId = account.id;
+    this.needToDeleteAccount = account;
   }
 
   onDelete(){
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.authService.account.value.token}`
     });
-    this.http.delete<Account>(`http://localhost:8080/api/account/${this.needToDeleteAccountId}`, {headers}).subscribe((responseData) => {
-      this.accounts = this.accounts.filter(account => account.id != this.needToDeleteAccountId);
+    // this.http.put<Account>(`http://localhost:8080/api/account/${this.needToDeleteAccountId}`, {headers}).subscribe((responseData) => {
+    //   this.accounts = this.accounts.filter(account => account.id != this.needToDeleteAccountId);
+    //   this.modalService.dismissAll();
+    //   this.needToDeleteAccountId = 0;
+    // })
+    this.http.put<any>(`http://localhost:8080/api/account/update-status/${this.needToDeleteAccount.id}`,{}, {headers}).subscribe((responseData)=>{
+      console.log(responseData);
       this.modalService.dismissAll();
-      this.needToDeleteAccountId = 0;
-    })
+      this.accounts.map((account) => {
+        if(account.id == this.needToDeleteAccount.id)
+          account.status = account.status == 1 ? 0 : 1;
+      });
+    });
   }
 }
