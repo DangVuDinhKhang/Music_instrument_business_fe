@@ -1,4 +1,4 @@
-<div class="form">
+<div class="form mb-4">
     <div *ngIf="isLoading" style="text-align: center;">
         <app-loading-spinner></app-loading-spinner>
     </div>
@@ -16,7 +16,6 @@
             <div>{{!isLoginMode ? "Đã có tài khoản ?" : "Chưa có tài khoản?"}}</div>
             <span class="switch" (click)="onSwitchMode()">{{!isLoginMode ? "Đăng nhập" : "Đăng ký"}}</span>
         </div>
-        
     </form>
 </div>
 
