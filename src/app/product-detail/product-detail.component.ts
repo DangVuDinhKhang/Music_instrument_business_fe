@@ -80,6 +80,8 @@ export class ProductDetailComponent implements OnInit{
           this.averageStar = Math.round(this.averageStar * 10) / 10;
           if(isNaN(this.averageStar))
             this.averageStar = 0;
+          if(isFinite(this.averageStar))
+            this.averageStar = 0;
         })
       })
       let listOfImage: any = []
