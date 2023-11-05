@@ -42,5 +42,23 @@
     
 }
 
+.load-more {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.btn-og {
+    margin-top: 10px;
+    padding: 8px 9px;
+    font-weight: bold !important;
+    border-radius: 10px;
+    background: linear-gradient(45deg, #D9AFD9 0%, #97D9E1 100%);
+}
+
+.btn-og:hover{
+    background: linear-gradient(45deg, #97D9E1 0%, #D9AFD9 100%);
+}
+
 
 

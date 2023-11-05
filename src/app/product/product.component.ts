@@ -28,6 +28,9 @@ export class ProductComponent implements OnInit{
 
   keyWord: any;
 
+  page: number = 0;
+  pageSize: number = 6;
+
   constructor(
     private http: HttpClient, private productService: ProductService, private router: Router,
     private authService: AuthService, private toastService: ToastService, private activatedRoute: ActivatedRoute
@@ -63,7 +66,8 @@ export class ProductComponent implements OnInit{
 
   getProducts(){
     let list: any = [];
-    this.http.get<Product[]>(`http://localhost:8080/api/product`).subscribe((responseData) => {
+    const params = {page: this.page, pageSize: this.pageSize}
+    this.http.get<Product[]>(`http://localhost:8080/api/product`, {params}).subscribe((responseData) => {
         this.products = this.sort(responseData, "name");
         
         this.http.get<any>(`http://localhost:8080/api/file`).subscribe((responseData)=>{
@@ -81,6 +85,11 @@ export class ProductComponent implements OnInit{
           }
         })
     }); 
+  }
+
+  loadMore() {
+    this.pageSize += 6;
+    this.getProducts();
   }
 
   getProductsByCategory(){
