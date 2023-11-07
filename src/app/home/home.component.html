@@ -217,7 +217,7 @@
           <div class="col-12 col-md-4 mb-4" *ngFor="let product of products">
               <div class="card h-100">
                   <a [routerLink]="['/products', product.id]">
-                      <img [src]="product.file[0]" class="card-img-top" alt={{product.name}}>
+                      <img [src]="product.file[0]" class="card-img-top" alt={{product.name}} height="400">
                   </a>
                   <div class="card-body">
                       <ul class="list-unstyled d-flex justify-content-between">

@@ -76,12 +76,16 @@ export class ProductDetailComponent implements OnInit{
         this.http.get<Rating[]>(`http://localhost:8080/api/rating/product/${product.id}`).subscribe((ratings)=>{
           this.ratings = ratings
           this.ratings.map((rating)=>this.averageStar += rating.star);
+          
           this.averageStar /= this.ratings.length;
+          
           this.averageStar = Math.round(this.averageStar * 10) / 10;
+
           if(isNaN(this.averageStar))
             this.averageStar = 0;
-          if(isFinite(this.averageStar))
-            this.averageStar = 0;
+          // if(isFinite(this.averageStar)){
+          //   this.averageStar = 0;
+          // }
         })
       })
       let listOfImage: any = []
