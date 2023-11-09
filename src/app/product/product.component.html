@@ -69,7 +69,7 @@
                     </div>
                 </div>
             </div>
-            <div class="load-more">
+            <div class="load-more" *ngIf="products.length >= 6">
                 <button class="btn-og" (click)="loadMore()">Tải thêm</button>
             </div>
         </div>

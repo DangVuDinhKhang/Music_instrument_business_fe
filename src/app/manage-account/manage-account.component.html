@@ -35,8 +35,8 @@
                     <td>
                       <a (click)="onUpdate(account)" style="text-decoration: none"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                       <a (click)="open(deleteModal, account)" style="text-decoration: none; margin-left: 10px;" class="delete-test">
-                        <i class="fa fa-trash" aria-hidden="true" *ngIf="account.status == 1"></i>
-                        <i class="fa fa-window-restore" aria-hidden="true" *ngIf="account.status == 0"></i>
+                        <i class="fa fa-trash" aria-hidden="true" *ngIf="account.status == 1 && account.role != 'admin'"></i>
+                        <i class="fa fa-window-restore" aria-hidden="true" *ngIf="account.status == 0 && account.role !='admin'"></i>
                       </a>
                     </td>
                 </tr>

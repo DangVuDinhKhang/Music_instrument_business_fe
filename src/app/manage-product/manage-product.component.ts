@@ -26,7 +26,8 @@ export class ManageProductComponent implements OnInit {
   }
 
   getProducts(){
-    this.http.get<Product[]>(`http://localhost:8080/api/product`).subscribe((responseData) => {
+    const params = {page: 0, pageSize: 0}
+    this.http.get<Product[]>(`http://localhost:8080/api/product`, {params}).subscribe((responseData) => {
         this.products = responseData;
     })
   }
