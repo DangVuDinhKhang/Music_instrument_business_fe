@@ -28,6 +28,7 @@ import { FilterProductComponent } from './filter-product/filter-product.componen
 import { SearchProductComponent } from './search-product/search-product.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
+import { ResultPaymentComponent } from './result-payment/result-payment.component';
 
 const appRoutes: Routes=[
     {path: "", redirectTo: "home", pathMatch: "full"},
@@ -78,7 +79,8 @@ const appRoutes: Routes=[
     {path: "order", canActivate: [AuthGuard], component: FormOrderComponent},
     {path: "my-order", canActivate: [AuthGuard], component: OrderComponent},
     {path: "about", component: AboutComponent},
-    {path: "contact", component: ContactComponent}
+    {path: "contact", component: ContactComponent},
+    {path: "vnpay/:id", component: ResultPaymentComponent}
     
 ]
 @NgModule({

@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Product } from "./product.model";
 import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
 
 @Injectable({providedIn: "root"})
 export class ProductService{
@@ -20,9 +21,14 @@ export class ProductService{
     }
 
     addToCart(productId: number, cartId: number){
-        this.http.put<any>(`http://localhost:8080/api/product/add-to-cart`, {productId: productId, cartId: cartId}).subscribe((responseData)=>{
-          console.log(responseData)
-        })
+      this.http.put<any>(`http://localhost:8080/api/product/add-to-cart`, {productId: productId, cartId: cartId}).subscribe(
+        (responseData)=>{
+          console.log(responseData);
+        },
+        (error)=>{
+          console.error('Lỗi:', error);
+        }
+      );
     }
 
     updateInCart(productId: number, cartId: number){

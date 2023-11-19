@@ -74,12 +74,24 @@ export class CartComponent implements OnInit{
   }
 
   addToCart(productId: number){
-    this.productService.addToCart(productId, this.cart.id);
-    for(let productAndQuantity of this.cart.productsAndQuantity){
-      if(productAndQuantity.product.id == productId)
-          productAndQuantity.quantity += 1;
-    }
-    this.updateTotalPrice();
+    // this.productService.addToCart(productId, this.cart.id);
+    // for(let productAndQuantity of this.cart.productsAndQuantity){
+    //   if(productAndQuantity.product.id == productId)
+    //       productAndQuantity.quantity += 1;
+    // }
+    // this.updateTotalPrice();
+    this.http.put<any>(`http://localhost:8080/api/product/add-to-cart`, {productId: productId, cartId: this.cart.id}).subscribe(
+      (responseData)=>{
+        for(let productAndQuantity of this.cart.productsAndQuantity){
+            if(productAndQuantity.product.id == productId)
+                productAndQuantity.quantity += 1;
+        }
+        this.updateTotalPrice();
+      },
+      (error)=>{
+        console.error('Lỗi:', error);
+      }
+    );
   }
 
   updateInCart(productId: number){

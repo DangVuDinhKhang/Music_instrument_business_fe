@@ -43,6 +43,7 @@ import { SearchProductComponent } from './search-product/search-product.componen
 import { FooterComponent } from './footer/footer.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
+import { ResultPaymentComponent } from './result-payment/result-payment.component';
 // import { ChatbotRasaModule } from "angular-chat-widget-rasa";
 
 @NgModule({
@@ -80,6 +81,7 @@ import { ContactComponent } from './contact/contact.component';
     FooterComponent,
     AboutComponent,
     ContactComponent,
+    ResultPaymentComponent,
     
   ],
   imports: [

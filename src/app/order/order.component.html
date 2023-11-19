@@ -17,7 +17,7 @@
           <div class="col-4">Trạng thái đơn hàng: 
             <span [className]="totalPriceAndStatus[i].status == 2 ? 'green' : 'red'">
               {{totalPriceAndStatus[i].status == 2 ? "Đã hoàn thành" : totalPriceAndStatus[i].status == 1 ? "Đang vận chuyển" : 
-                totalPriceAndStatus[i].status == 0 ? "Đang xử lí" : "Đã hủy"}}
+                totalPriceAndStatus[i].status == 0 ? "Đang xử lí" : totalPriceAndStatus[i].status == 3 ? "Chờ thanh toán" : "Đã hủy"}}
             </span>  
           </div>
         </div>
@@ -51,7 +51,7 @@
           <div class="col-7"></div>
           <div class="col-2">
             <button 
-              style="margin-left: 10px;" type="button" class="btn btn-danger" *ngIf="totalPriceAndStatus[i].status == 0"
+              style="margin-left: 10px;" type="button" class="btn btn-danger" *ngIf="totalPriceAndStatus[i].status == 0 || totalPriceAndStatus[i].status == 3"
               (click)="openRemoveModal(removeModal, ordersDetail[0])">Hủy mua
             </button> 
           </div>

@@ -1,0 +1,27 @@
+<div class="mt-4 container">
+    <div *ngIf="status" class="content box">
+        <h3 class="text-center mt-5" style="color: rgb(11, 198, 11)">Thanh toán thành công</h3>
+        <div class="row mt-4">
+            <div class="col-4"></div>
+            <div class="col-8 body">
+                <p class="mt-2">Mã đơn hàng: {{customerOrderId}}</p>
+                <p>Tổng tiền: {{total|number:'1.0-0':'en-US'}} ₫</p>
+                
+            </div>
+            <p class="mt-3 go text-center" [routerLink]="['/my-order']">Xem đơn hàng</p>
+        </div>
+    </div>
+    <div *ngIf="!status" class="content box">
+        <h3 class="text-center mt-5" style="color: rgb(242, 67, 8)">Thanh toán không thành công</h3>
+        <div class="text-center" style="font-style: italic;">Đơn hàng đã bị hủy</div>
+        <div class="row mt-4">
+            <div class="col-4"></div>
+            <div class="col-8 body">
+                <p class="mt-2">Mã đơn hàng: {{customerOrderId}}</p>
+                <p>Tổng tiền: {{total|number:'1.0-0':'en-US'}} ₫</p>
+                
+            </div>
+            <p class="mt-3 go text-center" [routerLink]="['/']">Trang chủ</p>
+        </div>
+    </div>
+</div>

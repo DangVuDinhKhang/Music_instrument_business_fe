@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
 export class FormOrderComponent implements OnInit, OnDestroy{
 
   payments!: Payment[];
-  selectedPayment: number = 0;
+  selectedPayment: Payment = new Payment(0, '');
   private userSub!: Subscription;
   isAuthenticated = false;
   phone!: string;
@@ -56,24 +56,31 @@ export class FormOrderComponent implements OnInit, OnDestroy{
     const phone = form.value.phone;
     const address = form.value.address;
     const note = form.value.note;
-    console.log(note);
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.authService.account.value.token}`
     });
+
+    let url = `http://localhost:8080/api/order/`;
     
-    this.http.post<Payment>(`http://localhost:8080/api/order/`, {
+    this.http.post<any>(url, {
       phone: phone, 
       address: address, 
       note: note,
       total: this.totalPrice,
       account: {id: this.accountId},
-      payment: {id: this.selectedPayment},
+      payment: {id: this.selectedPayment.id},
       productsInCartDTO: this.cart.productsAndQuantity
     }, {headers}).subscribe((responseData)=>{
-      this.router.navigate(["/my-order"]);
+      if(responseData.url){
+        window.location = responseData.url;
+      }
+      else{
+        this.router.navigate(["/my-order"]);
+      }
+      
     });
-    
   }
+    
 
   updateTotalPrice(){
     this.totalPrice = 0;
@@ -88,9 +95,8 @@ export class FormOrderComponent implements OnInit, OnDestroy{
     })
   }
 
-  onSelected(paymentId: number){
-    this.selectedPayment = paymentId;
-    console.log(this.selectedPayment);
+  onSelected(payment: Payment){
+    this.selectedPayment = payment;
   }
 
   async handleCart(): Promise<void> {
