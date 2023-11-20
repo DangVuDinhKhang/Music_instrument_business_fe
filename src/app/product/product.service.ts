@@ -31,8 +31,8 @@ export class ProductService{
       );
     }
 
-    updateInCart(productId: number, cartId: number){
-        this.http.put<any>(`http://localhost:8080/api/product/update-in-cart`, {productId: productId, cartId: cartId}).subscribe((responseData)=>{
+    updateInCart(productId: number, cartId: number, quantity: number){
+        this.http.put<any>(`http://localhost:8080/api/product/update-in-cart`, {productId: productId, cartId: cartId, quantity: quantity}).subscribe((responseData)=>{
           console.log(responseData)
         })
     }

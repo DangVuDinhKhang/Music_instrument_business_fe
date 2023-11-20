@@ -80,7 +80,7 @@ export class CartComponent implements OnInit{
     //       productAndQuantity.quantity += 1;
     // }
     // this.updateTotalPrice();
-    this.http.put<any>(`http://localhost:8080/api/product/add-to-cart`, {productId: productId, cartId: this.cart.id}).subscribe(
+    this.http.put<any>(`http://localhost:8080/api/product/add-to-cart`, {productId: productId, cartId: this.cart.id, quantity: 1}).subscribe(
       (responseData)=>{
         for(let productAndQuantity of this.cart.productsAndQuantity){
             if(productAndQuantity.product.id == productId)
@@ -102,7 +102,7 @@ export class CartComponent implements OnInit{
         this.open(this.deleteModal, productId);
       }
     if(checkBefore){
-      this.productService.updateInCart(productId, this.cart.id);
+      this.productService.updateInCart(productId, this.cart.id, 1);
       this.cart.productsAndQuantity = this.cart.productsAndQuantity.filter(productAndQuantity => {
         if (productAndQuantity.product.id === productId) {
           if (productAndQuantity.quantity - 1 > 0) {
@@ -116,7 +116,30 @@ export class CartComponent implements OnInit{
       });
       this.updateTotalPrice();
     }
+  }
+
+  isInteger(value: number) {
+    return (typeof value === 'number') && ((value % 1) === 0);
+  }
+
+  updateInCartWithInput(productId: number, quantity: number) {
+    quantity = Number(quantity);
+    if(quantity <= 0 || !this.isInteger(quantity)) {
+      for(let productAndQuantity of this.cart.productsAndQuantity){
+        if(productAndQuantity.product.id == productId){
+          productAndQuantity.quantity = 1;
+        }
+      }
+    }
+    else{
+      this.productService.updateInCart(productId, this.cart.id, quantity);
+        for(let productAndQuantity of this.cart.productsAndQuantity){
+          if(productAndQuantity.product.id == productId)
+              productAndQuantity.quantity = quantity;
+        }
+    }
     
+    this.updateTotalPrice();
   }
 
   removeFromCart(){
