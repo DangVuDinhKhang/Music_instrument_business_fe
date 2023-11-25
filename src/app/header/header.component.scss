@@ -79,10 +79,11 @@
     transition: all .5s ease-in-out;
     background-color: #22a6b3;
     padding-right: 40px;
-    color:#fff;
+    color:#000;
   }
   .input-search::placeholder{
-    color:rgba(255,255,255,.5);
+    // color:rgba(255,255,255,.5);
+    color:#000;
     font-size: 18px;
     letter-spacing: 2px;
     font-weight: 100;

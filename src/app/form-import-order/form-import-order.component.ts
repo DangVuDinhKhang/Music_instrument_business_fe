@@ -86,26 +86,8 @@ export class FormImportOrderComponent {
   }
 
   private initForm() {
-    // let recipeName = '';
-    // let recipeImagePath = '';
-    // let recipeDescription = '';
+
     let product:any = new FormArray([]);
-
-    // if (this.editMode) {
-    //   const recipe = this.recipeService.getRecipe(this.id);
-    //   recipeName = recipe.name;
-    //   recipeImagePath = recipe.imagePath;
-    //   recipeDescription = recipe.description;
-    //   if (recipe['ingredients']) {
-    //     for (let ingredient of recipe.ingredients) {
-    //       recipeIngredients.push(new FormGroup({
-    //         "name": new FormControl(ingredient.name), 
-    //         "amount": new FormControl(ingredient.amount, [Validators.required, Validators.pattern(/^[1-9]+[0-9]*$/)]
-    //       )}))
-    //     }
-    //   }
-    // }
-
     this.importOrderForm = new FormGroup({
       'supplier': new FormControl(this.suppliers, Validators.required),
       'products': product
@@ -114,7 +96,8 @@ export class FormImportOrderComponent {
   }
 
   getProducts(){
-    this.http.get<Product[]>(`http://localhost:8080/api/product`).subscribe((products) => {
+    const params = {page: 0, pageSize: 0}
+    this.http.get<Product[]>(`http://localhost:8080/api/product`, {params}).subscribe((products) => {
       this.products = products;
     })
   }
