@@ -36,6 +36,7 @@
                     <td (click)="open(showModal, order)" >{{order.total|number:'1.0-0':'en-US'}} ₫</td>
                     <td>
                         <select class="form-select" (change)="onUpdate(order)" [(ngModel)]="order.status">
+                            <option value=3>Đang chờ thanh toán</option>
                             <option value=0>Đang xử lí</option>
                             <option value=1>Đang vận chuyển</option>
                             <option value=2>Đã hoàn thành</option>
