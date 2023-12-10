@@ -132,14 +132,27 @@ export class CartComponent implements OnInit{
       }
     }
     else{
-      this.productService.updateInCart(productId, this.cart.id, quantity);
-        for(let productAndQuantity of this.cart.productsAndQuantity){
-          if(productAndQuantity.product.id == productId)
-              productAndQuantity.quantity = quantity;
+      this.productService.updateInCartWithInput(productId, this.cart.id, quantity).subscribe(
+        (responseData) => {
+          for(let productAndQuantity of this.cart.productsAndQuantity){
+            if(productAndQuantity.product.id == productId)
+                productAndQuantity.quantity = quantity;
+          }
+          this.updateTotalPrice();
+        },
+        (error) => {
+          for(let productAndQuantity of this.cart.productsAndQuantity){
+            if(productAndQuantity.product.id == productId)
+                productAndQuantity.quantity = 1;
+          }
+          console.error('Error in updating product in cart:', error);
+          
         }
+      );
+      
     }
     
-    this.updateTotalPrice();
+    
   }
 
   removeFromCart(){

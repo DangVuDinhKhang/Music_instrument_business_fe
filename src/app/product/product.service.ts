@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Product } from "./product.model";
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { Observable, catchError, throwError } from "rxjs";
 
 @Injectable({providedIn: "root"})
 export class ProductService{
@@ -36,6 +36,16 @@ export class ProductService{
           console.log(responseData)
         })
     }
+
+    updateInCartWithInput(productId: number, cartId: number, quantity: number): Observable<any>{
+      return this.http.put<any>(`http://localhost:8080/api/product/update-in-cart`, { productId, cartId, quantity })
+      .pipe(
+        catchError(error => {
+          // Xử lý lỗi ở đây và chuyển tiếp lỗi đến component
+          return throwError(error);
+        })
+      );
+  }
 
     removeFromCart(productId: number, cartId: number){
         this.http.delete<any>(`http://localhost:8080/api/product/remove-from-cart/${productId}/${cartId}`).subscribe((responseData)=>{
