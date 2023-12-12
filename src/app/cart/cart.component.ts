@@ -130,6 +130,7 @@ export class CartComponent implements OnInit{
           productAndQuantity.quantity = 1;
         }
       }
+      this.updateTotalPrice();
     }
     else{
       this.productService.updateInCartWithInput(productId, this.cart.id, quantity).subscribe(
@@ -146,7 +147,7 @@ export class CartComponent implements OnInit{
                 productAndQuantity.quantity = 1;
           }
           console.error('Error in updating product in cart:', error);
-          
+          this.updateTotalPrice();
         }
       );
       
