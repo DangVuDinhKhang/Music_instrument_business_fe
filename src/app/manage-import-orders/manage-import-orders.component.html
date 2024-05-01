@@ -1,0 +1,95 @@
+<div class="row" style="margin: 1px;">
+  <div class="col-2" style="margin-right: 0 !important; padding-right: 0 !important;">
+      <app-sidebar></app-sidebar>
+  </div>
+  <div class="col-10" style="margin-left: 0 !important; padding-left: 0 !important;">
+      <table class="table table-striped" >
+          <thead>
+              <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Mã đơn</th>
+                  <th scope="col">Tài khoản
+                    <!-- {{{sort "name" _sort}}} -->
+                  </th>
+                  <th scope="col">Ngày đặt</th>
+                  <th scope="col">Tổng tiền</th>
+                  <th scope="col">Trạng thái</th>
+                  <th scope="col">
+                    <div class="d-flex">
+                        <select class="form-control" (change)="sortOrders($event)">
+                            <option value="asc_date">Theo ngày (Mới nhất)</option>
+                            <option value="desc_date">Theo ngày (Cũ nhất)</option>
+                            <!-- <option value="desc_price">Theo trạng thái</option> -->
+                        </select>
+                    </div>
+                  </th>
+                  <th scope="col">
+                    <button type="button" class="btn btn-primary add" [routerLink]="['add']">
+                      <i class="fa-solid fa-plus" style="color: #ffffff;"></i> Thêm
+                    </button>
+                  </th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr class="blur" *ngFor="let order of orders; let index = index">
+                  <th scope="row" (click)="open(showModal, order)" >{{index + 1 }}</th>
+                  <td (click)="open(showModal, order)" >{{order.id}}</td>
+                  <td (click)="open(showModal, order)" >{{order.account.username}}</td>
+                  <td (click)="open(showModal, order)" >{{order.date}}</td>
+                  <td (click)="open(showModal, order)" >{{order.total|number:'1.0-0':'en-US'}} ₫</td>
+                  <td>
+                      <select class="form-select" (change)="onUpdate(order)" [(ngModel)]="order.status">
+                          <option value=0>Chưa hoàn thành</option>
+                          <option value=1>Đã hoàn thành</option>
+                      </select>
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <!-- <td>
+                      <a (click)="onUpdate(order)">
+                          <i class="fa-solid fa-check" aria-hidden="true" *ngIf="!order.status" style="color: rgb(6, 193, 6);"></i>
+                      </a>
+                      <a (click)="onUpdate(order)">
+                          <i class="fa-solid fa-x" aria-hidden="true" *ngIf="order.status" style="color: rgb(179, 9, 9);"></i>
+                      </a>
+                      <a (click)="open(deleteModal, category)" style="text-decoration: none; margin-left: 10px;" class="delete-test"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                  </td> -->
+              </tr>
+          </tbody>
+      </table>
+  </div>
+</div> 
+
+<ng-template #showModal let-modal>
+  <div style="padding: 5px;">
+    <div class="modal-header d-flex justify-content-end">
+      <h4 class="modal-title" id="modal-basic-title">Chi tiết phiếu nhập</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <label style="font-weight: bold !important;">Sản phẩm:</label>
+      <div class="row" *ngFor="let importOrderDetail of selectedOrder.importOrderDetails; let i = index">
+        <div class="col-6 mt-2">{{i+1}}. {{importOrderDetail.product.name}}</div>
+        <div class="col-2 mt-2">x {{importOrderDetail.quantity}}</div>
+        <div class="col-4 mt-2">{{importOrderDetail.total|number:'1.0-0':'en-US'}} ₫</div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!--
+<ng-template #deleteModal let-modal>
+    <div style="padding: 10px;">
+      <div class="modal-header d-flex justify-content-end">
+        <h4 class="modal-title" id="modal-basic-title">Xóa danh mục</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+      <div class="modal-body">
+        Hành động này không thể khôi phục, bạn có chắc không ?
+      </div>
+      <div style="display: block; float: right;">
+        <button type="button" class="btn btn-danger" style="margin-right: 10px;" (click)="onDelete()">Xóa</button>
+        <button type="button" class="btn btn-primary" (click)="modal.dismiss('Cross click')">Trở lại</button>
+      </div>
+    </div>
+</ng-template> -->

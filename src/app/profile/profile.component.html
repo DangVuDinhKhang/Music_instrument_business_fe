@@ -1,0 +1,23 @@
+<div class="container mt-4 mb-4">
+    <app-toast></app-toast>
+    <div class="title">Hồ sơ của tôi</div>
+    <form class="mt-5" #accountForm="ngForm" (ngSubmit)="onSubmit(accountForm)"> 
+        <div class="input" style="display: flex; flex-direction: row;">
+            <div class="col-sm-4" style="font-weight: bold !important;">Tên đăng nhập</div>
+            <div id="username">{{username}}</div>
+        </div>
+        <div class="input" style="display: flex; flex-direction: row;">
+            <label class="col-sm-4 col-form-label" for="phone">Số điện thoại</label>
+            <input type="text" class="form-control" placeholder="" id="phone" name="phone" [(ngModel)]="phone">
+        </div>
+        <div class="input" style="display: flex; flex-direction: row;">
+            <label class="col-sm-4 col-form-label" for="address">Địa chỉ</label>
+            <input type="text" class="form-control" placeholder="" id="address" name="address" [(ngModel)]="address">
+        </div>
+        <!-- <app-alert [message]="error" *ngIf="error"></app-alert> -->
+        <div class="mt-5">
+            <button class="btn btn-primary" type="submit" style="width: 100%" [disabled]="!accountForm.valid">Lưu</button>    
+        </div>
+    </form>
+</div>
+

@@ -1,0 +1,39 @@
+.item {
+    border: 1px solid rgb(235, 226, 226);
+    outline: none;
+    margin: 0;
+    padding: 12px 12px;
+    width: 100%;
+    min-height: 120px;
+    height: auto;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    //background-color: #EAEEED;
+}
+
+.green {
+    color: rgb(2, 181, 2);
+}
+
+.red {
+    color: red;
+}
+
+.update-profile {
+   text-align: center; 
+   font-style: italic;
+}
+
+.update-profile:hover {
+    cursor: pointer;
+}
+
+.sort-type {
+    margin-top: 10px;
+    padding: 10px 0px;
+    border: 1px solid rgb(142, 135, 135);
+    cursor: pointer;
+}
+
+
+

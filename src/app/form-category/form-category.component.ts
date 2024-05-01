@@ -22,6 +22,7 @@ export class FormCategoryComponent implements OnInit{
   ){}
 
   ngOnInit(): void {
+    window.scrollTo(0, 0); // Cuộn lên đầu trang khi trang được load
     if(this.route.snapshot.url.join("/").includes("update")){
       console.log(this.route.snapshot.url.join("/"))
       this.isAdd = false;
@@ -33,24 +34,18 @@ export class FormCategoryComponent implements OnInit{
   onSubmit(form: NgForm){
     if(!form.valid)
       return;
+
+    const name = form.value.name;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.authService.account.value.token}`
+    });
+    
     if(this.isAdd){
-      const name = form.value.name;
-
-      const headers = new HttpHeaders({
-        'Authorization': `Bearer ${this.authService.account.value.token}`
-      });
-
       this.http.post<Category>(`http://localhost:8080/api/category/`, {name: name}, {headers}).subscribe((responseData)=>{
         this.router.navigate(["/manage/categories"]);
       });
     }
     else{
-      const name = form.value.name;
-
-      const headers = new HttpHeaders({
-        'Authorization': `Bearer ${this.authService.account.value.token}`
-      });
-
       this.http.put<Category>(`http://localhost:8080/api/category/${this.categoryService.needUpdateCategory.id}`, {name: name}, {headers}).subscribe((responseData)=>{
         console.log(responseData);
         this.router.navigate(["/manage/categories"]);

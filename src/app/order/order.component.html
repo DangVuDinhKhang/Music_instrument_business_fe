@@ -1,0 +1,106 @@
+<div class="container mt-2 mb-3">
+  <div class="row">
+    <div class="col-2" style="text-align: center;">
+      <div style="text-align: center; font-weight: bold;">{{username}}</div>
+      <div class="update-profile" [routerLink]="['/profile']"><i class="fa-solid fa-pencil"></i> Sửa hồ sơ</div>
+      <div class="mt-5 sort">
+        <div class="title">Sắp xếp theo</div>
+        <div class="sort-type" >Mới nhất</div>
+        <div class="sort-type" >Cũ nhất</div>
+      </div>
+    </div>
+    <div class="col-10">
+      <app-toast></app-toast>
+      <div class="item row mt-1" *ngFor="let ordersDetail of ordersDetailOfOrders; let i=index">
+        <div class="row">
+          <div class="col-8"></div>
+          <div class="col-4">Trạng thái đơn hàng: 
+            <span [className]="totalPriceAndStatus[i].status == 2 ? 'green' : 'red'">
+              {{totalPriceAndStatus[i].status == 2 ? "Đã hoàn thành" : totalPriceAndStatus[i].status == 1 ? "Đang vận chuyển" : 
+                totalPriceAndStatus[i].status == 0 ? "Đang xử lí" : totalPriceAndStatus[i].status == 3 ? "Chờ thanh toán" : "Đã hủy"}}
+            </span>  
+          </div>
+        </div>
+        <div class="row mt-3" *ngFor="let orderDetail of ordersDetail; let j=index">
+          <div class="col-3">
+            <img [src]="orderDetail.product.file[0]" class="card-img-top" alt={{orderDetail.product.name}}>
+          </div>
+          <div class="col-6">{{orderDetail.product.name}}</div>    
+          <div class="col-3">
+            <p>x{{orderDetail.quantity}}
+              <span class="mt-4" style="font-weight: bold; margin-left: 20px; color: red">
+                {{orderDetail.total | number:'1.0-0':'en-US'}} ₫
+              </span>
+            </p>
+          </div> 
+          <div class="mt-2 mb-4 row">
+            <div class="col-9">
+              <button type="button" class="btn btn-danger" *ngIf="!orderDetail.isRated && !ratedOrderDetails.includes(orderDetail.id)"
+                (click)="open(ratingModal, orderDetail.product, orderDetail)" [disabled]="totalPriceAndStatus[i].status != 2">Đánh giá
+              </button>
+              <div *ngIf="orderDetail.isRated || ratedOrderDetails.includes(orderDetail.id)">
+                <button type="button" class="btn btn-danger" disabled style="margin-right: 5px ;">Đã đánh giá</button>
+                <igc-rating style="color: #eda500; font-size: 25px !important;" name="rating" 
+                  [(ngModel)]="orderDetail.star" max="5" hover-preview size="large" disabled>
+                </igc-rating> 
+              </div>        
+            </div>
+          </div> 
+        </div>
+        <div class="row">
+          <div class="col-7"></div>
+          <div class="col-2">
+            <button 
+              style="margin-left: 10px;" type="button" class="btn btn-danger" *ngIf="totalPriceAndStatus[i].status == 0 || totalPriceAndStatus[i].status == 3"
+              (click)="openRemoveModal(removeModal, ordersDetail[0])">Hủy mua
+            </button> 
+          </div>
+          <div class="col-3">
+            Thành tiền: <span style="color: red; font-weight: bold; margin-left: 5px; font-size: 20px;">
+              {{totalPriceAndStatus[i].totalPrice | number:'1.0-0':'en-US'}} ₫</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #ratingModal let-modal>
+  <div style="padding: 10px;">
+    <div class="modal-header d-flex justify-content-end">
+      <h4 class="modal-title" id="modal-basic-title">Đánh giá sản phẩm</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <form #ratingForm="ngForm" (ngSubmit)="onSubmit(ratingForm)">
+        <div class="mb-2">Chất lượng sản phẩm: <span style="margin-left: 10px; color: #eda500">{{labelOfRating[star-1]}}</span></div>
+        <igc-rating style="color: #eda500; font-size: 25px !important;" name="rating" [(ngModel)]="star" max="5" hover-preview size="large"></igc-rating>
+        <div class="form-group mt-4">
+          <textarea class="form-control" name="content" cols="58" rows="5" placeholder="Hãy chia sẻ cảm nghĩ của bạn nhé" ngModel></textarea>
+        </div>
+        <div class="mt-4 row">
+          <div class="col-6"></div>
+          <div class="col-6">
+            <button type="button" class="btn btn-danger" style="margin-right: 10px;">Trở lại</button>
+            <button type="submit" class="btn btn-primary">Hoàn thành</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #removeModal let-modal>
+  <div style="padding: 10px;">
+    <div class="modal-header d-flex justify-content-end">
+      <h4 class="modal-title" id="modal-basic-title">Hủy đơn hàng</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      Bạn muốn hủy đơn hàng này ?
+    </div>
+    <div style="display: block; float: right;">
+      <button type="button" class="btn btn-danger" style="margin-right: 10px;" (click)="onDelete()">Hủy</button>
+      <button type="button" class="btn btn-primary" (click)="modal.dismiss('Cross click')">Trở lại</button>
+    </div>
+  </div>
+</ng-template>

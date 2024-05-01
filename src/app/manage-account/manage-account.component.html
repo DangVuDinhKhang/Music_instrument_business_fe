@@ -1,20 +1,20 @@
-<div class="row">
-    <div class="col-2">
+<div class="row" style="margin: 1px;">
+    <div class="col-2" style="margin-right: 0 !important; padding-right: 0 !important;">
         <app-sidebar></app-sidebar>
     </div>
-    <div class="col-10">
-        <table class="table">
+    <div class="col-10" style="margin-left: 0 !important; padding-left: 0 !important;">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th scope="col"></th>
                     <th scope="col">#</th>
-                    <th scope="col">Name
+                    <th scope="col">Tên
                       <!-- {{{sort "name" _sort}}} -->
                     </th>
-                    <th scope="col">Role
+                    <th scope="col">Vai trò
                       <!-- {{{sort "createdAt" _sort}}} -->
                     </th>
-                    <th scope="col" colspan="2">Phone
+                    <th scope="col" colspan="2">Số điện thoại
                       <!-- {{{sort "updatedAt" _sort}}} -->
                     </th>
                     
@@ -22,21 +22,44 @@
             </thead>
             <tbody>
                 <tr *ngFor="let account of accounts; let index = index">
-                    <td>
+                    <!-- <td>
                       <div class="form-check">
                         <input class="form-check-input checkbox" type="checkbox" value="" name="destinations[]">
                       </div>
-                    </td>
+                    </td> -->
+                    <td></td>
                     <th scope="row">{{index + 1 }}</th>
                     <td>{{account.username}}</td>
                     <td class="create-at">{{account.role}}</td>
                     <td class="update-at">{{account.phone}}</td>
                     <td>
-                        <a href="#" style="text-decoration: none"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                        <a href="/" data-toggle="modal" data-target="#delete" style="text-decoration: none; margin-left: 10px;" class="delete-test"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                      <a (click)="onUpdate(account)" style="text-decoration: none"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                      <a (click)="open(deleteModal, account)" style="text-decoration: none; margin-left: 10px;" class="delete-test">
+                        <i class="fa fa-trash" aria-hidden="true" *ngIf="account.status == 1 && account.role != 'admin'"></i>
+                        <i class="fa fa-window-restore" aria-hidden="true" *ngIf="account.status == 0 && account.role !='admin'"></i>
+                      </a>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
 </div>  
+<ng-template #deleteModal let-modal>
+  <div style="padding: 10px;">
+    <div class="modal-header d-flex justify-content-end">
+      <h4 class="modal-title" id="modal-basic-title" *ngIf="needToDeleteAccount.status == 1">Vô hiệu hóa tài khoản</h4>
+      <h4 class="modal-title" id="modal-basic-title" *ngIf="needToDeleteAccount.status == 0">Mở khóa tài khoản</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body" *ngIf="needToDeleteAccount.status == 1">
+      Tài khoản này sẽ bị vô hiệu hóa, bạn có chắc không ?
+    </div>
+    <div class="modal-body" *ngIf="needToDeleteAccount.status == 0">
+      Tài khoản này sẽ được mở khóa, bạn có chắc không ?
+    </div>
+    <div style="display: block; float: right;">
+      <button type="button" class="btn btn-danger" style="margin-right: 10px;" (click)="onDelete()">OK</button>
+      <button type="button" class="btn btn-primary" (click)="modal.dismiss('Cross click')">Trở lại</button>
+    </div>
+  </div>
+</ng-template>

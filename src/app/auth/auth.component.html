@@ -1,13 +1,13 @@
-<div class="form">
+<div class="form mb-4">
     <div *ngIf="isLoading" style="text-align: center;">
         <app-loading-spinner></app-loading-spinner>
     </div>
     <form class="sub-form" #authForm="ngForm" (ngSubmit)="onSubmit(authForm)" *ngIf="!isLoading"> 
         <div class="upper-form">
             <h2>{{isLoginMode ? "Đăng nhập" : "Đăng ký"}}</h2>
-            <label for="username">Username</label>
+            <label for="username">Tên đăng nhập</label>
             <input type="text" id="username" name="username" ngModel required><br>
-            <label for="password">Password</label>
+            <label for="password">Mật khẩu</label>
             <input type="password" id="password" name="password" ngModel required><br>
             <button type="submit" [disabled]="!authForm.valid">{{isLoginMode ? "Đăng nhập" : "Đăng ký"}}</button>
         </div>
@@ -16,7 +16,6 @@
             <div>{{!isLoginMode ? "Đã có tài khoản ?" : "Chưa có tài khoản?"}}</div>
             <span class="switch" (click)="onSwitchMode()">{{!isLoginMode ? "Đăng nhập" : "Đăng ký"}}</span>
         </div>
-        
     </form>
 </div>
 

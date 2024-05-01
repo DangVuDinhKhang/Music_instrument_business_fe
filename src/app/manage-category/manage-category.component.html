@@ -1,32 +1,31 @@
-<div class="row">
-    <div class="col-2">
+<div class="row" style="margin: 1px;">
+    <div class="col-2" style="margin-right: 0 !important; padding-right: 0 !important;">
         <app-sidebar></app-sidebar>
     </div>
-    <div class="col-10">
-        <div class="general">
-          <button type="button" class="btn btn-primary add" [routerLink]="['add']">Add</button>
-        </div>
-        <table class="table">
+    <div class="col-10" style="margin-left: 0 !important; padding-left: 0 !important;">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th scope="col"></th>
                     <th scope="col">#</th>
-                    <th scope="col">Name
-                      <!-- {{{sort "name" _sort}}} -->
+                    <th scope="col">Tên</th>
+                    <th scope="col">
+                      <button type="button" class="btn btn-primary add" [routerLink]="['add']">
+                        <i class="fa-solid fa-plus" style="color: #ffffff;"></i> Thêm
+                      </button>
                     </th>
-                    <th scope="col"></th>
-                    
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let category of categories; let index = index">
-                    <td>
+                    <!-- <td>
                       <div class="form-check">
                         <input class="form-check-input checkbox" type="checkbox" value="" name="destinations[]">
                       </div>
-                    </td>
+                    </td> -->
+                    <td></td>
                     <th scope="row">{{index + 1 }}</th>
-                    <td>{{category.name}}</td>
+                    <td style="width: 800px;">{{category.name}}</td>
                     <td>
                         <a (click)="onUpdate(category)" style="text-decoration: none"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                         <a (click)="open(deleteModal, category)" style="text-decoration: none; margin-left: 10px;" class="delete-test"><i class="fa fa-trash" aria-hidden="true"></i></a>
@@ -40,15 +39,15 @@
 <ng-template #deleteModal let-modal>
     <div style="padding: 10px;">
       <div class="modal-header d-flex justify-content-end">
-        <h4 class="modal-title" id="modal-basic-title">Delete a Category</h4>
+        <h4 class="modal-title" id="modal-basic-title">Xóa danh mục</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
       </div>
       <div class="modal-body">
         Hành động này không thể khôi phục, bạn có chắc không ?
       </div>
       <div style="display: block; float: right;">
-        <button type="button" class="btn btn-danger" style="margin-right: 10px;" (click)="onDelete()">Delete</button>
-        <button type="button" class="btn btn-primary">Cancel</button>
+        <button type="button" class="btn btn-danger" style="margin-right: 10px;" (click)="onDelete()">Xóa</button>
+        <button type="button" class="btn btn-primary" (click)="modal.dismiss('Cross click')">Trở lại</button>
       </div>
     </div>
 </ng-template>

@@ -24,7 +24,7 @@
 }
 
 label {
-    font-weight: bold;
+    font-weight: bold !important;
 }
 
 h2 {
@@ -84,7 +84,7 @@ button:hover{
 .bottom-form {
     display: flex;
     justify-content: center;
-    margin-top: 3rem;
+    margin-top: 2rem;
 }
 
 .switch {

@@ -19,6 +19,32 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
 import { FormProductComponent } from './form-product/form-product.component';
 import { ManageCategoryComponent } from './manage-category/manage-category.component';
 import { FormCategoryComponent } from './form-category/form-category.component';
+import { ManagePaymentComponent } from './manage-payment/manage-payment.component';
+import { FormPaymentComponent } from './form-payment/form-payment.component';
+import { UploadxModule } from 'ngx-uploadx';
+import { CartComponent } from './cart/cart.component';
+import { ToastComponent } from './shared/toast/toast.component';
+import { FormOrderComponent } from './form-order/form-order.component';
+import { ManageOrderComponent } from './manage-order/manage-order.component';
+import { OrderComponent } from './order/order.component';
+import { HomeComponent } from './home/home.component';
+import { ProfileComponent } from './profile/profile.component';
+import { FormRoleComponent } from './form-role/form-role.component';
+import { IgcFormsModule } from 'igniteui-angular';
+import { ManageImportOrdersComponent } from './manage-import-orders/manage-import-orders.component';
+import { FormImportOrderComponent } from './form-import-order/form-import-order.component';
+import { ManageSupplierComponent } from './manage-supplier/manage-supplier.component';
+import { FormSupplierComponent } from './form-supplier/form-supplier.component';
+import { ManageStatisticComponent } from './manage-statistic/manage-statistic.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgChartsModule } from 'ng2-charts';
+import { FilterProductComponent } from './filter-product/filter-product.component';
+import { SearchProductComponent } from './search-product/search-product.component';
+import { FooterComponent } from './footer/footer.component';
+import { AboutComponent } from './about/about.component';
+import { ContactComponent } from './contact/contact.component';
+import { ResultPaymentComponent } from './result-payment/result-payment.component';
+// import { ChatbotRasaModule } from "angular-chat-widget-rasa";
 
 @NgModule({
   declarations: [
@@ -34,7 +60,29 @@ import { FormCategoryComponent } from './form-category/form-category.component';
     LoadingSpinnerComponent,
     FormProductComponent,
     ManageCategoryComponent,
-    FormCategoryComponent
+    FormCategoryComponent,
+    ManagePaymentComponent,
+    FormPaymentComponent,
+    CartComponent,
+    ToastComponent,
+    FormOrderComponent,
+    ManageOrderComponent,
+    OrderComponent,
+    HomeComponent,
+    ProfileComponent,
+    FormRoleComponent,
+    ManageImportOrdersComponent,
+    FormImportOrderComponent,
+    ManageSupplierComponent,
+    FormSupplierComponent,
+    ManageStatisticComponent,
+    FilterProductComponent,
+    SearchProductComponent,
+    FooterComponent,
+    AboutComponent,
+    ContactComponent,
+    ResultPaymentComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -43,6 +91,10 @@ import { FormCategoryComponent } from './form-category/form-category.component';
     NgbModule,
     AppRoutingModule,
     HttpClientModule,
+    UploadxModule,
+    IgcFormsModule,
+    BrowserAnimationsModule,
+    NgChartsModule
   ],
   providers: [DecimalPipe],
   bootstrap: [AppComponent]

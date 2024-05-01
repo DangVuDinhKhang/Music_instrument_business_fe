@@ -4,6 +4,8 @@ import { AuthResponseData, AuthService } from './auth.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { AlertComponent } from '../shared/alert/alert.component';
+import { CartService } from '../cart/cart.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-auth',
@@ -17,7 +19,7 @@ export class AuthComponent {
   isLogged = false
   // @ViewChild(PlaceholderDirective) alertHost!: PlaceholderDirective
 
-  constructor(private authService: AuthService, private router: Router, private componentFactoryResolver: ComponentFactoryResolver){}
+  constructor(private authService: AuthService, private router: Router,  private cartService: CartService, private http: HttpClient){}
 
   onSwitchMode(){
     this.isLoginMode = !this.isLoginMode

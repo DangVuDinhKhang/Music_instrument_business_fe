@@ -1,0 +1,44 @@
+<div class="main mb-4">
+    <div class="box" *ngIf="cart.productsAndQuantity.length == 0">
+        <div class="title">Giỏ hàng của bạn</div>
+        <p>Không có sản phẩm nào trong giỏ hàng</p>
+        <button [routerLink]="['/products']" type="button" class="btn btn-success">Mua ngay</button>
+    </div>
+    <div class="box" *ngIf="cart.productsAndQuantity.length > 0">
+        <div class="title">Giỏ hàng của bạn</div>
+        <div class="item row" *ngFor="let productAndQuantity of cart.productsAndQuantity">
+            <i class="fa-regular fa-circle-xmark fa-lg mt-1" style="color: #f10f0f;" 
+              (click)="open(deleteModal, productAndQuantity.product.id)">
+            </i>
+            <div class="col-3 mt-2">
+                <img [src]="productAndQuantity.product.file[0]" class="card-img-top" alt={{productAndQuantity.product.name}}>
+            </div>
+            <div class="col-4">{{productAndQuantity.product.name}}</div>    
+            <div class="col-5">
+                <button type="button" class="minus" (click)="updateInCart(productAndQuantity.product.id)">-</button>
+                <input type="text" [(ngModel)]="productAndQuantity.quantity" style="width: 20%;" (blur)="updateInCartWithInput(productAndQuantity.product.id, productAndQuantity.quantity)">
+                <button type="button" class="add" (click)="addToCart(productAndQuantity.product.id)">+</button>
+                <div class="mt-4" style="font-weight: bold;">{{productAndQuantity.product.price * productAndQuantity.quantity | number:'1.0-0':'en-US'}} ₫</div>
+            </div>    
+        </div>
+        <div class="total">
+            Tạm tính: {{totalPrice | number:'1.0-0':'en-US'}} ₫
+        </div>
+        <button type="button" class="btn-og btn-step mb-3" [routerLink]="['/order']">ĐẶT HÀNG</button>
+    </div>
+</div>
+<ng-template #deleteModal let-modal>
+    <div style="padding: 10px;">
+      <div class="modal-header d-flex justify-content-end">
+        <h4 class="modal-title" id="modal-basic-title">Xóa khỏi giỏ hàng</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+      <div class="modal-body">
+        Bạn muốn xóa sản phẩm này ?
+      </div>
+      <div style="display: block; float: right;">
+        <button type="button" class="btn btn-danger" style="margin-right: 10px;" (click)="removeFromCart()">Đồng ý</button>
+        <button type="button" class="btn btn-primary" (click)="modal.dismiss('Cross click')">Không xóa</button>
+      </div>
+    </div>
+</ng-template>

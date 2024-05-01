@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary mb-4">
+<!-- <nav class="navbar navbar-expand-lg bg-body-tertiary mb-4 fixed-top">
     <div class="container-fluid" style="margin-left: 70px;">
       <a class="navbar-brand" [routerLink]="['/']">K Music</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -6,29 +6,167 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <!-- <li class="nav-item" *ngIf="isAuthenticated">
-            <a class="nav-link" [routerLink]="['/recipes']">Product</a>
-          </li> -->
           <li class="nav-item">
-            <a class="nav-link" [routerLink]="['/products']">Sản phẩm</a>
+            <a class="nav-link highlight" [routerLink]="['/products']">Sản phẩm</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link highlight" id="categoryDropdownToggle">Danh mục sản phẩm</a>
+            <div class="dropdown-content">
+              <a class="dropdown-item" [routerLink]="['/products/category', category.id]" *ngFor="let category of categories">{{category.name}}</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link highlight" [routerLink]="['/products']">Liên hệ</a>
+          </li>
+          <li class="nav-item" style="margin-left: 0;">
+            <form #searchForm="ngForm" (ngSubmit)="onSubmit(searchForm)" style="display: flex; flex-direction: row;">
+              <input type="search" placeholder="Nhập tên sản phẩm..." name="search" ngModel required>
+              <button type="submit" class="btn"><i class="fa-solid fa-magnifying-glass fa-xl" style="color: #fff; margin-left: 4px;"></i></button>
+            </form>
+          </li>
+          <li class="nav-item">
+            <form #searchImageForm="ngForm" (ngSubmit)="onSubmitImage(searchImageForm)" style="display: flex; flex-direction: row;">
+              <input type="file" class="form-control" ngModel required style="border: 1px solid black; border-radius: 2px;" (change)="onFileSelected($event)">
+              <button type="submit" class="btn"><i class="fa-solid fa-magnifying-glass fa-xl" style="color: #fff; margin-left: 4px;"></i></button>
+            </form>
           </li>
         </ul>
         <div class="nav navbar-nav navbar-right" style="width: 150px;">
+          <i class="fa-solid fa-cart-shopping" [routerLink]="['/cart']" style="margin-left: -30px; margin-right: 30px;"></i>
           <div class="d-inline-block" ngbDropdown *ngIf="isAuthenticated">
+            
             <a class="nav-link dropdown-toggle" ngbDropdownToggle style="cursor: pointer;">{{username}}</a>
             <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <button ngbDropdownItem *ngIf="role == 'admin'" [routerLink]="['/manage/products']">Manage</button>
-              <button ngbDropdownItem *ngIf="role == 'member'">Profile</button>
-              <button ngbDropdownItem (click)="onLogout()">Logout</button>
+              <button ngbDropdownItem *ngIf="role == 'admin'" [routerLink]="['/manage/products']">Quản lí</button>
+              <button ngbDropdownItem *ngIf="role == 'member'" [routerLink]="['/profile']">Tài khoản</button>
+              <button ngbDropdownItem *ngIf="role == 'member'" [routerLink]="['/my-order']">Đơn mua</button>
+              <button ngbDropdownItem (click)="onLogout()">Đăng xuất</button>
             </div>
           </div>
           <div class="d-inline-block" *ngIf="!isAuthenticated">
-            <a class="nav-link" routerLink="/auth" style="cursor: pointer;">Login</a>
+            <a class="nav-link" routerLink="/auth" style="cursor: pointer;">Đăng nhập</a>
           </div>
         </div>
-      
+        
       </div>
     </div>
   </nav>
+  <div class="dropdown-menu" aria-labelledby="navbarDropdown" *ngIf="showDropdown">
+    <a class="dropdown-item" href="#">Danh mục 1</a>
+    <a class="dropdown-item" href="#">Danh mục 2</a>
+    <a class="dropdown-item" href="#">Danh mục 3</a>
+  </div>
 
+   -->
+   <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
+    <div class="container text-light">
+        <div class="w-100 d-flex justify-content-between">
+            <div>
+                <i class="fa fa-envelope mx-2"></i>
+                <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:info@company.com">kmusic@company.com</a>
+                <i class="fa fa-phone mx-2"></i>
+                <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">0987654321</a>
+            </div>
+            <div>
+                <a class="text-light" href="https://fb.com/templatemo" target="_blank" rel="sponsored"><i class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
+                <a class="text-light" href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram fa-sm fa-fw me-2"></i></a>
+                <a class="text-light" href="https://twitter.com/" target="_blank"><i class="fab fa-twitter fa-sm fa-fw me-2"></i></a>
+                <a class="text-light" href="https://www.linkedin.com/" target="_blank"><i class="fab fa-linkedin fa-sm fa-fw"></i></a>
+            </div>
+        </div>
+    </div>
+  </nav>
+   <nav class="navbar navbar-expand-lg shadow header" style="background-image: linear-gradient(45deg, #D9AFD9 0%, #97D9E1 100%) !important;">
+    <div class="container d-flex justify-content-between align-items-center">
   
+        <a class="navbar-brand text-success logo h1 align-self-center" [routerLink]="['/home']">
+          𝒦𝑀𝒞
+        </a>
+  
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+  
+        <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+            <div class="flex-fill">
+                <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/home']">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/products']">Sản phẩm</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" [routerLink]="['/about']">Về chúng tôi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/contact']">Liên hệ</a>
+                    </li>
+                    <li class="nav-item" style="cursor: pointer;">
+                        <a class="nav-link" (click)="open(searchModal)">Tìm kiếm</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar align-self-center d-flex">
+                <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ..." >
+                        <div class="input-group-text">
+                            <i class="fa fa-fw fa-search"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="search-box">
+                  <form #searchForm="ngForm" (ngSubmit)="onSubmit(searchForm)" style="display: flex; flex-direction: row;">
+                    <button type="submit" class="btn-search"><i class="fas fa-search"></i></button>
+                    <input type="text" class="input-search" placeholder="Nhập tên sản phẩm..." name="search" ngModel required style="color: #000;">
+                  </form>
+                </div>
+                <a class="nav-icon position-relative text-decoration-none" [routerLink]="['/cart']">
+                    <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
+                    <!-- <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span> -->
+                </a>
+                <!-- <a class="nav-icon position-relative text-decoration-none" href="#">
+                    <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                    <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">+99</span>
+                </a> -->
+                <div class="d-inline-block" ngbDropdown *ngIf="isAuthenticated">
+                  <div style="display: flex; flex-direction: row;">
+                    <i class="fa fa-fw fa-user text-dark mr-3"></i>
+                    <a class="nav-link dropdown-toggle" ngbDropdownToggle style="cursor: pointer;">{{username}}</a>
+                  </div>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                    <button ngbDropdownItem *ngIf="role == 'admin'" [routerLink]="['/manage/products']">Quản lí</button>
+                    <button ngbDropdownItem *ngIf="role == 'member'" [routerLink]="['/profile']">Tài khoản</button>
+                    <button ngbDropdownItem *ngIf="role == 'member'" [routerLink]="['/my-order']">Đơn mua</button>
+                    <button ngbDropdownItem (click)="onLogout()">Đăng xuất</button>
+                  </div>
+                </div>
+
+            </div>
+        </div>
+  
+    </div>
+  </nav>
+
+  <ng-template #searchModal let-modal tabindex="-1">
+    <div style="padding: 10px;">
+      <div class="modal-header d-flex justify-content-end">
+        <h4 class="modal-title" id="modal-basic-title">Tìm sản phẩm bằng hình ảnh</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+      </div>
+      <div class="modal-body">
+        Tải lên ảnh nhạc cụ mà bạn cần tìm kiếm
+      </div>
+      <form #searchImageForm="ngForm" (ngSubmit)="onSubmitImage(searchImageForm)">
+        <input class="form-control" type="file" name="file" id="file" ngModel required (change)="onFileSelected($event)">
+        <div class="mt-2" style="display: block; float: right;">
+          <button type="button" type="submit" class="btn" style="background-color: #6BDEDE; border: none; color: #000" 
+            [disabled]="!searchImageForm.valid">Tìm
+          </button>
+          <!-- <button type="button" class="btn btn-primary" (click)="modal.dismiss('Cross click')">Trở lại</button> -->
+        </div>
+      </form>
+      
+    </div>
+</ng-template>
